@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F9A825</color>
+    <color name="colorPrimaryDark">#4c000000</color>
+    <color name="colorAccent">#F9A825</color>
+    <color name="colorTitle">#4b320b</color>
+
+    <color name="colorBackground">#1f1f1f</color>
+    <color name="colorBlackOverlay">#66000000</color>
+
+    <!--Just a color for react-native-splash-screen, I won't be using it in the app-->
+    <color name="primary_dark">#bb7e1c</color>
+</resources>
