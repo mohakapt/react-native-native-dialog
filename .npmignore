@@ -5,3 +5,8 @@ lib
 yarn.lock
 .flowconfig
 docs
+android/.gradle
+android/android.iml
+android/gradle
+android/local.properties
+ios/RNNativeDialog.xcworkspace
