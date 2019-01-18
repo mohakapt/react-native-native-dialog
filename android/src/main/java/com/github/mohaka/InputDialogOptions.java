@@ -1,6 +1,7 @@
 package com.github.mohaka;
 
 import android.app.Activity;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -60,8 +61,8 @@ public class InputDialogOptions extends DialogOptions {
         return selectTextOnFocus;
     }
 
-    public AlertDialog showDialog(Activity activity) {
-        AlertDialog.Builder builder = super.buildDialog(activity);
+    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
+        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme);
         builder.setView(R.layout.dialog_input);
 
         AlertDialog alertDialog = builder.create();

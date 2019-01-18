@@ -1,5 +1,7 @@
 package com.github.mohaka;
 
+import android.support.annotation.StyleRes;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
@@ -11,9 +13,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class RNNativeDialogPackage implements ReactPackage {
+    private final int dialogTheme;
+
+    public RNNativeDialogPackage() {
+        this.dialogTheme = 0;
+    }
+
+    public RNNativeDialogPackage(@StyleRes int dialogTheme) {
+        this.dialogTheme = dialogTheme;
+    }
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Arrays.<NativeModule>asList(new RNNativeDialogModule(reactContext));
+        return Arrays.<NativeModule>asList(new RNNativeDialogModule(reactContext, dialogTheme));
     }
 
     // Deprecated from RN 0.47

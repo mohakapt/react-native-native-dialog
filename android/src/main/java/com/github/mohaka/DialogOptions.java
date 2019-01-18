@@ -3,14 +3,15 @@ package com.github.mohaka;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.facebook.react.bridge.ReadableMap;
 
 public class DialogOptions {
-    public final static int THEME_LIGHT = R.style.AlertDialog_Light;
-    public final static int THEME_DARK = R.style.AlertDialog_Dark;
+    public final static int THEME_LIGHT = 100;
+    public final static int THEME_DARK = 101;
 
     private int theme = THEME_LIGHT;
     private int accentColor;
@@ -59,8 +60,13 @@ public class DialogOptions {
         return onButtonClick;
     }
 
-    public AlertDialog.Builder buildDialog(Activity activity) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+    public AlertDialog.Builder buildDialog(Activity activity, @StyleRes int dialogTheme) {
+        if (dialogTheme == 0)
+            dialogTheme = getTheme() == THEME_DARK
+                    ? R.style.Theme_AppCompat_Dialog_Alert
+                    : R.style.Theme_AppCompat_Light_Dialog_Alert;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, dialogTheme);
 
         builder.setTitle(getTitle());
         builder.setMessage(getMessage());
@@ -77,8 +83,8 @@ public class DialogOptions {
         return builder;
     }
 
-    public AlertDialog showDialog(Activity activity) {
-        return buildDialog(activity).show();
+    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
+        return buildDialog(activity, dialogTheme).show();
     }
 
     public static class Builder {

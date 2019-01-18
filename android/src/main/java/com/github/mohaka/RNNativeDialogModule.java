@@ -2,6 +2,7 @@ package com.github.mohaka;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.widget.EditText;
 
@@ -15,9 +16,11 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public final static String TAG = "RNNativeDialog";
+    private final int dialogTheme;
 
-    public RNNativeDialogModule(ReactApplicationContext reactContext) {
+    public RNNativeDialogModule(ReactApplicationContext reactContext, @StyleRes int dialogTheme) {
         super(reactContext);
+        this.dialogTheme = dialogTheme;
     }
 
     @Override
@@ -80,7 +83,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         InputDialogOptions.Builder builder = new InputDialogOptions.Builder();
         builder.populate(map);
         builder.setOnButtonClickListener(onButtonClick);
-        builder.build().showDialog(activity);
+        builder.build().showDialog(activity, dialogTheme);
     }
     //endregion
 }
