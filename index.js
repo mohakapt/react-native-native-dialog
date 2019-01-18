@@ -3,29 +3,27 @@
 import * as React from 'react';
 import { Platform, Alert, ActionSheetIOS, NativeModules, NativeEventEmitter } from 'react-native';
 
-export type AlertOptions = {
+export type Item = Array<string> | Array<{ id: (string | number), title: string }>;
+export type Id = number | string | Array<number> | Array<string>;
+
+export type DialogProps = {
 	title?: string,
 	message?: ?string,
 
 	positiveButton?: string,
 	negativeButton?: string,
-	naturalButton?: string,
+	neutralButton?: string,
 
 	onPositivePress?: ?() => void,
 	onNegativePress?: ?() => void,
-	onNaturalPress?: ?() => void,
+	onNeutralPress?: ?() => void,
 
-	positiveButtonStyle?: 'default' | 'cancel' | 'destructive';
-	negativeButtonStyle?: 'default' | 'cancel' | 'destructive';
-	naturalButtonStyle?: 'default' | 'cancel' | 'destructive';
-
-	actionSheetIos?: boolean,
+	theme?: 'light' | 'dark',
 	accentColor?: string,
 }
 
-export type InputAlertOptions = {
-	title?: string,
-	message?: string,
+export type InputDialogProps = {
+	...DialogProps,
 
 	value?: string,
 	placeholder?: string,
@@ -37,51 +35,77 @@ export type InputAlertOptions = {
 	selectTextOnFocus?: boolean,
 	secureTextEntry?: boolean,
 
-	positiveButton?: string,
-	negativeButton?: string,
-
 	onPositivePress?: (string) => void,
 	onNegativePress?: (string) => void,
+	onNeutralPress?: (string) => void,
 }
 
-export type Id = number | string | Array<number> | Array<string>;
-export type ItemsAlertOptions = {
-	title?: string,
-	mode?: 'default' | 'single' | 'multiple',
+export type ItemsDialogProps = {
+	...DialogProps,
 
-	items: Array<string> | Array<{ id: (string | number), title: string }>,
+	mode?: 'default' | 'single' | 'multiple',
+	items: Item,
 	selectedItems?: Id,
 
-	positiveButton?: string,
-	negativeButton?: string,
-
 	onItemSelect?: (Id) => void,
-	onNegativePress?: () => void,
 }
 
-class ModalAlert {
-	static showInputAlert = (options: InputAlertOptions) => {
+export default class ModalAlert {
+	static showDialog = (props: DialogProps) => {
 		const { RNNativeDialog } = NativeModules;
 		const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
 
 		const removeAllListeners = () => {
 			RNNativeDialogEvents.removeAllListeners('native_dialog__positive_button');
 			RNNativeDialogEvents.removeAllListeners('native_dialog__negative_button');
+			RNNativeDialogEvents.removeAllListeners('native_dialog__neutral_button');
 		};
 
-		RNNativeDialogEvents.addListener('native_dialog__positive_button', ({ value }) => {
-			const { onPositivePress } = options;
+		RNNativeDialogEvents.addListener('native_dialog__positive_button', () => {
+			const { onPositivePress } = props;
+			if (onPositivePress) onPositivePress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener('native_dialog__negative_button', () => {
+			const { onNegativePress } = props;
+			if (onNegativePress) onNegativePress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener('native_dialog__neutral_button', () => {
+			const { onNeutralPress } = props;
+			if (onNeutralPress) onNeutralPress();
+			removeAllListeners();
+		});
+
+		RNNativeDialog.showDialog(props);
+	};
+
+	static showInputDialog = (props: InputDialogProps) => {
+		const { RNNativeDialog } = NativeModules;
+		const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
+
+		const removeAllListeners = () => {
+			RNNativeDialogEvents.removeAllListeners('native_dialog__positive_button');
+			RNNativeDialogEvents.removeAllListeners('native_dialog__negative_button');
+			RNNativeDialogEvents.removeAllListeners('native_dialog__neutral_button');
+		};
+
+		RNNativeDialogEvents.addListener('native_dialog__positive_button', ({ value } = {}) => {
+			const { onPositivePress } = props;
 			if (onPositivePress) onPositivePress(value);
 			removeAllListeners();
 		});
-		RNNativeDialogEvents.addListener('native_dialog__negative_button', ({ value }) => {
-			const { onNegativePress } = options;
+		RNNativeDialogEvents.addListener('native_dialog__negative_button', ({ value } = {}) => {
+			const { onNegativePress } = props;
 			if (onNegativePress) onNegativePress(value);
 			removeAllListeners();
 		});
+		RNNativeDialogEvents.addListener('native_dialog__neutral_button', ({ value } = {}) => {
+			const { onNeutralPress } = props;
+			if (onNeutralPress) onNeutralPress(value);
+			removeAllListeners();
+		});
 
-		RNNativeDialog.showInputDialog(options);
+		RNNativeDialog.showInputDialog(props);
 	};
 }
-
-export default ModalAlert;

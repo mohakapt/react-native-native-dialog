@@ -52,7 +52,34 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
     //endregion
 
-    //region Input Dialog
+    @ReactMethod
+    public void showDialog(ReadableMap map) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+
+        DialogInterface.OnClickListener onButtonClick = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        emitEvent(EVENT_POSITIVE_BUTTON);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        emitEvent(EVENT_NEGATIVE_BUTTON);
+                        break;
+                    case DialogInterface.BUTTON_NEUTRAL:
+                        emitEvent(EVENT_NEUTRAL_BUTTON);
+                        break;
+                }
+            }
+        };
+
+        DialogOptions.Builder builder = new DialogOptions.Builder();
+        builder.populate(map);
+        builder.setOnButtonClickListener(onButtonClick);
+        builder.build().showDialog(activity, dialogTheme);
+    }
+
     @ReactMethod
     public void showInputDialog(ReadableMap map) {
         Activity activity = getCurrentActivity();
@@ -85,5 +112,4 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         builder.setOnButtonClickListener(onButtonClick);
         builder.build().showDialog(activity, dialogTheme);
     }
-    //endregion
 }

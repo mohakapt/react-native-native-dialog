@@ -21,16 +21,20 @@ type Props = {};
 export default class App extends Component<Props> {
 
 	onTouched = () => {
-		ModalAlert.showInputAlert({
+		ModalAlert.showDialog({
 			title: 'Add Subject',
-			placeholder: 'Enter subject name',
+			message: 'This is the message to show,\n\n Are you sure?',
 
 			positiveButton: 'Add',
 			negativeButton: 'Cancel',
-			naturalButton: 'Help',
+			neutralButton: 'Help',
 
 			theme: 'light',
 			accentColor: '#4CAF50',
+
+			onPositivePress: () => console.warn('positive'),
+			onNegativePress: () => console.warn('negative'),
+			onNeutralPress: () => console.warn('neutral'),
 		});
 	};
 
