@@ -30,7 +30,7 @@ export default class App extends Component<Props, State> {
 
 
 	onTouched = () => {
-		ModalAlert.showItemsDialog({
+		ModalAlert.showDialog({
 			title: 'Add Subject',
 			message: 'This is the message to show,\n\n Are you sure?',
 
@@ -44,11 +44,8 @@ export default class App extends Component<Props, State> {
 			onPositivePress: () => console.warn('positive'),
 			onNegativePress: () => console.warn('negative'),
 			onNeutralPress: () => console.warn('neutral'),
-			onItemSelect: (value) => this.setState({ selectedPositions: value }),
 
-			mode: 'multiple',
-			items: ['A', 'B', 'C', 'D', 'E', 'F'],
-			selectedItems: this.state.selectedPositions,
+			wtf: <View style={{ backgroundColor: 'red', height: 200, width: 200 }} />,
 		});
 	};
 
