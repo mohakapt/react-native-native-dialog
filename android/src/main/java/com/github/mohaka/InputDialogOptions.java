@@ -22,7 +22,7 @@ public class InputDialogOptions extends DialogOptions {
     private Boolean secureTextEntry = false;
     private Boolean selectTextOnFocus = false;
 
-    protected InputDialogOptions() {
+    private InputDialogOptions() {
     }
 
     public String getValue() {

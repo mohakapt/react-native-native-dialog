@@ -8,15 +8,15 @@ export type Id = number | string | Array<number> | Array<string>;
 
 export type DialogProps = {
 	title?: string,
-	message?: ?string,
+	message?: string,
 
 	positiveButton?: string,
 	negativeButton?: string,
 	neutralButton?: string,
 
-	onPositivePress?: ?() => void,
-	onNegativePress?: ?() => void,
-	onNeutralPress?: ?() => void,
+	onPositivePress?: () => void,
+	onNegativePress?: () => void,
+	onNeutralPress?: () => void,
 
 	theme?: 'light' | 'dark',
 	accentColor?: string,
@@ -52,6 +52,8 @@ export type ItemsDialogProps = {
 
 export default class ModalAlert {
 	static showDialog = (props: DialogProps) => {
+		if (!props) return;
+
 		const { RNNativeDialog } = NativeModules;
 		const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
 
@@ -81,6 +83,8 @@ export default class ModalAlert {
 	};
 
 	static showInputDialog = (props: InputDialogProps) => {
+		if (!props) return;
+
 		const { RNNativeDialog } = NativeModules;
 		const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
 
@@ -107,5 +111,52 @@ export default class ModalAlert {
 		});
 
 		RNNativeDialog.showInputDialog(props);
+	};
+
+	static showItemsDialog = (props: ItemsDialogProps) => {
+		if (!props || !props.items || !Array.isArray(props.items)) return;
+
+		const { items, mode } = props;
+		if (items.every(x => typeof x === 'string')) {
+			props.items = items.map((item, index) => ({ id: index, title: item }));
+		} else if (!items.every(x => typeof x === 'object' && 'id' in x && 'title' in x))
+			return;
+
+		props.message = undefined;
+		if (mode !== 'single' && mode !== 'multiple')
+			props.positiveButton = undefined;
+
+		const { RNNativeDialog } = NativeModules;
+		const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
+
+		const removeAllListeners = () => {
+			RNNativeDialogEvents.removeAllListeners('native_dialog__positive_button');
+			RNNativeDialogEvents.removeAllListeners('native_dialog__negative_button');
+			RNNativeDialogEvents.removeAllListeners('native_dialog__neutral_button');
+		};
+
+		RNNativeDialogEvents.addListener('native_dialog__negative_button', () => {
+			const { onNegativePress } = props;
+			if (onNegativePress) onNegativePress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener('native_dialog__neutral_button', () => {
+			const { onNeutralPress } = props;
+			if (onNeutralPress) onNeutralPress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener('native_dialog__positive_button', (value) => {
+			const { onItemSelect, mode } = props;
+
+			if (onItemSelect && value && Array.isArray(value)) {
+				if (mode === 'multiple')
+					onItemSelect(value);
+				else
+					onItemSelect(value.length > 0 ? value[0] : -1);
+			}
+			removeAllListeners();
+		});
+
+		RNNativeDialog.showItemsDialog(props);
 	};
 }

@@ -1,6 +1,0 @@
-<resources>
-
-    <style name="AlertDialog.Dark" parent="Theme.AppCompat.Dialog.Alert" />
-
-    <style name="AlertDialog.Light" parent="Theme.AppCompat.Light.Dialog.Alert" />
-</resources>

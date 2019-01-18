@@ -25,7 +25,7 @@ public class DialogOptions {
 
     private DialogInterface.OnClickListener onButtonClick;
 
-    protected DialogOptions() {
+    DialogOptions() {
     }
 
     public int getTheme() {
