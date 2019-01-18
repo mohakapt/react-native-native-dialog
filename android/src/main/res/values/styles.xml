@@ -1,8 +1,6 @@
 <resources>
 
-    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+    <style name="AlertDialog.Dark" parent="Theme.AppCompat.Dialog.Alert" />
+
+    <style name="AlertDialog.Light" parent="Theme.AppCompat.Light.Dialog.Alert" />
 </resources>

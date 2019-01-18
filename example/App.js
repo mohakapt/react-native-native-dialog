@@ -27,6 +27,10 @@ export default class App extends Component<Props> {
 
 			positiveButton: 'Add',
 			negativeButton: 'Cancel',
+			naturalButton: 'Help',
+
+			theme: 'light',
+			accentColor: '#4CAF50',
 		});
 	};
 
