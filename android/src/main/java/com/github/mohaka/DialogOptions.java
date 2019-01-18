@@ -25,7 +25,11 @@ public class DialogOptions {
 
     private DialogInterface.OnClickListener onButtonClick;
 
-    DialogOptions() {
+    public DialogOptions() {
+    }
+
+    public DialogOptions(ReadableMap map) {
+        this.populate(map);
     }
 
     public int getTheme() {
@@ -60,7 +64,57 @@ public class DialogOptions {
         return onButtonClick;
     }
 
-    public AlertDialog.Builder buildDialog(Activity activity, @StyleRes int dialogTheme) {
+    public void setTheme(int theme) {
+        this.theme = theme;
+    }
+
+    public void setTheme(String theme) {
+        this.setTheme("dark".equalsIgnoreCase(theme) ? THEME_DARK : THEME_LIGHT);
+    }
+
+    public void setAccentColor(int accentColor) {
+        this.accentColor = accentColor;
+    }
+
+    public void setAccentColor(String accentColor) {
+        this.setAccentColor(Color.parseColor(accentColor));
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setPositiveButton(String positiveButton) {
+        this.positiveButton = positiveButton;
+    }
+
+    public void setNegativeButton(String negativeButton) {
+        this.negativeButton = negativeButton;
+    }
+
+    public void setNeutralButton(String neutralButton) {
+        this.neutralButton = neutralButton;
+    }
+
+    public void setOnButtonClickListener(DialogInterface.OnClickListener listener) {
+        this.onButtonClick = listener;
+    }
+
+    public void populate(ReadableMap map) {
+        if (map.hasKey("theme")) setTheme(map.getString("theme"));
+        if (map.hasKey("accentColor")) setAccentColor(map.getString("accentColor"));
+        if (map.hasKey("title")) setTitle(map.getString("title"));
+        if (map.hasKey("message")) setMessage(map.getString("message"));
+        if (map.hasKey("positiveButton")) setPositiveButton(map.getString("positiveButton"));
+        if (map.hasKey("negativeButton")) setNegativeButton(map.getString("negativeButton"));
+        if (map.hasKey("neutralButton")) setNeutralButton(map.getString("neutralButton"));
+    }
+
+    protected AlertDialog.Builder buildDialog(Activity activity, @StyleRes int dialogTheme) {
         if (dialogTheme == 0)
             dialogTheme = getTheme() == THEME_DARK
                     ? R.style.Theme_AppCompat_Dialog_Alert
@@ -85,79 +139,5 @@ public class DialogOptions {
 
     public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
         return buildDialog(activity, dialogTheme).show();
-    }
-
-    public static class Builder {
-        protected DialogOptions mDialogOptions;
-
-        public Builder() {
-            mDialogOptions = new DialogOptions();
-        }
-
-        public Builder setTheme(int theme) {
-            this.mDialogOptions.theme = theme;
-            return this;
-        }
-
-        public Builder setTheme(String theme) {
-            this.setTheme("dark".equalsIgnoreCase(theme) ? THEME_DARK : THEME_LIGHT);
-            return this;
-        }
-
-        public Builder setAccentColor(int accentColor) {
-            this.mDialogOptions.accentColor = accentColor;
-            return this;
-        }
-
-        public Builder setAccentColor(String accentColor) {
-            this.setAccentColor(Color.parseColor(accentColor));
-            return this;
-        }
-
-        public Builder setTitle(String title) {
-            this.mDialogOptions.title = title;
-            return this;
-        }
-
-        public Builder setMessage(String message) {
-            this.mDialogOptions.message = message;
-            return this;
-        }
-
-        public Builder setPositiveButton(String positiveButton) {
-            this.mDialogOptions.positiveButton = positiveButton;
-            return this;
-        }
-
-        public Builder setNegativeButton(String negativeButton) {
-            this.mDialogOptions.negativeButton = negativeButton;
-            return this;
-        }
-
-        public Builder setNeutralButton(String neutralButton) {
-            this.mDialogOptions.neutralButton = neutralButton;
-            return this;
-        }
-
-        public Builder setOnButtonClickListener(DialogInterface.OnClickListener listener) {
-            this.mDialogOptions.onButtonClick = listener;
-            return this;
-        }
-
-        public Builder populate(ReadableMap map) {
-            if (map.hasKey("theme")) setTheme(map.getString("theme"));
-            if (map.hasKey("accentColor")) setAccentColor(map.getString("accentColor"));
-            if (map.hasKey("title")) setTitle(map.getString("title"));
-            if (map.hasKey("message")) setMessage(map.getString("message"));
-            if (map.hasKey("positiveButton")) setPositiveButton(map.getString("positiveButton"));
-            if (map.hasKey("negativeButton")) setNegativeButton(map.getString("negativeButton"));
-            if (map.hasKey("neutralButton")) setNeutralButton(map.getString("neutralButton"));
-
-            return this;
-        }
-
-        public DialogOptions build() {
-            return mDialogOptions;
-        }
     }
 }

@@ -99,10 +99,9 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
             }
         };
 
-        DialogOptions.Builder builder = new DialogOptions.Builder();
-        builder.populate(map);
-        builder.setOnButtonClickListener(onButtonClick);
-        builder.build().showDialog(activity, dialogTheme);
+        DialogOptions dialog = new DialogOptions(map);
+        dialog.setOnButtonClickListener(onButtonClick);
+        dialog.showDialog(activity, dialogTheme);
     }
 
     @ReactMethod
@@ -132,10 +131,9 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
             }
         };
 
-        InputDialogOptions.Builder builder = new InputDialogOptions.Builder();
-        builder.populate(map);
-        builder.setOnButtonClickListener(onButtonClick);
-        builder.build().showDialog(activity, dialogTheme);
+        InputDialogOptions dialog = new InputDialogOptions(map);
+        dialog.setOnButtonClickListener(onButtonClick);
+        dialog.showDialog(activity, dialogTheme);
     }
 
     @ReactMethod
@@ -143,8 +141,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         Activity activity = getCurrentActivity();
         if (activity == null) return;
 
-        final ItemsDialogOptions.Builder builder = new ItemsDialogOptions.Builder();
-        builder.populate(map);
+        final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map);
 
         DialogInterface.OnClickListener onButtonClick = new DialogInterface.OnClickListener() {
             @Override
@@ -158,8 +155,8 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
                         return;
                 }
 
-                int mode = builder.build().getMode();
-                List<ItemsDialogOptions.Item> itemList = builder.build().getItems();
+                int mode = itemsDialog.getMode();
+                List<ItemsDialogOptions.Item> itemList = itemsDialog.getItems();
                 switch (mode) {
                     case MODE_DEFAULT:
                     default:
@@ -189,7 +186,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
             }
         };
 
-        builder.setOnButtonClickListener(onButtonClick);
-        builder.build().showDialog(activity, dialogTheme);
+        itemsDialog.setOnButtonClickListener(onButtonClick);
+        itemsDialog.showDialog(activity, dialogTheme);
     }
 }

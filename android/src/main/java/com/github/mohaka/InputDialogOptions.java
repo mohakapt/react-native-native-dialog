@@ -22,7 +22,11 @@ public class InputDialogOptions extends DialogOptions {
     private Boolean secureTextEntry = false;
     private Boolean selectTextOnFocus = false;
 
-    private InputDialogOptions() {
+    public InputDialogOptions() {
+    }
+
+    public InputDialogOptions(ReadableMap map) {
+        this.populate(map);
     }
 
     public String getValue() {
@@ -59,6 +63,64 @@ public class InputDialogOptions extends DialogOptions {
 
     public Boolean getSelectTextOnFocus() {
         return selectTextOnFocus;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+    }
+
+    public void setKeyboardType(String keyboardType) {
+        this.keyboardType = keyboardType;
+    }
+
+    public void setMaxLength(Integer maxLength) {
+        this.maxLength = maxLength;
+    }
+
+    public void setAutoFocus(Boolean autoFocus) {
+        this.autoFocus = autoFocus;
+    }
+
+    public void setAutoCorrect(Boolean autoCorrect) {
+        this.autoCorrect = autoCorrect;
+    }
+
+    public void setAutoCapitalize(String autoCapitalize) {
+        this.autoCapitalize = autoCapitalize;
+    }
+
+    public void setSecureTextEntry(Boolean secureTextEntry) {
+        this.secureTextEntry = secureTextEntry;
+    }
+
+    public void setSelectTextOnFocus(Boolean selectTextOnFocus) {
+        this.selectTextOnFocus = selectTextOnFocus;
+    }
+
+    @Override
+    public void populate(ReadableMap map) {
+        super.populate(map);
+
+        if (map.hasKey("value")) {
+            if (map.getType("value") == ReadableType.Number)
+                setValue(String.valueOf(map.getInt("value")));
+            else
+                setValue(map.getString("value"));
+        }
+        if (map.hasKey("placeholder")) setPlaceholder(map.getString("placeholder"));
+        if (map.hasKey("keyboardType")) setKeyboardType(map.getString("keyboardType"));
+        if (map.hasKey("maxLength")) setMaxLength(map.getInt("maxLength"));
+        if (map.hasKey("autoFocus")) setAutoFocus(map.getBoolean("autoFocus"));
+        if (map.hasKey("autoCorrect")) setAutoCorrect(map.getBoolean("autoCorrect"));
+        if (map.hasKey("autoCapitalize")) setAutoCapitalize(map.getString("autoCapitalize"));
+        if (map.hasKey("secureTextEntry"))
+            setSecureTextEntry(map.getBoolean("secureTextEntry"));
+        if (map.hasKey("selectTextOnFocus"))
+            setSelectTextOnFocus(map.getBoolean("selectTextOnFocus"));
     }
 
     public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
@@ -119,86 +181,5 @@ public class InputDialogOptions extends DialogOptions {
         txtInput.setText(getValue());
 
         return alertDialog;
-    }
-
-    public static class Builder extends DialogOptions.Builder {
-
-        public Builder() {
-            this.mDialogOptions = new InputDialogOptions();
-        }
-
-        public Builder setValue(String value) {
-            ((InputDialogOptions) this.mDialogOptions).value = value;
-            return this;
-        }
-
-        public Builder setPlaceholder(String placeholder) {
-            ((InputDialogOptions) this.mDialogOptions).placeholder = placeholder;
-            return this;
-        }
-
-        public Builder setKeyboardType(String keyboardType) {
-            ((InputDialogOptions) this.mDialogOptions).keyboardType = keyboardType;
-            return this;
-        }
-
-        public Builder setMaxLength(Integer maxLength) {
-            ((InputDialogOptions) this.mDialogOptions).maxLength = maxLength;
-            return this;
-        }
-
-        public Builder setAutoFocus(Boolean autoFocus) {
-            ((InputDialogOptions) this.mDialogOptions).autoFocus = autoFocus;
-            return this;
-        }
-
-        public Builder setAutoCorrect(Boolean autoCorrect) {
-            ((InputDialogOptions) this.mDialogOptions).autoCorrect = autoCorrect;
-            return this;
-        }
-
-        public Builder setAutoCapitalize(String autoCapitalize) {
-            ((InputDialogOptions) this.mDialogOptions).autoCapitalize = autoCapitalize;
-            return this;
-        }
-
-        public Builder setSecureTextEntry(Boolean secureTextEntry) {
-            ((InputDialogOptions) this.mDialogOptions).secureTextEntry = secureTextEntry;
-            return this;
-        }
-
-        public Builder setSelectTextOnFocus(Boolean selectTextOnFocus) {
-            ((InputDialogOptions) this.mDialogOptions).selectTextOnFocus = selectTextOnFocus;
-            return this;
-        }
-
-        @Override
-        public InputDialogOptions.Builder populate(ReadableMap map) {
-            super.populate(map);
-
-            if (map.hasKey("value")) {
-                if (map.getType("value") == ReadableType.Number)
-                    setValue(String.valueOf(map.getInt("value")));
-                else
-                    setValue(map.getString("value"));
-            }
-            if (map.hasKey("placeholder")) setPlaceholder(map.getString("placeholder"));
-            if (map.hasKey("keyboardType")) setKeyboardType(map.getString("keyboardType"));
-            if (map.hasKey("maxLength")) setMaxLength(map.getInt("maxLength"));
-            if (map.hasKey("autoFocus")) setAutoFocus(map.getBoolean("autoFocus"));
-            if (map.hasKey("autoCorrect")) setAutoCorrect(map.getBoolean("autoCorrect"));
-            if (map.hasKey("autoCapitalize")) setAutoCapitalize(map.getString("autoCapitalize"));
-            if (map.hasKey("secureTextEntry"))
-                setSecureTextEntry(map.getBoolean("secureTextEntry"));
-            if (map.hasKey("selectTextOnFocus"))
-                setSelectTextOnFocus(map.getBoolean("selectTextOnFocus"));
-
-            return this;
-        }
-
-        @Override
-        public InputDialogOptions build() {
-            return (InputDialogOptions) this.mDialogOptions;
-        }
     }
 }

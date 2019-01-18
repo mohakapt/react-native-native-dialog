@@ -19,7 +19,11 @@ public class ItemsDialogOptions extends DialogOptions {
     private List<Item> items;
     private List<Object> selectedIds = new ArrayList<>();
 
-    private ItemsDialogOptions() {
+    public ItemsDialogOptions() {
+    }
+
+    public ItemsDialogOptions(ReadableMap map) {
+        this.populate(map);
     }
 
     public int getMode() {
@@ -65,6 +69,78 @@ public class ItemsDialogOptions extends DialogOptions {
         }
     }
 
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public void setMode(String mode) {
+        switch (mode.toLowerCase()) {
+            case "default":
+            default:
+                setMode(MODE_DEFAULT);
+                break;
+            case "single":
+                setMode(MODE_SINGLE);
+                break;
+            case "multiple":
+                setMode(MODE_MULTIPLE);
+                break;
+        }
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public void setSelectedIds(List<Object> selectedIds) {
+        this.selectedIds = selectedIds;
+    }
+
+    @Override
+    public void populate(ReadableMap map) {
+        super.populate(map);
+
+        if (map.hasKey("mode")) setMode(map.getString("mode"));
+
+        if (map.hasKey("items")) {
+            List<Item> itemList = new ArrayList<>();
+
+            ReadableArray itemsArray = map.getArray("items");
+            for (int i = 0; i < itemsArray.size(); i++)
+                itemList.add(new Item.Builder().populate(itemsArray.getMap(i)).build());
+
+            setItems(itemList);
+        }
+
+        if (map.hasKey("selectedItems")) {
+            List<Object> selectedIdList = new ArrayList<>();
+
+            switch (map.getType("selectedItems")) {
+                case Number:
+                    selectedIdList.add(map.getInt("selectedItems"));
+                    break;
+                case String:
+                    selectedIdList.add(map.getString("selectedItems"));
+                    break;
+                case Array:
+                    ReadableArray selectedArray = map.getArray("selectedItems");
+                    for (int i = 0; i < selectedArray.size(); i++) {
+                        switch (selectedArray.getType(i)) {
+                            case Number:
+                                selectedIdList.add(selectedArray.getInt(i));
+                                break;
+                            case String:
+                                selectedIdList.add(selectedArray.getString(i));
+                                break;
+                        }
+                    }
+                    break;
+            }
+
+            setSelectedIds(selectedIdList);
+        }
+    }
+
     public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
         AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme);
 
@@ -84,94 +160,6 @@ public class ItemsDialogOptions extends DialogOptions {
         }
 
         return builder.show();
-    }
-
-    public static class Builder extends DialogOptions.Builder {
-
-        public Builder() {
-            this.mDialogOptions = new ItemsDialogOptions();
-        }
-
-        public Builder setMode(int mode) {
-            ((ItemsDialogOptions) mDialogOptions).mode = mode;
-            return this;
-        }
-
-        public Builder setItems(List<Item> items) {
-            ((ItemsDialogOptions) mDialogOptions).items = items;
-            return this;
-        }
-
-        public Builder setSelectedIds(List<Object> selectedIds) {
-            ((ItemsDialogOptions) mDialogOptions).selectedIds = selectedIds;
-            return this;
-        }
-
-        @Override
-        public DialogOptions.Builder populate(ReadableMap map) {
-            super.populate(map);
-
-            if (map.hasKey("mode")) {
-                String modeString = map.getString("mode").toLowerCase();
-                switch (modeString) {
-                    case "default":
-                    default:
-                        setMode(MODE_DEFAULT);
-                        break;
-                    case "single":
-                        setMode(MODE_SINGLE);
-                        break;
-                    case "multiple":
-                        setMode(MODE_MULTIPLE);
-                        break;
-                }
-            }
-
-            if (map.hasKey("items")) {
-                List<Item> itemList = new ArrayList<>();
-
-                ReadableArray itemsArray = map.getArray("items");
-                for (int i = 0; i < itemsArray.size(); i++)
-                    itemList.add(new Item.Builder().populate(itemsArray.getMap(i)).build());
-
-                setItems(itemList);
-            }
-
-            if (map.hasKey("selectedItems")) {
-                List<Object> selectedIdList = new ArrayList<>();
-
-                switch (map.getType("selectedItems")) {
-                    case Number:
-                        selectedIdList.add(map.getInt("selectedItems"));
-                        break;
-                    case String:
-                        selectedIdList.add(map.getString("selectedItems"));
-                        break;
-                    case Array:
-                        ReadableArray selectedArray = map.getArray("selectedItems");
-                        for (int i = 0; i < selectedArray.size(); i++) {
-                            switch (selectedArray.getType(i)) {
-                                case Number:
-                                    selectedIdList.add(selectedArray.getInt(i));
-                                    break;
-                                case String:
-                                    selectedIdList.add(selectedArray.getString(i));
-                                    break;
-                            }
-                        }
-                        break;
-                }
-
-                setSelectedIds(selectedIdList);
-            }
-
-            return this;
-        }
-
-        @Override
-        public ItemsDialogOptions build() {
-            return (ItemsDialogOptions) this.mDialogOptions;
-        }
     }
 
     public static class Item {
