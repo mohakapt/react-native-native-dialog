@@ -14,13 +14,13 @@ import com.facebook.react.bridge.ReadableType;
 public class InputDialogOptions extends DialogOptions {
     private String value;
     private String placeholder;
-    private String keyboardType = "default";
+    private String keyboardType;
     private Integer maxLength;
-    private Boolean autoFocus = false;
-    private Boolean autoCorrect = true;
-    private String autoCapitalize = "sentences";
-    private Boolean secureTextEntry = false;
-    private Boolean selectTextOnFocus = false;
+    private Boolean autoFocus;
+    private Boolean autoCorrect;
+    private String autoCapitalize;
+    private Boolean secureTextEntry;
+    private Boolean selectTextOnFocus;
 
     public InputDialogOptions() {
     }
@@ -131,6 +131,8 @@ public class InputDialogOptions extends DialogOptions {
 
         if (getAutoFocus())
             alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        alertDialog.setCanceledOnTouchOutside(isCancelOnTouchOutside());
         alertDialog.show();
 
         EditText txtInput = alertDialog.findViewById(R.id.txtInput);

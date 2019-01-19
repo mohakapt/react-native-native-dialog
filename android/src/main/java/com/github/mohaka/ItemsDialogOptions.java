@@ -15,7 +15,7 @@ public class ItemsDialogOptions extends DialogOptions {
     public final static int MODE_SINGLE = 101;
     public final static int MODE_MULTIPLE = 102;
 
-    private int mode = MODE_DEFAULT;
+    private int mode;
     private List<Item> items;
     private List<Object> selectedIds = new ArrayList<>();
 
@@ -149,7 +149,7 @@ public class ItemsDialogOptions extends DialogOptions {
         switch (mode) {
             case MODE_DEFAULT:
             default:
-                builder.setItems(titles, getOnButtonClickListener());
+                builder.setItems(titles, getClickListener());
                 break;
             case MODE_SINGLE:
                 builder.setSingleChoiceItems(titles, (Integer) selections[0], null);
@@ -159,7 +159,10 @@ public class ItemsDialogOptions extends DialogOptions {
                 break;
         }
 
-        return builder.show();
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(isCancelOnTouchOutside());
+        alertDialog.show();
+        return alertDialog;
     }
 
     public static class Item {

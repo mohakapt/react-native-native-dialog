@@ -13,8 +13,11 @@ public class DialogOptions {
     public final static int THEME_LIGHT = 100;
     public final static int THEME_DARK = 101;
 
-    private int theme = THEME_LIGHT;
+    private int theme;
     private int accentColor;
+
+    private boolean cancellable;
+    private boolean cancelOnTouchOutside;
 
     private String title;
     private String message;
@@ -23,7 +26,8 @@ public class DialogOptions {
     private String negativeButton;
     private String neutralButton;
 
-    private DialogInterface.OnClickListener onButtonClick;
+    private DialogInterface.OnClickListener clickListener;
+    private DialogInterface.OnDismissListener dismissListener;
 
     public DialogOptions() {
     }
@@ -38,6 +42,14 @@ public class DialogOptions {
 
     public int getAccentColor() {
         return accentColor;
+    }
+
+    public boolean isCancellable() {
+        return cancellable;
+    }
+
+    public boolean isCancelOnTouchOutside() {
+        return cancelOnTouchOutside;
     }
 
     public String getTitle() {
@@ -60,8 +72,12 @@ public class DialogOptions {
         return neutralButton;
     }
 
-    public DialogInterface.OnClickListener getOnButtonClickListener() {
-        return onButtonClick;
+    public DialogInterface.OnClickListener getClickListener() {
+        return clickListener;
+    }
+
+    public DialogInterface.OnDismissListener getDismissListener() {
+        return dismissListener;
     }
 
     public void setTheme(int theme) {
@@ -78,6 +94,14 @@ public class DialogOptions {
 
     public void setAccentColor(String accentColor) {
         this.setAccentColor(Color.parseColor(accentColor));
+    }
+
+    public void setCancellable(boolean cancellable) {
+        this.cancellable = cancellable;
+    }
+
+    public void setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
+        this.cancelOnTouchOutside = cancelOnTouchOutside;
     }
 
     public void setTitle(String title) {
@@ -100,8 +124,12 @@ public class DialogOptions {
         this.neutralButton = neutralButton;
     }
 
-    public void setOnButtonClickListener(DialogInterface.OnClickListener listener) {
-        this.onButtonClick = listener;
+    public void setClickListener(DialogInterface.OnClickListener listener) {
+        this.clickListener = listener;
+    }
+
+    public void setDismissListener(DialogInterface.OnDismissListener listener) {
+        this.dismissListener = listener;
     }
 
     public void populate(ReadableMap map) {
@@ -112,6 +140,9 @@ public class DialogOptions {
         if (map.hasKey("positiveButton")) setPositiveButton(map.getString("positiveButton"));
         if (map.hasKey("negativeButton")) setNegativeButton(map.getString("negativeButton"));
         if (map.hasKey("neutralButton")) setNeutralButton(map.getString("neutralButton"));
+        if (map.hasKey("cancellable")) setCancellable(map.getBoolean("cancellable"));
+        if (map.hasKey("cancelOnTouchOutside"))
+            setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
     }
 
     protected AlertDialog.Builder buildDialog(Activity activity, @StyleRes int dialogTheme) {
@@ -124,20 +155,25 @@ public class DialogOptions {
 
         builder.setTitle(getTitle());
         builder.setMessage(getMessage());
+        builder.setCancelable(isCancellable());
+        builder.setOnDismissListener(getDismissListener());
 
         if (!TextUtils.isEmpty(getPositiveButton()))
-            builder.setPositiveButton(getPositiveButton(), getOnButtonClickListener());
+            builder.setPositiveButton(getPositiveButton(), getClickListener());
 
         if (!TextUtils.isEmpty(getNegativeButton()))
-            builder.setNegativeButton(getNegativeButton(), getOnButtonClickListener());
+            builder.setNegativeButton(getNegativeButton(), getClickListener());
 
         if (!TextUtils.isEmpty(getNeutralButton()))
-            builder.setNeutralButton(getNeutralButton(), getOnButtonClickListener());
+            builder.setNeutralButton(getNeutralButton(), getClickListener());
 
         return builder;
     }
 
     public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
-        return buildDialog(activity, dialogTheme).show();
+        AlertDialog alertDialog = buildDialog(activity, dialogTheme).create();
+        alertDialog.setCanceledOnTouchOutside(isCancelOnTouchOutside());
+        alertDialog.show();
+        return alertDialog;
     }
 }

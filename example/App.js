@@ -30,9 +30,9 @@ export default class App extends Component<Props, State> {
 
 
 	onTouched = () => {
-		ModalAlert.showDialog({
+		ModalAlert.showProgressDialog({
 			title: 'Add Subject',
-			message: 'This is the message to show,\n\n Are you sure?',
+			message: 'Lorem ipsum dolor sit',
 
 			positiveButton: 'Add',
 			negativeButton: 'Cancel',
@@ -44,6 +44,8 @@ export default class App extends Component<Props, State> {
 			onPositivePress: () => console.warn('positive'),
 			onNegativePress: () => console.warn('negative'),
 			onNeutralPress: () => console.warn('neutral'),
+
+			onDismiss: () => console.warn('dismiss'),
 
 			wtf: <View style={{ backgroundColor: 'red', height: 200, width: 200 }} />,
 		});

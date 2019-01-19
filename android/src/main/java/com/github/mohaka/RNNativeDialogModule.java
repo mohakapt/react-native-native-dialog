@@ -42,12 +42,13 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     private final static String EVENT_POSITIVE_BUTTON = "native_dialog__positive_button";
     private final static String EVENT_NEGATIVE_BUTTON = "native_dialog__negative_button";
     private final static String EVENT_NEUTRAL_BUTTON = "native_dialog__neutral_button";
+    private final static String EVENT_DISMISS_DIALOG = "native_dialog__dismiss_dialog";
 
     private void emitEvent(String event) {
-        emitEvent(event, (WritableMap) null);
+        emitData(event, null);
     }
 
-    private void emitEvent(String event, WritableMap data) {
+    private void emitData(String event, WritableMap data) {
         ReactApplicationContext context = getReactApplicationContext();
         if (context == null) return;
 
@@ -58,7 +59,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     private void emitInput(String event, String value) {
         WritableMap params = Arguments.createMap();
         params.putString("value", value);
-        emitEvent(event, params);
+        emitData(event, params);
     }
 
     private void emitSelection(ItemsDialogOptions.Item[] items) {
@@ -77,12 +78,19 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
     //endregion
 
+    private DialogInterface.OnDismissListener onDismiss = new DialogInterface.OnDismissListener() {
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            emitEvent(EVENT_DISMISS_DIALOG);
+        }
+    };
+
     @ReactMethod
     public void showDialog(ReadableMap map) {
         Activity activity = getCurrentActivity();
         if (activity == null) return;
 
-        DialogInterface.OnClickListener onButtonClick = new DialogInterface.OnClickListener() {
+        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
@@ -100,7 +108,8 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         };
 
         DialogOptions dialog = new DialogOptions(map);
-        dialog.setOnButtonClickListener(onButtonClick);
+        dialog.setClickListener(onClick);
+        dialog.setDismissListener(onDismiss);
         dialog.showDialog(activity, dialogTheme);
     }
 
@@ -132,7 +141,8 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         };
 
         InputDialogOptions dialog = new InputDialogOptions(map);
-        dialog.setOnButtonClickListener(onButtonClick);
+        dialog.setClickListener(onButtonClick);
+        dialog.setDismissListener(onDismiss);
         dialog.showDialog(activity, dialogTheme);
     }
 
@@ -186,7 +196,36 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
             }
         };
 
-        itemsDialog.setOnButtonClickListener(onButtonClick);
+        itemsDialog.setClickListener(onButtonClick);
+        itemsDialog.setDismissListener(onDismiss);
         itemsDialog.showDialog(activity, dialogTheme);
+    }
+
+    @ReactMethod
+    public void showProgressDialog(ReadableMap map) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+
+        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        emitEvent(EVENT_POSITIVE_BUTTON);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        emitEvent(EVENT_NEGATIVE_BUTTON);
+                        break;
+                    case DialogInterface.BUTTON_NEUTRAL:
+                        emitEvent(EVENT_NEUTRAL_BUTTON);
+                        break;
+                }
+            }
+        };
+
+        ProgressDialogOptions dialog = new ProgressDialogOptions(map);
+        dialog.setClickListener(onClick);
+        dialog.setDismissListener(onDismiss);
+        dialog.showDialog(activity, dialogTheme);
     }
 }
