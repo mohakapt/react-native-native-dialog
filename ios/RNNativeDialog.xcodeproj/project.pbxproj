@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71217A2D21F4A16800BBEFDF /* RNNativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71217A2C21F4A16800BBEFDF /* RNNativeDialog.swift */; };
 		B3E7B58A1CC2AC0600A0062D /* RNNativeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RNNativeDialog.m */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,32 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNativeDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNativeDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		71217A0E21F49CF000BBEFDF /* InteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveTransition.swift; sourceTree = "<group>"; };
+		71217A0F21F49CF000BBEFDF /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		71217A1021F49CF000BBEFDF /* UIImageView+Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Calculations.swift"; sourceTree = "<group>"; };
+		71217A1121F49CF000BBEFDF /* UIView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Animations.swift"; sourceTree = "<group>"; };
+		71217A1221F49CF000BBEFDF /* PopupDialogDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialogDefaultView.swift; sourceTree = "<group>"; };
+		71217A1321F49CF000BBEFDF /* PopupDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialog.swift; sourceTree = "<group>"; };
+		71217A1521F49CF000BBEFDF /* PopupDialogOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialogOverlayView.swift; sourceTree = "<group>"; };
+		71217A1621F49CF000BBEFDF /* PopupDialogButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialogButton.swift; sourceTree = "<group>"; };
+		71217A1721F49CF000BBEFDF /* UIViewController+Visibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Visibility.swift"; sourceTree = "<group>"; };
+		71217A1821F49CF000BBEFDF /* TransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
+		71217A1921F49CF000BBEFDF /* PopupDialog+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PopupDialog+Keyboard.swift"; sourceTree = "<group>"; };
+		71217A1A21F49CF000BBEFDF /* PopupDialogDefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialogDefaultViewController.swift; sourceTree = "<group>"; };
+		71217A1B21F49CF000BBEFDF /* TransitionAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimations.swift; sourceTree = "<group>"; };
+		71217A1C21F49CF000BBEFDF /* PopupDialogDefaultButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialogDefaultButtons.swift; sourceTree = "<group>"; };
+		71217A1D21F49CF000BBEFDF /* PresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManager.swift; sourceTree = "<group>"; };
+		71217A1E21F49CF000BBEFDF /* PopupDialogContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDialogContainerView.swift; sourceTree = "<group>"; };
+		71217A2221F49EAA00BBEFDF /* CGImage+Accelerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Accelerate.swift"; sourceTree = "<group>"; };
+		71217A2321F49EAA00BBEFDF /* CGContext+CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGContext+CGImage.swift"; sourceTree = "<group>"; };
+		71217A2421F49EAA00BBEFDF /* CaptureQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureQuality.swift; sourceTree = "<group>"; };
+		71217A2521F49EAA00BBEFDF /* DynamicBlurView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicBlurView.h; sourceTree = "<group>"; };
+		71217A2621F49EAA00BBEFDF /* TrackingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingMode.swift; sourceTree = "<group>"; };
+		71217A2721F49EAA00BBEFDF /* UIImage+Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Blur.swift"; sourceTree = "<group>"; };
+		71217A2821F49EAA00BBEFDF /* BlurLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurLayer.swift; sourceTree = "<group>"; };
+		71217A2A21F49EAA00BBEFDF /* DynamicBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicBlurView.swift; sourceTree = "<group>"; };
+		71217A2B21F4A16800BBEFDF /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
+		71217A2C21F4A16800BBEFDF /* RNNativeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNNativeDialog.swift; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* RNNativeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNativeDialog.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNativeDialog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,10 +77,52 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				71217A2B21F4A16800BBEFDF /* RNNativeDialog-Bridging-Header.h */,
+				71217A2C21F4A16800BBEFDF /* RNNativeDialog.swift */,
 				B3E7B5881CC2AC0600A0062D /* RNNativeDialog.h */,
 				B3E7B5891CC2AC0600A0062D /* RNNativeDialog.m */,
+				71217A0C21F49CF000BBEFDF /* PopupDialog */,
+				71217A2121F49EAA00BBEFDF /* DynamicBlurView */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		71217A0C21F49CF000BBEFDF /* PopupDialog */ = {
+			isa = PBXGroup;
+			children = (
+				71217A0E21F49CF000BBEFDF /* InteractiveTransition.swift */,
+				71217A0F21F49CF000BBEFDF /* PresentationController.swift */,
+				71217A1021F49CF000BBEFDF /* UIImageView+Calculations.swift */,
+				71217A1121F49CF000BBEFDF /* UIView+Animations.swift */,
+				71217A1221F49CF000BBEFDF /* PopupDialogDefaultView.swift */,
+				71217A1321F49CF000BBEFDF /* PopupDialog.swift */,
+				71217A1521F49CF000BBEFDF /* PopupDialogOverlayView.swift */,
+				71217A1621F49CF000BBEFDF /* PopupDialogButton.swift */,
+				71217A1721F49CF000BBEFDF /* UIViewController+Visibility.swift */,
+				71217A1821F49CF000BBEFDF /* TransitionAnimator.swift */,
+				71217A1921F49CF000BBEFDF /* PopupDialog+Keyboard.swift */,
+				71217A1A21F49CF000BBEFDF /* PopupDialogDefaultViewController.swift */,
+				71217A1B21F49CF000BBEFDF /* TransitionAnimations.swift */,
+				71217A1C21F49CF000BBEFDF /* PopupDialogDefaultButtons.swift */,
+				71217A1D21F49CF000BBEFDF /* PresentationManager.swift */,
+				71217A1E21F49CF000BBEFDF /* PopupDialogContainerView.swift */,
+			);
+			path = PopupDialog;
+			sourceTree = "<group>";
+		};
+		71217A2121F49EAA00BBEFDF /* DynamicBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				71217A2221F49EAA00BBEFDF /* CGImage+Accelerate.swift */,
+				71217A2321F49EAA00BBEFDF /* CGContext+CGImage.swift */,
+				71217A2421F49EAA00BBEFDF /* CaptureQuality.swift */,
+				71217A2521F49EAA00BBEFDF /* DynamicBlurView.h */,
+				71217A2621F49EAA00BBEFDF /* TrackingMode.swift */,
+				71217A2721F49EAA00BBEFDF /* UIImage+Blur.swift */,
+				71217A2821F49EAA00BBEFDF /* BlurLayer.swift */,
+				71217A2A21F49EAA00BBEFDF /* DynamicBlurView.swift */,
+			);
+			path = DynamicBlurView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +156,7 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -112,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71217A2D21F4A16800BBEFDF /* RNNativeDialog.swift in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNNativeDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,32 +274,41 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = (
-				"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../../../React/**",
-					"$(SRCROOT)/../../react-native/React/**",
-				);
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = RNNativeDialog;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		58B511F11A9E6C8500147676 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNativeDialog;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = RNNativeDialog;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

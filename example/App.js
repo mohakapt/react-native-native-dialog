@@ -30,7 +30,7 @@ export default class App extends Component<Props, State> {
 
 
 	onTouched = () => {
-		ModalAlert.showProgressDialog({
+		ModalAlert.showDialog({
 			title: 'Add Subject',
 			message: 'Lorem ipsum dolor sit',
 
@@ -46,8 +46,6 @@ export default class App extends Component<Props, State> {
 			onNeutralPress: () => console.warn('neutral'),
 
 			onDismiss: () => console.warn('dismiss'),
-
-			wtf: <View style={{ backgroundColor: 'red', height: 200, width: 200 }} />,
 		});
 	};
 
