@@ -13,16 +13,12 @@
     {
       "name": "Heysem KATIBI",
       "email": "mohakapt@gmail.com"
-    },
-    {
-      "name": "Charlie L",
-      "email": "carlyeah@me.com"
     }
   ],
   "keywords": [
     "react-native",
     "ios",
-    "android",
+    "android"
   ],
   "repository": {
     "type": "git",
@@ -38,6 +34,6 @@
   "devDependencies": {
     "react": "16.6.3",
     "react-native": "0.57.8",
-    "metro-react-native-babel-preset": "0.51.1",
+    "metro-react-native-babel-preset": "0.51.1"
   }
 }

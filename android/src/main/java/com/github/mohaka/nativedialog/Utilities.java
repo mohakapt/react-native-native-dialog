@@ -1,4 +1,4 @@
-package com.github.mohaka;
+package com.github.mohaka.nativedialog;
 
 import android.content.Context;
 import android.net.Uri;

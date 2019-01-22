@@ -1,4 +1,4 @@
-package com.github.mohaka;
+package com.github.mohaka.nativedialog;
 
 import android.app.Activity;
 import android.content.DialogInterface;

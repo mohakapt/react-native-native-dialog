@@ -1,4 +1,4 @@
-package com.example;
+package com.github.mohaka.nativedialog.example;
 
 import com.facebook.react.ReactActivity;
 

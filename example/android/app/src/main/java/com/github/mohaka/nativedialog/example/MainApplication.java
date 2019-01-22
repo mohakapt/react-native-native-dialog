@@ -1,4 +1,4 @@
-package com.example;
+package com.github.mohaka.nativedialog.example;
 
 import android.app.Application;
 
