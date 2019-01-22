@@ -20,9 +20,9 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.mohaka.ItemsDialogOptions.MODE_DEFAULT;
-import static com.github.mohaka.ItemsDialogOptions.MODE_MULTIPLE;
-import static com.github.mohaka.ItemsDialogOptions.MODE_SINGLE;
+import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_DEFAULT;
+import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_MULTIPLE;
+import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_SINGLE;
 
 public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public final static String TAG = "RNNativeDialog";

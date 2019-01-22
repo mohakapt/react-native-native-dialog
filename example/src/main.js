@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button, NativeModules } from 'react-native';
-import ModalAlert from './src';
+import ModalAlert from 'react-native-native-dialog';
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -26,24 +26,23 @@ export default class App extends Component<Props, State> {
 
 
 	onTouched = () => {
+		ModalAlert.showDialog({
+			title: 'Add Subject',
+			message: 'Lorem ipsum dolor sit',
 
-		// ModalAlert.showDialog({
-		// 	title: 'Add Subject',
-		// 	message: 'Lorem ipsum dolor sit',
-		//
-		// 	positiveButton: 'Add',
-		// 	negativeButton: 'Cancel',
-		// 	neutralButton: 'Help',
-		//
-		// 	theme: 'light',
-		// 	accentColor: '#4CAF50',
-		//
-		// 	onPositivePress: () => console.warn('positive'),
-		// 	onNegativePress: () => console.warn('negative'),
-		// 	onNeutralPress: () => console.warn('neutral'),
-		//
-		// 	onDismiss: () => console.warn('dismiss'),
-		// });
+			positiveButton: 'Add',
+			negativeButton: 'Cancel',
+			neutralButton: 'Help',
+
+			theme: 'light',
+			accentColor: '#4CAF50',
+
+			onPositivePress: () => console.warn('positive'),
+			onNegativePress: () => console.warn('negative'),
+			onNeutralPress: () => console.warn('neutral'),
+
+			onDismiss: () => console.warn('dismiss'),
+		});
 	};
 
 	render() {
