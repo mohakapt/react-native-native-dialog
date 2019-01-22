@@ -1,0 +1,102 @@
+PODS:
+  - boost-for-react-native (1.63.0)
+  - DoubleConversion (1.1.6)
+  - DynamicBlurView (3.0.1)
+  - Folly (2016.10.31.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.5)
+  - PopupDialog (0.9.2):
+    - DynamicBlurView (~> 3.0.1)
+  - React (0.57.8):
+    - React/Core (= 0.57.8)
+  - react-native-native-dialog (0.5.0):
+    - PopupDialog
+    - React
+  - React/Core (0.57.8):
+    - yoga (= 0.57.8.React)
+  - React/CxxBridge (0.57.8):
+    - Folly (= 2016.10.31.00)
+    - React/Core
+    - React/cxxreact
+  - React/cxxreact (0.57.8):
+    - boost-for-react-native (= 1.63.0)
+    - Folly (= 2016.10.31.00)
+    - React/jschelpers
+    - React/jsinspector
+  - React/DevSupport (0.57.8):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.57.8)
+  - React/jschelpers (0.57.8):
+    - Folly (= 2016.10.31.00)
+    - React/PrivateDatabase
+  - React/jsinspector (0.57.8)
+  - React/PrivateDatabase (0.57.8)
+  - React/RCTAnimation (0.57.8):
+    - React/Core
+  - React/RCTBlob (0.57.8):
+    - React/Core
+  - React/RCTImage (0.57.8):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTNetwork (0.57.8):
+    - React/Core
+  - React/RCTText (0.57.8):
+    - React/Core
+  - React/RCTWebSocket (0.57.8):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - yoga (0.57.8.React)
+
+DEPENDENCIES:
+  - DoubleConversion (from `../../node_modules/react-native/third-party-podspecs`)
+  - Folly (from `../../node_modules/react-native/third-party-podspecs`)
+  - glog (from `../../node_modules/react-native/third-party-podspecs`)
+  - react-native-native-dialog (from `../../ios/`)
+  - React/Core (from `../../node_modules/react-native`)
+  - React/CxxBridge (from `../../node_modules/react-native`)
+  - React/DevSupport (from `../../node_modules/react-native`)
+  - React/RCTAnimation (from `../../node_modules/react-native`)
+  - React/RCTImage (from `../../node_modules/react-native`)
+  - React/RCTNetwork (from `../../node_modules/react-native`)
+  - React/RCTText (from `../../node_modules/react-native`)
+  - React/RCTWebSocket (from `../../node_modules/react-native`)
+  - yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - boost-for-react-native
+    - DynamicBlurView
+    - PopupDialog
+
+EXTERNAL SOURCES:
+  DoubleConversion:
+    :podspec: "../../node_modules/react-native/third-party-podspecs"
+  Folly:
+    :podspec: "../../node_modules/react-native/third-party-podspecs"
+  glog:
+    :podspec: "../../node_modules/react-native/third-party-podspecs"
+  React:
+    :path: "../../node_modules/react-native"
+  react-native-native-dialog:
+    :path: "../../ios/"
+  yoga:
+    :path: "../../node_modules/react-native/ReactCommon/yoga"
+
+SPEC CHECKSUMS:
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
+  DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
+  Folly: c89ac2d5c6ab169cd7397ef27485c44f35f742c7
+  glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
+  PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
+  React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  react-native-native-dialog: 9ae4ea894d70d41979e0b5872187a9c031b63c48
+  yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
+
+PODFILE CHECKSUM: 9a86f455020271a161c3103744211b60077d2498
+
+COCOAPODS: 1.5.3
