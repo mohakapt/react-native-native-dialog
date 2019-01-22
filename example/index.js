@@ -1,7 +1,13 @@
-/** @format */
+/* @flow */
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+import React from 'react'
+import { AppRegistry } from 'react-native'
+import Main from './src/main'
 
-AppRegistry.registerComponent(appName, () => App);
+class Index extends React.Component {
+  render() {
+    return <Main />
+  }
+}
+
+AppRegistry.registerComponent('RNNativeDialogExample', () => Index)

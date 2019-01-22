@@ -1,25 +1,43 @@
 {
   "name": "react-native-native-dialog",
-  "version": "0.4.0",
-  "description": "",
+  "version": "0.5.0",
+  "description": "Library description goes here.",
   "main": "index.js",
-  "author": "Heysem KATIBI <mohakapt@gmail.com>",
+  "homepage": "https://github.com/mohakapt/react-native-native-dialog",
   "license": "MIT",
   "private": false,
-  "scripts": {},
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+  "scripts": {
+    "start": "react-native start"
   },
+  "contributors": [
+    {
+      "name": "Heysem KATIBI",
+      "email": "mohakapt@gmail.com"
+    },
+    {
+      "name": "Charlie L",
+      "email": "carlyeah@me.com"
+    }
+  ],
   "keywords": [
-    "react-native"
+    "react-native",
+    "ios",
+    "android",
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/mohakapt/react-native-native-dialog"
   },
-  "bugs": {
-    "url": "https://github.com/mohakapt/react-native-native-dialog/issues"
+  "dependencies": {
+    "prop-types": "^15.6.0"
   },
-  "dependencies": {}
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "react": "16.6.3",
+    "react-native": "0.57.8",
+    "metro-react-native-babel-preset": "0.51.1",
+  }
 }

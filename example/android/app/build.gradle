@@ -73,10 +73,10 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "example/index.js"
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../../node_modules/react-native/react.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -137,8 +137,8 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-native-dialog')
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':react-native-native-dialog')
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }

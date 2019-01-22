@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import { Platform, Alert, ActionSheetIOS, NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 
 const { RNNativeDialog } = NativeModules;
 const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);

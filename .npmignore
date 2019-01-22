@@ -1,12 +1,2 @@
-example
-images
-lib
-.idea
-yarn.lock
-.flowconfig
-docs
-android/.gradle
-android/android.iml
-android/gradle
-android/local.properties
-ios/RNNativeDialog.xcworkspace
+example/
+*.iml
