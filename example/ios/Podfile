@@ -1,6 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '9.0'
+use_frameworks!
 
 target 'RNNativeDialogExample' do
   rnpath = '../../node_modules/react-native'
@@ -22,10 +23,17 @@ target 'RNNativeDialogExample' do
   pod 'react-native-native-dialog', path: '../../ios/'
 end
 
-# post_install do |installer|
-#   installer.pods_project.targets.each do |target|
-#     if target.name == 'React'
-#       target.remove_from_project
-#     end
-#   end
-# end
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+#    if target.name == 'React'
+#      target.remove_from_project
+#    end
+
+    if ['PopupDialog'].include? target.name
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = '4.2'
+      end
+    end
+
+  end
+end

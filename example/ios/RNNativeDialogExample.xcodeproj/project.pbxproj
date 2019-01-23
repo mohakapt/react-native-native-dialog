@@ -10,14 +10,12 @@
 		71BD74D421F76B9D0087BC57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BD74D321F76B9D0087BC57 /* main.m */; };
 		71BD74D721F76BB30087BC57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BD74D521F76BB20087BC57 /* AppDelegate.m */; };
 		71BD74D921F76BBC0087BC57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71BD74D821F76BBC0087BC57 /* Images.xcassets */; };
-		71BD74DB21F76BC80087BC57 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71BD74DA21F76BC80087BC57 /* Info.plist */; };
 		71BD74DE21F76BD90087BC57 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71BD74DC21F76BD90087BC57 /* LaunchScreen.xib */; };
-		E0413A4C29265EFB444C9C46 /* libPods-RNNativeDialogExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E644BFAE72F5A68130A5A7 /* libPods-RNNativeDialogExample.a */; };
+		C054B6BECC8FD936D3F2599F /* Pods_RNNativeDialogExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D726E079707425D689190762 /* Pods_RNNativeDialogExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		05E644BFAE72F5A68130A5A7 /* libPods-RNNativeDialogExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNNativeDialogExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11DAD63047CF741FE06CCF9C /* Pods-RNNativeDialogExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNNativeDialogExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RNNativeDialogExample/Pods-RNNativeDialogExample.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* RNNativeDialogExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RNNativeDialogExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E98232E9728F8062858B45 /* Pods-RNNativeDialogExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNNativeDialogExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RNNativeDialogExample/Pods-RNNativeDialogExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -27,6 +25,7 @@
 		71BD74D821F76BBC0087BC57 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = RNNativeDialogExample/Images.xcassets; sourceTree = "<group>"; };
 		71BD74DA21F76BC80087BC57 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RNNativeDialogExample/Info.plist; sourceTree = "<group>"; };
 		71BD74DD21F76BD90087BC57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = RNNativeDialogExample/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		D726E079707425D689190762 /* Pods_RNNativeDialogExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RNNativeDialogExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0413A4C29265EFB444C9C46 /* libPods-RNNativeDialogExample.a in Frameworks */,
+				C054B6BECC8FD936D3F2599F /* Pods_RNNativeDialogExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +87,7 @@
 		85303D4EF2E63FF54A90FA3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				05E644BFAE72F5A68130A5A7 /* libPods-RNNativeDialogExample.a */,
+				D726E079707425D689190762 /* Pods_RNNativeDialogExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -105,6 +104,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				ECAFE81266C7DF855A96E3F5 /* Frameworks */,
+				673C932357A37CFEA85E059A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -149,7 +149,6 @@
 			files = (
 				71BD74D921F76BBC0087BC57 /* Images.xcassets in Resources */,
 				71BD74DE21F76BD90087BC57 /* LaunchScreen.xib in Resources */,
-				71BD74DB21F76BC80087BC57 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +168,38 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		673C932357A37CFEA85E059A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-RNNativeDialogExample/Pods-RNNativeDialogExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DoubleConversion/DoubleConversion.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/Folly/folly.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
+				"${BUILT_PRODUCTS_DIR}/React/React.framework",
+				"${BUILT_PRODUCTS_DIR}/glog/glog.framework",
+				"${BUILT_PRODUCTS_DIR}/react-native-native-dialog/react_native_native_dialog.framework",
+				"${BUILT_PRODUCTS_DIR}/yoga/yoga.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DoubleConversion.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/folly.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/glog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/react_native_native_dialog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RNNativeDialogExample/Pods-RNNativeDialogExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7F2E5CC668808A875146C271 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

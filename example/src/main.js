@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button, NativeModules } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import ModalAlert from 'react-native-native-dialog';
 
 const instructions = Platform.select({
