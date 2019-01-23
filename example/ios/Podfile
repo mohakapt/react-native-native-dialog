@@ -29,7 +29,7 @@ post_install do |installer|
 #      target.remove_from_project
 #    end
 
-    if ['PopupDialog'].include? target.name
+    if ['react-native-native-dialog', 'PopupDialog'].include? target.name
       target.build_configurations.each do |config|
         config.build_settings['SWIFT_VERSION'] = '4.2'
       end

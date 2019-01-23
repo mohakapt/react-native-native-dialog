@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.platform      = :ios, "9.0"
   
   s.source        = { :git => "https://github.com/mohakapt/react-native-native-dialog.git", :tag => s.version.to_s }
-  s.source_files  = 'RNNativeDialog/**/*.{h,m}'
+  s.source_files  = 'RNNativeDialog/**/*.{h,m,swift}'
   
   s.dependency "React"
   s.dependency "PopupDialog"

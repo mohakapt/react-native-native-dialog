@@ -28,7 +28,8 @@ export default class App extends Component<Props, State> {
 	onTouched = () => {
 		ModalAlert.showDialog({
 			title: 'Add Subject',
-			message: 'Lorem ipsum dolor sit',
+			message: 'Double tap R on your keyboard to reload, ' +
+				'Shake or press menu button for dev menu',
 
 			positiveButton: 'Add',
 			negativeButton: 'Cancel',

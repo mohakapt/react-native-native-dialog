@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7178227921F89FCF00B5A9B3 /* NativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7178227821F89FCF00B5A9B3 /* NativeDialog.swift */; };
 		911BE485201C8E8200474413 /* RNNativeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 911BE484201C8E8200474413 /* RNNativeDialog.m */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +24,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		134814201AA4EA6300B7C361 /* libRNNativeDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRNNativeDialog.a; path = libRNNativeDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		911BE483201C8E7C00474413 /* RNNativeDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNativeDialog.h; sourceTree = "<group>"; };
+		134814201AA4EA6300B7C361 /* libRNNativeDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNativeDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
+		7178227821F89FCF00B5A9B3 /* NativeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDialog.swift; sourceTree = "<group>"; };
 		911BE484201C8E8200474413 /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNativeDialog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,8 +60,9 @@
 		911BE482201C8E5700474413 /* RNNativeDialog */ = {
 			isa = PBXGroup;
 			children = (
-				911BE483201C8E7C00474413 /* RNNativeDialog.h */,
+				7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */,
 				911BE484201C8E8200474413 /* RNNativeDialog.m */,
+				7178227821F89FCF00B5A9B3 /* NativeDialog.swift */,
 			);
 			path = RNNativeDialog;
 			sourceTree = "<group>";
@@ -95,6 +98,7 @@
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -120,6 +124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7178227921F89FCF00B5A9B3 /* NativeDialog.swift in Sources */,
 				911BE485201C8E8200474413 /* RNNativeDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,32 +209,41 @@
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(PROJECT_DIR)/../../../ios/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNativeDialog;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog/RNNativeDialog-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(PROJECT_DIR)/../../../ios/**",
 				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNativeDialog;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog/RNNativeDialog-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

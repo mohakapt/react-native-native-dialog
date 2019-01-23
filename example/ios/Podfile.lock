@@ -94,9 +94,9 @@ SPEC CHECKSUMS:
   glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
   PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
-  react-native-native-dialog: 9ae4ea894d70d41979e0b5872187a9c031b63c48
+  react-native-native-dialog: 341fe4e743537325e564716cb8531f75b2bbe001
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 0afa126ea2f2cbfd159d098961d3bd3951e0f3d0
+PODFILE CHECKSUM: 15776d5d8cb37bf2cf661d9c59d1f7f40dab202b
 
 COCOAPODS: 1.5.3
