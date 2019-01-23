@@ -1,2 +1,6 @@
 example/
 *.iml
+.idea
+android/build
+ios/RNNativeDialog.xcodeproj/xcuserdata
+.gitattributes
