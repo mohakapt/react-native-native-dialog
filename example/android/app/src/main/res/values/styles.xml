@@ -6,7 +6,7 @@
     </style>
 
 
-    <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorPrimary">#4CAF50</item>
         <item name="colorPrimaryDark">#4CAF50</item>
         <item name="colorAccent">#4CAF50</item>

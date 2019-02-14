@@ -2,7 +2,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component, Image } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import ModalAlert from 'react-native-native-dialog';
 
@@ -24,9 +24,8 @@ export default class App extends Component<Props, State> {
 		this.state = { selectedPositions: [] };
 	}
 
-
 	onTouched = () => {
-		ModalAlert.showDialog({
+		ModalAlert.showTipDialog({
 			title: 'Add Subject',
 			message: 'Double tap R on your keyboard to reload, ' +
 				'Shake or press menu button for dev menu',
@@ -35,7 +34,7 @@ export default class App extends Component<Props, State> {
 			negativeButton: 'Cancel',
 			neutralButton: 'Help',
 
-			theme: 'light',
+			theme: 'dark',
 			accentColor: '#4CAF50',
 
 			onPositivePress: () => console.warn('positive'),
@@ -43,6 +42,8 @@ export default class App extends Component<Props, State> {
 			onNeutralPress: () => console.warn('neutral'),
 
 			onDismiss: () => console.warn('dismiss'),
+
+			image: require('./discount.png'),
 		});
 	};
 

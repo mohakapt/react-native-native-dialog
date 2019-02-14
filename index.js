@@ -63,6 +63,10 @@ export type ProgressDialogProps = {
 	size: 'large' | 'small',
 }
 
+export type TipDialogProps = {
+	image: any,
+}
+
 const defaultDialogProps = {
 	cancellable: true,
 	cancelOnTouchOutside: true,
@@ -91,6 +95,8 @@ const defaultProgressDialogProps = {
 	size: 'large',
 };
 
+const defaultTipDialogProps = {};
+
 const EVENT_POSITIVE_BUTTON = 'native_dialog__positive_button';
 const EVENT_NEGATIVE_BUTTON = 'native_dialog__negative_button';
 const EVENT_NEUTRAL_BUTTON = 'native_dialog__neutral_button';
@@ -103,8 +109,8 @@ const removeAllListeners = () => {
 	RNNativeDialogEvents.removeAllListeners(EVENT_DISMISS_DIALOG);
 };
 
-export default class ModalAlert {
-	static showDialog = (props: DialogProps) => {
+export default {
+	showDialog(props: DialogProps) {
 		if (!props) return;
 		props = { ...defaultDialogProps, ...props };
 
@@ -130,9 +136,9 @@ export default class ModalAlert {
 		});
 
 		RNNativeDialog.showDialog(props);
-	};
+	},
 
-	static showInputDialog = (props: InputDialogProps) => {
+	showInputDialog(props: InputDialogProps) {
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -162,9 +168,9 @@ export default class ModalAlert {
 		});
 
 		RNNativeDialog.showInputDialog(props);
-	};
+	},
 
-	static showItemsDialog = (props: ItemsDialogProps) => {
+	showItemsDialog(props: ItemsDialogProps) {
 		if (!props || !props.items || !Array.isArray(props.items)) return;
 		props = {
 			...defaultDialogProps,
@@ -210,9 +216,9 @@ export default class ModalAlert {
 		});
 
 		RNNativeDialog.showItemsDialog(props);
-	};
+	},
 
-	static showProgressDialog = (props: ProgressDialogProps) => {
+	showProgressDialog(props: ProgressDialogProps) {
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -242,5 +248,43 @@ export default class ModalAlert {
 		});
 
 		RNNativeDialog.showProgressDialog(props);
-	};
-}
+	},
+
+	showTipDialog(props: TipDialogProps) {
+		if (!props) return;
+		props = {
+			...defaultDialogProps,
+			...defaultTipDialogProps,
+			...props,
+		};
+		if (props.image) {
+			const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+			const { uri } = resolveAssetSource(props.image);
+			props.image = undefined;
+			props.imageUri = uri;
+		}
+
+		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, () => {
+			const { onPositivePress } = props;
+			if (onPositivePress) onPositivePress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, () => {
+			const { onNegativePress } = props;
+			if (onNegativePress) onNegativePress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, () => {
+			const { onNeutralPress } = props;
+			if (onNeutralPress) onNeutralPress();
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
+			const { onDismiss } = props;
+			if (onDismiss) onDismiss();
+			removeAllListeners();
+		});
+
+		RNNativeDialog.showTipDialog(props);
+	},
+};

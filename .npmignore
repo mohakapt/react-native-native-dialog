@@ -3,4 +3,5 @@ example/
 .idea
 android/build
 ios/RNNativeDialog.xcodeproj/xcuserdata
+ios/RNNativeDialog.xcodeproj/project.xcworkspace
 .gitattributes

@@ -228,4 +228,32 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         dialog.setDismissListener(onDismiss);
         dialog.showDialog(activity, dialogTheme);
     }
+
+    @ReactMethod
+    public void showTipDialog(ReadableMap map) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+
+        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        emitEvent(EVENT_POSITIVE_BUTTON);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        emitEvent(EVENT_NEGATIVE_BUTTON);
+                        break;
+                    case DialogInterface.BUTTON_NEUTRAL:
+                        emitEvent(EVENT_NEUTRAL_BUTTON);
+                        break;
+                }
+            }
+        };
+
+        TipDialogOptions dialog = new TipDialogOptions(map);
+        dialog.setClickListener(onClick);
+        dialog.setDismissListener(onDismiss);
+        dialog.showDialog(activity, dialogTheme);
+    }
 }
