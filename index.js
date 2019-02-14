@@ -65,6 +65,9 @@ export type ProgressDialogProps = {
 
 export type TipDialogProps = {
 	image: any,
+	id: string,
+	dontShowAgain: string,
+	force: boolean,
 }
 
 const defaultDialogProps = {
@@ -95,7 +98,9 @@ const defaultProgressDialogProps = {
 	size: 'large',
 };
 
-const defaultTipDialogProps = {};
+const defaultTipDialogProps = {
+	force: false,
+};
 
 const EVENT_POSITIVE_BUTTON = 'native_dialog__positive_button';
 const EVENT_NEGATIVE_BUTTON = 'native_dialog__negative_button';

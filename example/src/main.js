@@ -44,6 +44,9 @@ export default class App extends Component<Props, State> {
 			onDismiss: () => console.warn('dismiss'),
 
 			image: require('./discount.png'),
+			dontShowAgain: 'Don\'t show this tip anymore',
+			id: '__tip_dialog',
+			force: true,
 		});
 	};
 
