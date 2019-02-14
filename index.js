@@ -60,14 +60,16 @@ export type ItemsDialogProps = {
 export type ProgressDialogProps = {
 	...DialogProps,
 
-	size: 'large' | 'small',
+	size?: 'large' | 'small',
 }
 
 export type TipDialogProps = {
-	image: any,
-	id: string,
-	dontShowAgain: string,
-	force: boolean,
+	...DialogProps,
+
+	image?: any,
+	id?: string,
+	dontShowAgain?: string,
+	force?: boolean,
 }
 
 const defaultDialogProps = {
