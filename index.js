@@ -1,76 +1,8 @@
-/* @flow */
-
 import * as React from 'react';
 import { NativeModules, NativeEventEmitter } from 'react-native';
 
 const { RNNativeDialog } = NativeModules;
 const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
-
-export type Id = number | string | Array<number> | Array<string>;
-export type Items = Array<string> | Array<{ id: (string | number), title: string }>;
-
-export type DialogProps = {
-	title?: string,
-	message?: string,
-
-	positiveButton?: string,
-	negativeButton?: string,
-	neutralButton?: string,
-
-	onPositivePress?: () => void,
-	onNegativePress?: () => void,
-	onNeutralPress?: () => void,
-
-	cancellable?: boolean,
-	cancelOnTouchOutside?: boolean,
-	onDismiss?: () => void,
-
-	theme?: 'light' | 'dark',
-	accentColor?: string,
-}
-
-export type InputDialogProps = {
-	...DialogProps,
-
-	value?: string,
-	placeholder?: string,
-	keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad',
-	maxLength?: number,
-	autoCorrect?: boolean,
-	autoFocus?: boolean,
-	autoCapitalize?: 'characters' | 'words' | 'sentences' | 'none',
-	selectTextOnFocus?: boolean,
-	secureTextEntry?: boolean,
-
-	onPositivePress?: (string) => void,
-	onNegativePress?: (string) => void,
-	onNeutralPress?: (string) => void,
-}
-
-export type ItemsDialogProps = {
-	...DialogProps,
-
-	mode?: 'default' | 'single' | 'multiple',
-	items: Items,
-	selectedItems?: Id,
-
-	onItemSelect?: (Id) => void,
-}
-
-export type ProgressDialogProps = {
-	...DialogProps,
-
-	size?: 'large' | 'small',
-}
-
-export type TipDialogProps = {
-	...DialogProps,
-
-	image?: any,
-	id?: string,
-	dontShowAgain?: string,
-	force?: boolean,
-}
 
 const defaultDialogProps = {
 	cancellable: true,
@@ -117,7 +49,7 @@ const removeAllListeners = () => {
 };
 
 export default {
-	showDialog(props: DialogProps) {
+	showDialog(props) {
 		if (!props) return;
 		props = { ...defaultDialogProps, ...props };
 
@@ -145,7 +77,7 @@ export default {
 		RNNativeDialog.showDialog(props);
 	},
 
-	showInputDialog(props: InputDialogProps) {
+	showInputDialog(props) {
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -177,7 +109,7 @@ export default {
 		RNNativeDialog.showInputDialog(props);
 	},
 
-	showItemsDialog(props: ItemsDialogProps) {
+	showItemsDialog(props) {
 		if (!props || !props.items || !Array.isArray(props.items)) return;
 		props = {
 			...defaultDialogProps,
@@ -225,7 +157,7 @@ export default {
 		RNNativeDialog.showItemsDialog(props);
 	},
 
-	showProgressDialog(props: ProgressDialogProps) {
+	showProgressDialog(props) {
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -257,7 +189,7 @@ export default {
 		RNNativeDialog.showProgressDialog(props);
 	},
 
-	showTipDialog(props: TipDialogProps) {
+	showTipDialog(props) {
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
