@@ -25,28 +25,25 @@ export default class App extends Component<Props, State> {
 	}
 
 	onTouched = () => {
-		ModalAlert.showTipDialog({
+		ModalAlert.showDialog({
 			title: 'Add Subject',
 			message: 'Double tap R on your keyboard to reload, ' +
 				'Shake or press menu button for dev menu',
 
 			positiveButton: 'Add',
 			negativeButton: 'Cancel',
-			neutralButton: 'Help',
+			// neutralButton: 'Help',
 
-			theme: 'dark',
+			theme: 'light',
 			accentColor: '#4CAF50',
 
 			onPositivePress: () => console.warn('positive'),
 			onNegativePress: () => console.warn('negative'),
-			onNeutralPress: () => console.warn('neutral'),
+			// onNeutralPress: () => console.warn('neutral'),
 
 			onDismiss: () => console.warn('dismiss'),
 
-			image: require('./discount.png'),
-			dontShowAgain: 'Don\'t show this tip anymore',
-			id: '__tip_dialog',
-			force: true,
+			preferredWidth: 500,
 		});
 	};
 

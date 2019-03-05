@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71441FFC222D786D00BC92A0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71441FFB222D786D00BC92A0 /* Extensions.swift */; };
 		7178227921F89FCF00B5A9B3 /* NativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7178227821F89FCF00B5A9B3 /* NativeDialog.swift */; };
 		911BE485201C8E8200474413 /* RNNativeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 911BE484201C8E8200474413 /* RNNativeDialog.m */; };
 /* End PBXBuildFile section */
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNativeDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNativeDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		71441FFB222D786D00BC92A0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		7178227821F89FCF00B5A9B3 /* NativeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDialog.swift; sourceTree = "<group>"; };
 		911BE484201C8E8200474413 /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNativeDialog.m; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */,
 				911BE484201C8E8200474413 /* RNNativeDialog.m */,
 				7178227821F89FCF00B5A9B3 /* NativeDialog.swift */,
+				71441FFB222D786D00BC92A0 /* Extensions.swift */,
 			);
 			path = RNNativeDialog;
 			sourceTree = "<group>";
@@ -125,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7178227921F89FCF00B5A9B3 /* NativeDialog.swift in Sources */,
+				71441FFC222D786D00BC92A0 /* Extensions.swift in Sources */,
 				911BE485201C8E8200474413 /* RNNativeDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

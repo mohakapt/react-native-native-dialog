@@ -1,6 +1,15 @@
 export type Id = number | string | Array<number> | Array<string>;
 export type Items = Array<string> | Array<{ id: (string | number), title: string }>;
 
+type IosDialogProps = {
+	buttonAlignment?: 'vertical' | 'horizontal',
+	transitionStyle?: 'bounceUp' | 'bounceDown' | 'zoomIn' | 'fadeIn',
+	preferredWidth?: number,
+	hideStatusBar?: boolean,
+}
+
+type AndroidDialogProps = {}
+
 type CommonDialogProps = {
 	title?: string,
 	message?: string,
@@ -11,9 +20,7 @@ type CommonDialogProps = {
 
 	theme?: 'light' | 'dark',
 	accentColor?: string,
-}
 
-type CommonDialogButtons = {
 	positiveButton?: string,
 	negativeButton?: string,
 	neutralButton?: string,
@@ -25,9 +32,9 @@ type CommonDialogEvents = {
 	onNeutralPress?: () => void,
 }
 
-export type DialogProps = CommonDialogProps & CommonDialogButtons & CommonDialogEvents;
+export type DialogProps = CommonDialogProps & IosDialogProps & AndroidDialogProps & CommonDialogEvents;
 
-export type InputDialogProps = CommonDialogProps & CommonDialogButtons & {
+export type InputDialogProps = CommonDialogProps & IosDialogProps & AndroidDialogProps & {
 	value?: string,
 	placeholder?: string,
 	keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad',
