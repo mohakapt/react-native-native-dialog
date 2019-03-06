@@ -24,107 +24,22 @@ class NativeDialog: RCTEventEmitter {
 
   @objc(showDialog:)
   func showDialog(options: [String: Any]) {
-    let opts = DialogOptions(options: options)
-
-    let viewConroller = UIApplication.shared.keyWindow?.rootViewController
-
-    if opts.preferredStyle != .popupDialog {
-      let alert = UIAlertController(title: opts.title, message: opts.message, preferredStyle: opts.preferredStyle == .alert ? .alert : .actionSheet)
-
-      if let title = opts.positiveButton {
-        let action = UIAlertAction(title: title, style: opts.positiveButtonStyle) { (_) in
-          self.sendEvent(withName: "native_dialog__positive_button", body: nil)
-        }
-        alert.addAction(action)
+    if let viewConroller = UIApplication.shared.keyWindow?.rootViewController {
+      var dialogOptions = DialogOptions(options: options)
+      dialogOptions.positiveButtonHandler = { () in
+        self.sendEvent(withName: "native_dialog__positive_button", body: nil)
       }
-
-      if let title = opts.negativeButton {
-        let action = UIAlertAction(title: title, style: opts.negativeButtonStyle) { (_) in
-          self.sendEvent(withName: "native_dialog__negative_button", body: nil)
-        }
-        alert.addAction(action)
+      dialogOptions.negativeButtonHandler = { () in
+        self.sendEvent(withName: "native_dialog__negative_button", body: nil)
       }
-
-      if let title = opts.neutralButton {
-        let action = UIAlertAction(title: title, style: opts.neutralButtonStyle) { (_) in
-          self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
-        }
-        alert.addAction(action)
+      dialogOptions.neutralButtonHandler = { () in
+        self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
       }
-
-      viewConroller?.present(alert, animated: true)
-      alert.view.tintColor = opts.accentColor
-    } else {
-      if opts.theme == .dark {
-        // Customize the container view appearance
-        let pcv = PopupDialogContainerView.appearance()
-        pcv.backgroundColor = UIColor(hexString: "#333333")
-
-        // Customize dialog appearance
-        let pv = PopupDialogDefaultView.appearance()
-        pv.titleColor = UIColor(white: 1, alpha: 1)
-        pv.messageColor = UIColor(white: 0.8, alpha: 1)
-
-        // Customize default button appearance
-        let db = DefaultButton.appearance()
-        db.titleColor = opts.accentColor
-        db.buttonColor = UIColor(white: 1, alpha: 0.04)
-        db.separatorColor = UIColor(white: 1, alpha: 0.08)
-
-        // Customize cancel button appearance
-        let cb = CancelButton.appearance()
-        cb.titleColor = opts.accentColor.withAlphaComponent(0.8)
-        cb.buttonColor = UIColor(white: 1, alpha: 0.04)
-        cb.separatorColor = UIColor(white: 1, alpha: 0.08)
-      } else {
-        // Customize the container view appearance
-        let pcv = PopupDialogContainerView.appearance()
-        pcv.backgroundColor = .white
-
-        // Customize dialog appearance
-        let pv = PopupDialogDefaultView.appearance()
-        pv.titleColor = UIColor(white: 0, alpha: 1)
-        pv.messageColor = UIColor(white: 0.2, alpha: 1)
-
-        // Customize default button appearance
-        let db = DefaultButton.appearance()
-        db.titleColor = opts.accentColor
-        db.buttonColor = UIColor(white: 0, alpha: 0.04)
-        db.separatorColor = UIColor(white: 0, alpha: 0.08)
-
-        // Customize cancel button appearance
-        let cb = CancelButton.appearance()
-        cb.titleColor = opts.accentColor.withAlphaComponent(0.8)
-        cb.buttonColor = UIColor(white: 0, alpha: 0.04)
-        cb.separatorColor = UIColor(white: 0, alpha: 0.08)
-      }
-
-      let popup = PopupDialog(title: opts.title, message: opts.message, image: nil, buttonAlignment: opts.buttonAlignment, transitionStyle: opts.transitionStyle, preferredWidth: opts.preferredWidth, tapGestureDismissal: opts.cancelOnTouchOutside, panGestureDismissal: opts.cancellable, hideStatusBar: opts.hideStatusBar) {
+      dialogOptions.dismissHandler = { () in
         self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
       }
 
-      if let title = opts.positiveButton {
-        let button = DefaultButton(title: title) {
-          self.sendEvent(withName: "native_dialog__positive_button", body: nil)
-        }
-        popup.addButton(button)
-      }
-
-      if let title = opts.negativeButton {
-        let button = CancelButton(title: title) {
-          self.sendEvent(withName: "native_dialog__negative_button", body: nil)
-        }
-        popup.addButton(button)
-      }
-
-      if let title = opts.neutralButton {
-        let button = DefaultButton(title: title) {
-          self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
-        }
-        popup.addButton(button)
-      }
-
-      viewConroller?.present(popup, animated: true, completion: nil)
+      dialogOptions.presentDialog(in: viewConroller)
     }
   }
 
@@ -173,6 +88,10 @@ struct DialogOptions {
   let positiveButtonStyle: UIAlertAction.Style
   let negativeButtonStyle: UIAlertAction.Style
   let neutralButtonStyle: UIAlertAction.Style
+  var positiveButtonHandler: (() -> Void)?
+  var negativeButtonHandler: (() -> Void)?
+  var neutralButtonHandler: (() -> Void)?
+  var dismissHandler: (() -> Void)?
 
   init(options: [String: Any]) {
     self.title = options["title"] as? String
@@ -261,6 +180,136 @@ struct DialogOptions {
     default:
       self.neutralButtonStyle = .default
       break
+    }
+
+  }
+
+  func presentDialog(in viewController: UIViewController) {
+    if preferredStyle != .popupDialog {
+      let dialog = buildNativeDialog()
+      viewController.present(dialog, animated: true)
+      dialog.view.tintColor = accentColor
+    } else {
+      updateTheme()
+      let dialog = buildPopupDialog()
+      viewController.present(dialog, animated: true)
+    }
+  }
+
+  private func buildNativeDialog() -> UIAlertController {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle == .alert ? .alert : .actionSheet)
+
+    if let title = positiveButton {
+      let action = UIAlertAction(title: title, style: positiveButtonStyle) { (_) in
+        self.positiveButtonHandler?()
+      }
+      alertController.addAction(action)
+    }
+
+    if let title = negativeButton {
+      let action = UIAlertAction(title: title, style: negativeButtonStyle) { (_) in
+        self.negativeButtonHandler?()
+      }
+      alertController.addAction(action)
+    }
+
+    if let title = neutralButton {
+      let action = UIAlertAction(title: title, style: neutralButtonStyle) { (_) in
+        self.neutralButtonHandler?()
+      }
+      alertController.addAction(action)
+    }
+
+    return alertController
+  }
+
+  private func buildPopupDialog() -> PopupDialog {
+    let buildButton = { (title: String, style: UIAlertAction.Style, handler: (() -> Void)?) -> PopupDialogButton in
+      switch style {
+      case .default:
+        return DefaultButton(title: title, action: handler)
+      case .cancel:
+        return CancelButton(title: title, action: handler)
+      case .destructive:
+        return DestructiveButton(title: title, action: handler)
+      }
+    }
+
+    let popupController = PopupDialog(title: title, message: message, image: nil, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, preferredWidth: preferredWidth, tapGestureDismissal: cancelOnTouchOutside, panGestureDismissal: cancellable, hideStatusBar: hideStatusBar) {
+      self.dismissHandler?()
+    }
+
+    if let title = positiveButton {
+      let button = buildButton(title, positiveButtonStyle, positiveButtonHandler)
+      popupController.addButton(button)
+    }
+
+    if let title = negativeButton {
+      let button = buildButton(title, negativeButtonStyle, negativeButtonHandler)
+      popupController.addButton(button)
+    }
+
+    if let title = neutralButton {
+      let button = buildButton(title, neutralButtonStyle, neutralButtonHandler)
+      popupController.addButton(button)
+    }
+
+    return popupController
+  }
+
+  private func updateTheme() {
+    if theme == .dark {
+      // Customize the container view appearance
+      let pcv = PopupDialogContainerView.appearance()
+      pcv.backgroundColor = UIColor(hexString: "#333333")
+
+      // Customize dialog appearance
+      let pv = PopupDialogDefaultView.appearance()
+      pv.titleColor = UIColor(white: 1, alpha: 1)
+      pv.messageColor = UIColor(white: 0.8, alpha: 1)
+
+      // Customize default button appearance
+      let db = DefaultButton.appearance()
+      db.titleColor = accentColor
+      db.buttonColor = UIColor(white: 1, alpha: 0.04)
+      db.separatorColor = UIColor(white: 1, alpha: 0.08)
+
+      // Customize cancel button appearance
+      let cb = CancelButton.appearance()
+      cb.titleColor = accentColor.withAlphaComponent(0.8)
+      cb.buttonColor = UIColor(white: 1, alpha: 0.04)
+      cb.separatorColor = UIColor(white: 1, alpha: 0.08)
+
+      // Customize cancel button appearance
+      let eb = DestructiveButton.appearance()
+      eb.buttonColor = UIColor(white: 1, alpha: 0.04)
+      eb.separatorColor = UIColor(white: 1, alpha: 0.08)
+    } else {
+      // Customize the container view appearance
+      let pcv = PopupDialogContainerView.appearance()
+      pcv.backgroundColor = .white
+
+      // Customize dialog appearance
+      let pv = PopupDialogDefaultView.appearance()
+      pv.titleColor = UIColor(white: 0, alpha: 1)
+      pv.messageColor = UIColor(white: 0.2, alpha: 1)
+
+      // Customize default button appearance
+      let db = DefaultButton.appearance()
+      db.titleColor = accentColor
+      db.buttonColor = UIColor(white: 0, alpha: 0.04)
+      db.separatorColor = UIColor(white: 0, alpha: 0.08)
+
+      // Customize cancel button appearance
+      let cb = CancelButton.appearance()
+      cb.titleColor = accentColor.withAlphaComponent(0.8)
+      cb.buttonColor = UIColor(white: 0, alpha: 0.04)
+      cb.separatorColor = UIColor(white: 0, alpha: 0.08)
+
+      // Customize cancel button appearance
+      let eb = DestructiveButton.appearance()
+      eb.buttonColor = UIColor(white: 0, alpha: 0.04)
+      eb.separatorColor = UIColor(white: 0, alpha: 0.08)
     }
 
   }

@@ -33,6 +33,8 @@ export default class App extends Component<Props, State> {
 			negativeButton: 'Erase Now',
 			neutralButton: 'Cancel',
 
+			neutralButtonStyle: 'cancel',
+
 			theme: 'dark',
 			accentColor: '#0ad2c4',
 
