@@ -26,24 +26,21 @@ export default class App extends Component<Props, State> {
 
 	onTouched = () => {
 		ModalAlert.showDialog({
-			title: 'Add Subject',
-			message: 'Double tap R on your keyboard to reload, ' +
-				'Shake or press menu button for dev menu',
+			title: 'Do you want to update your iCloud Backup before erasing?',
+			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
 
-			positiveButton: 'Add',
-			negativeButton: 'Cancel',
-			// neutralButton: 'Help',
+			positiveButton: 'Back Up Then Erase',
+			negativeButton: 'Erase Now',
+			neutralButton: 'Cancel',
 
-			theme: 'light',
-			accentColor: '#4CAF50',
+			theme: 'dark',
+			accentColor: '#0ad2c4',
 
 			onPositivePress: () => console.warn('positive'),
 			onNegativePress: () => console.warn('negative'),
-			// onNeutralPress: () => console.warn('neutral'),
+			onNeutralPress: () => console.warn('neutral'),
 
 			onDismiss: () => console.warn('dismiss'),
-
-			preferredWidth: 500,
 		});
 	};
 

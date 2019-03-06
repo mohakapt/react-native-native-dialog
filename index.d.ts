@@ -1,11 +1,17 @@
 export type Id = number | string | Array<number> | Array<string>;
 export type Items = Array<string> | Array<{ id: (string | number), title: string }>;
+export type IosButtonType = 'default' | 'cancel' | 'destructive';
 
 type IosDialogProps = {
-	buttonAlignment?: 'vertical' | 'horizontal',
+	buttonAlignment?: 'default' | 'vertical' | 'horizontal',
 	transitionStyle?: 'bounceUp' | 'bounceDown' | 'zoomIn' | 'fadeIn',
 	preferredWidth?: number,
+	preferredStyle?: 'popupDialog' | 'alert' | 'actionSheet',
 	hideStatusBar?: boolean,
+
+	positiveButtonStyle?: IosButtonType,
+	negativeButtonStyle?: IosButtonType,
+	neutralButtonStyle?: IosButtonType,
 }
 
 type AndroidDialogProps = {}
@@ -16,7 +22,6 @@ type CommonDialogProps = {
 
 	cancellable?: boolean,
 	cancelOnTouchOutside?: boolean,
-	onDismiss?: () => void,
 
 	theme?: 'light' | 'dark',
 	accentColor?: string,
@@ -30,6 +35,7 @@ type CommonDialogEvents = {
 	onPositivePress?: () => void,
 	onNegativePress?: () => void,
 	onNeutralPress?: () => void,
+	onDismiss?: () => void,
 }
 
 export type DialogProps = CommonDialogProps & IosDialogProps & AndroidDialogProps & CommonDialogEvents;

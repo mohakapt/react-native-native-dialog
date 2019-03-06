@@ -10,6 +10,16 @@ const defaultDialogProps = {
 
 	theme: 'light',
 	accentColor: '#007aff',
+
+	buttonAlignment: 'default',
+	transitionStyle: 'bounceUp',
+	preferredWidth: 340,
+	preferredStyle: 'popupDialog',
+	hideStatusBar: false,
+
+	positiveButtonStyle: 'default',
+	negativeButtonStyle: 'default',
+	neutralButtonStyle: 'default',
 };
 
 const defaultInputDialogProps = {

@@ -10,6 +10,12 @@
 #import "React/RCTEventEmitter.h"
 
 @interface RCT_EXTERN_REMAP_MODULE(RNNativeDialog, NativeDialog, RCTEventEmitter)
+
+- (dispatch_queue_t)methodQueue
+{
+  return dispatch_get_main_queue();
+}
+
 RCT_EXTERN_METHOD(showDialog:(NSDictionary* ) options)
 RCT_EXTERN_METHOD(showInputDialog:(NSDictionary* ) options)
 RCT_EXTERN_METHOD(showItemsDialog:(NSDictionary* ) options)
