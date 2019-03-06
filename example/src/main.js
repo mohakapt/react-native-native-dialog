@@ -25,7 +25,7 @@ export default class App extends Component<Props, State> {
 	}
 
 	onTouched = () => {
-		ModalAlert.showDialog({
+		ModalAlert.showInputDialog({
 			title: 'Do you want to update your iCloud Backup before erasing?',
 			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
 
@@ -35,14 +35,22 @@ export default class App extends Component<Props, State> {
 
 			neutralButtonStyle: 'cancel',
 
+			preferredStyle: 'alert',
+
 			theme: 'dark',
 			accentColor: '#0ad2c4',
 
-			onPositivePress: () => console.warn('positive'),
-			onNegativePress: () => console.warn('negative'),
-			onNeutralPress: () => console.warn('neutral'),
+			value: 'asdf',
+			placeholder: 'Enter your password',
+			keyboardType: 'number-pad',
 
-			onDismiss: () => console.warn('dismiss'),
+			autoFocus: true,
+			maxLength: 5,
+			// onPositivePress: () => console.warn('positive'),
+			// onNegativePress: () => console.warn('negative'),
+			// onNeutralPress: () => console.warn('neutral'),
+			//
+			// onDismiss: () => console.warn('dismiss'),
 		});
 	};
 
