@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 
-export type Id = number | string | Array<number> | Array<string>;
-export type Items = Array<string> | Array<{ id: (string | number), title: string }>;
+export type Id<T extends string | number> = T | T[];
+export type Items<T extends string | number> = string[] | { id: T, title: string }[];
 export type IosButtonType = 'default' | 'cancel' | 'destructive';
 
 type IosDialogProps = {
@@ -47,8 +47,8 @@ type InputDialogEvents = {
 	onNeutralPress?: (value: string) => void,
 }
 
-type ItemsDialogEvents = {
-	onItemSelect?: (selectedId: Id) => void,
+type ItemsDialogEvents<T extends string | number> = {
+	onItemSelect?: (selectedId: Id<T>) => void,
 }
 
 type NumberPickerDialogEvents = {
@@ -71,10 +71,10 @@ export type InputDialogProps = CommonDialogProps & InputDialogEvents & {
 	secureTextEntry?: boolean,
 }
 
-export type ItemsDialogProps = CommonDialogProps & ItemsDialogEvents & {
+export type ItemsDialogProps<T extends string | number> = CommonDialogProps & ItemsDialogEvents<T> & {
 	mode?: 'default' | 'single' | 'multiple',
-	items: Items,
-	selectedItems?: Id,
+	items: Items<T>,
+	selectedItems?: Id<T>,
 }
 
 export type ProgressDialogProps = CommonDialogProps & CommonDialogEvents & {
@@ -106,7 +106,7 @@ export type RatingDialogProps = CommonDialogProps & CommonDialogEvents & {}
 
 declare const showDialog: (props: DialogProps) => void;
 declare const showInputDialog: (props: InputDialogProps) => void;
-declare const showItemsDialog: (props: ItemsDialogProps) => void;
+declare const showItemsDialog: <T extends string | number>(props: ItemsDialogProps<T>) => void;
 declare const showProgressDialog: (props: ProgressDialogProps) => void;
 declare const showTipDialog: (props: TipDialogProps) => void;
 declare const showDatePickerDialog: (props: DatePickerDialogProps) => void;
