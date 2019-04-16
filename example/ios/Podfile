@@ -20,20 +20,5 @@ target 'RNNativeDialogExample' do
   pod 'glog', podspec: "#{rnpath}/third-party-podspecs"
   pod 'Folly', podspec: "#{rnpath}/third-party-podspecs"
 
-  pod 'react-native-native-dialog', path: '../../ios/'
-end
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-#    if target.name == 'React'
-#      target.remove_from_project
-#    end
-
-    if ['react-native-native-dialog', 'PopupDialog'].include? target.name
-      target.build_configurations.each do |config|
-        config.build_settings['SWIFT_VERSION'] = '4.2'
-      end
-    end
-
-  end
+  pod 'RNNativeDialog', path: '../../ios/'
 end

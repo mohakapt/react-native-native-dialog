@@ -26,11 +26,13 @@ import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_SINGLE;
 
 public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public final static String TAG = "RNNativeDialog";
-    private final int dialogTheme;
+    private final int lightDialogTheme;
+    private final int darkDialogTheme;
 
-    public RNNativeDialogModule(ReactApplicationContext reactContext, @StyleRes int dialogTheme) {
+    public RNNativeDialogModule(ReactApplicationContext reactContext, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
         super(reactContext);
-        this.dialogTheme = dialogTheme;
+        this.lightDialogTheme = lightDialogTheme;
+        this.darkDialogTheme = darkDialogTheme;
     }
 
     @Override
@@ -110,7 +112,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         DialogOptions dialog = new DialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme);
+        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
     }
 
     @ReactMethod
@@ -143,7 +145,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         InputDialogOptions dialog = new InputDialogOptions(map);
         dialog.setClickListener(onButtonClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme);
+        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
     }
 
     @ReactMethod
@@ -198,7 +200,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
 
         itemsDialog.setClickListener(onButtonClick);
         itemsDialog.setDismissListener(onDismiss);
-        itemsDialog.showDialog(activity, dialogTheme);
+        itemsDialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
     }
 
     @ReactMethod
@@ -226,7 +228,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         ProgressDialogOptions dialog = new ProgressDialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme);
+        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
     }
 
     @ReactMethod
@@ -254,6 +256,6 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         TipDialogOptions dialog = new TipDialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme);
+        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
     }
 }

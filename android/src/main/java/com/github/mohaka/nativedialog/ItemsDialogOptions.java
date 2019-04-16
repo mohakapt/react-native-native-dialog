@@ -141,8 +141,8 @@ public class ItemsDialogOptions extends DialogOptions {
         }
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
-        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme);
+    public AlertDialog showDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
+        AlertDialog.Builder builder = super.buildDialog(activity, lightDialogTheme, darkDialogTheme);
 
         String[] titles = getTitles();
         Object[] selections = getSelections();

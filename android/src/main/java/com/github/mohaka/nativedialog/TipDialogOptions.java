@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -103,12 +104,12 @@ public class TipDialogOptions extends DialogOptions {
     }
 
     @Override
-    public AlertDialog showDialog(Activity activity, int dialogTheme) {
+    public AlertDialog showDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean dontShowAgainValue = preferences.getBoolean("__dialog_" + getDialogId(), false);
         if (!isForce() && hasDontShowAgain()) if (dontShowAgainValue) return null;
 
-        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme);
+        AlertDialog.Builder builder = super.buildDialog(activity, lightDialogTheme, darkDialogTheme);
         builder.setTitle(null);
         builder.setMessage(null);
         builder.setView(R.layout.dialog_tip);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NativeModules, NativeEventEmitter } from 'react-native';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const { RNNativeDialog } = NativeModules;
 const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
@@ -45,6 +45,12 @@ const defaultProgressDialogProps = {
 const defaultTipDialogProps = {
 	force: false,
 };
+
+const defaultDatePickerDialogProps = {};
+
+const defaultNumberPickerDialogProps = {};
+
+const defaultRatingDialogProps = {};
 
 const EVENT_POSITIVE_BUTTON = 'native_dialog__positive_button';
 const EVENT_NEGATIVE_BUTTON = 'native_dialog__negative_button';
@@ -235,5 +241,32 @@ export default {
 		});
 
 		RNNativeDialog.showTipDialog(props);
+	},
+
+	showDatePickerDialog(props) {
+		if (!props) return;
+		props = {
+			...defaultDialogProps,
+			...defaultDatePickerDialogProps,
+			...props,
+		};
+	},
+
+	showNumberPickerDialog(props) {
+		if (!props) return;
+		props = {
+			...defaultDialogProps,
+			...defaultNumberPickerDialogProps,
+			...props,
+		};
+	},
+
+	showRatingDialog(props) {
+		if (!props) return;
+		props = {
+			...defaultDialogProps,
+			...defaultRatingDialogProps,
+			...props,
+		};
 	},
 };

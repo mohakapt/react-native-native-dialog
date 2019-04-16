@@ -75,10 +75,28 @@ export type TipDialogProps = DialogProps & {
 	force?: boolean,
 }
 
+export type DatePickerDialogProps = DialogProps & {}
+
+export type NumberPickerDialogProps = DialogProps & {}
+
+export type RatingDialogProps = DialogProps & {}
+
 declare const showDialog: (props: DialogProps) => void;
 declare const showInputDialog: (props: InputDialogProps) => void;
 declare const showItemsDialog: (props: ItemsDialogProps) => void;
 declare const showProgressDialog: (props: ProgressDialogProps) => void;
 declare const showTipDialog: (props: TipDialogProps) => void;
+declare const showDatePickerDialog: (props: DatePickerDialogProps) => void;
+declare const showNumberPickerDialog: (props: NumberPickerDialogProps) => void;
+declare const showRatingDialog: (props: RatingDialogProps) => void;
 
-export { showDialog, showInputDialog, showItemsDialog, showProgressDialog, showTipDialog };
+export {
+	showDialog,
+	showInputDialog,
+	showItemsDialog,
+	showProgressDialog,
+	showTipDialog,
+	showDatePickerDialog,
+	showNumberPickerDialog,
+	showRatingDialog,
+};

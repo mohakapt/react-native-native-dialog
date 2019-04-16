@@ -10,6 +10,37 @@ import Foundation
 import UIKit
 import PopupDialog
 
+class InputViewController: UIViewController {
+
+  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var messageLabel: UILabel!
+  @IBOutlet weak var textField: UITextField!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+//    commentTextField.delegate = self
+//    view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+  }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+
+  @objc func endEditing() {
+    view.endEditing(true)
+  }
+}
+
+extension InputViewController: UITextFieldDelegate {
+
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    endEditing()
+    return true
+  }
+}
+
 class InputDialogOptions: DialogOptions, UITextFieldDelegate {
   let value: String?
   let placeholder: String?
@@ -86,6 +117,42 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
     }
 
     return alertController
+  }
+
+  override func buildPopupDialog() -> PopupDialog {
+    let buildButton = { (title: String, style: UIAlertAction.Style, handler: (() -> Void)?) -> PopupDialogButton in
+      switch style {
+      case .default:
+        return DefaultButton(title: title, action: handler)
+      case .cancel:
+        return CancelButton(title: title, action: handler)
+      case .destructive:
+        return DestructiveButton(title: title, action: handler)
+      }
+    }
+
+    let bundle = Bundle(for: InputViewController.self)
+    let inputVC = InputViewController(nibName: "InputViewController", bundle: bundle)
+    let popupController = PopupDialog(viewController: inputVC, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, preferredWidth: preferredWidth, tapGestureDismissal: cancelOnTouchOutside, panGestureDismissal: cancellable, hideStatusBar: hideStatusBar) {
+      self.dismissHandler?()
+    }
+
+    if let title = positiveButton {
+      let button = buildButton(title, positiveButtonStyle, positiveButtonHandler)
+      popupController.addButton(button)
+    }
+
+    if let title = negativeButton {
+      let button = buildButton(title, negativeButtonStyle, negativeButtonHandler)
+      popupController.addButton(button)
+    }
+
+    if let title = neutralButton {
+      let button = buildButton(title, neutralButtonStyle, neutralButtonHandler)
+      popupController.addButton(button)
+    }
+
+    return popupController
   }
 
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

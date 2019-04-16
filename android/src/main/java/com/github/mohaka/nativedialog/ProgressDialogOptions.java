@@ -38,8 +38,8 @@ public class ProgressDialogOptions extends DialogOptions {
         if (map.hasKey("size")) setTheme(map.getString("size"));
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme) {
-        AlertDialog.Builder builder = buildDialog(activity, dialogTheme);
+    public AlertDialog showDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
+        AlertDialog.Builder builder = buildDialog(activity, lightDialogTheme, darkDialogTheme);
 
         builder.setView(R.layout.dialog_progress);
         builder.setMessage(null);

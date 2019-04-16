@@ -1,6 +1,4 @@
-/**
- * @flow
- */
+/* @flow */
 
 import React, { Component, Image } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
@@ -35,7 +33,7 @@ export default class App extends Component<Props, State> {
 
 			neutralButtonStyle: 'cancel',
 
-			preferredStyle: 'alert',
+			// preferredStyle: 'alert',
 
 			theme: 'dark',
 			accentColor: '#0ad2c4',
