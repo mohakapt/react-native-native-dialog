@@ -24,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.asList(
                     new MainReactPackage(),
-                    new RNNativeDialogPackage(R.style.AlertDialog)
+                    new RNNativeDialogPackage(R.style.AlertDialog, R.style.LightAlertDialog)
             );
         }
 

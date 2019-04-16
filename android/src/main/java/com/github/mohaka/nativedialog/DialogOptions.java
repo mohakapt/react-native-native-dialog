@@ -145,14 +145,14 @@ public class DialogOptions {
             setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
     }
 
-    protected AlertDialog.Builder buildDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
-        int dialogTheme;
+    protected AlertDialog.Builder buildDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
+        int dialogThemeResId;
         if (getTheme() == THEME_DARK)
-            dialogTheme = darkDialogTheme == 0 ? R.style.Theme_AppCompat_Dialog_Alert : darkDialogTheme;
+            dialogThemeResId = dialogTheme == 0 ? R.style.Theme_AppCompat_Dialog_Alert : dialogTheme;
         else
-            dialogTheme = lightDialogTheme == 0 ? R.style.Theme_AppCompat_Light_Dialog_Alert : lightDialogTheme;
+            dialogThemeResId = lightDialogTheme == 0 ? R.style.Theme_AppCompat_Light_Dialog_Alert : lightDialogTheme;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, dialogTheme);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, dialogThemeResId);
 
         builder.setTitle(getTitle());
         builder.setMessage(getMessage());
@@ -171,8 +171,8 @@ public class DialogOptions {
         return builder;
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
-        AlertDialog alertDialog = buildDialog(activity, lightDialogTheme, darkDialogTheme).create();
+    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
+        AlertDialog alertDialog = buildDialog(activity, dialogTheme, lightDialogTheme).create();
         alertDialog.setCanceledOnTouchOutside(isCancelOnTouchOutside());
         alertDialog.show();
         return alertDialog;

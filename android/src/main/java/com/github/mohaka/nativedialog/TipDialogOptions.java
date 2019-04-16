@@ -1,7 +1,6 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -104,27 +103,24 @@ public class TipDialogOptions extends DialogOptions {
     }
 
     @Override
-    public AlertDialog showDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
+    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         boolean dontShowAgainValue = preferences.getBoolean("__dialog_" + getDialogId(), false);
         if (!isForce() && hasDontShowAgain()) if (dontShowAgainValue) return null;
 
-        AlertDialog.Builder builder = super.buildDialog(activity, lightDialogTheme, darkDialogTheme);
+        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme, lightDialogTheme);
         builder.setTitle(null);
         builder.setMessage(null);
         builder.setView(R.layout.dialog_tip);
 
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (hasDontShowAgain()) {
-                    CheckBox chbDontShowAgain = ((AlertDialog) dialog).findViewById(R.id.chbDontShowAgain);
-                    preferences.edit().putBoolean("__dialog_" + getDialogId(), chbDontShowAgain.isChecked()).apply();
-                }
-
-                if (getDismissListener() != null)
-                    getDismissListener().onDismiss(dialog);
+        builder.setOnDismissListener(dialog -> {
+            if (hasDontShowAgain()) {
+                CheckBox chbDontShowAgain = ((AlertDialog) dialog).findViewById(R.id.chbDontShowAgain);
+                preferences.edit().putBoolean("__dialog_" + getDialogId(), chbDontShowAgain.isChecked()).apply();
             }
+
+            if (getDismissListener() != null)
+                getDismissListener().onDismiss(dialog);
         });
 
         AlertDialog alertDialog = builder.create();

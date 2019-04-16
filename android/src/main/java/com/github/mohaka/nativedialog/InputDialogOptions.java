@@ -123,8 +123,8 @@ public class InputDialogOptions extends DialogOptions {
             setSelectTextOnFocus(map.getBoolean("selectTextOnFocus"));
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
-        AlertDialog.Builder builder = super.buildDialog(activity, lightDialogTheme, darkDialogTheme);
+    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
+        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme, lightDialogTheme);
         builder.setView(R.layout.dialog_input);
 
         AlertDialog alertDialog = builder.create();

@@ -46,9 +46,15 @@ const defaultTipDialogProps = {
 	force: false,
 };
 
-const defaultDatePickerDialogProps = {};
+const defaultDatePickerDialogProps = {
+	mode: 'date',
+	is24Hour: true,
+};
 
-const defaultNumberPickerDialogProps = {};
+const defaultNumberPickerDialogProps = {
+	minValue: 0,
+	maxValue: 100,
+};
 
 const defaultRatingDialogProps = {};
 
@@ -259,6 +265,29 @@ export default {
 			...defaultNumberPickerDialogProps,
 			...props,
 		};
+
+		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, ({ value } = {}) => {
+			const { onPositivePress } = props;
+			if (onPositivePress) onPositivePress(value);
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, ({ value } = {}) => {
+			const { onNegativePress } = props;
+			if (onNegativePress) onNegativePress(value);
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, ({ value } = {}) => {
+			const { onNeutralPress } = props;
+			if (onNeutralPress) onNeutralPress(value);
+			removeAllListeners();
+		});
+		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
+			const { onDismiss } = props;
+			if (onDismiss) onDismiss();
+			removeAllListeners();
+		});
+
+		RNNativeDialog.showNumberPickerDialog(props);
 	},
 
 	showRatingDialog(props) {

@@ -1,3 +1,5 @@
+import { Moment } from 'moment';
+
 export type Id = number | string | Array<number> | Array<string>;
 export type Items = Array<string> | Array<{ id: (string | number), title: string }>;
 export type IosButtonType = 'default' | 'cancel' | 'destructive';
@@ -16,7 +18,7 @@ type IosDialogProps = {
 
 type AndroidDialogProps = {}
 
-type CommonDialogProps = {
+type CommonDialogProps = IosDialogProps & AndroidDialogProps & {
 	title?: string,
 	message?: string,
 
@@ -29,18 +31,35 @@ type CommonDialogProps = {
 	positiveButton?: string,
 	negativeButton?: string,
 	neutralButton?: string,
+
+	onDismiss?: () => void,
 }
 
 type CommonDialogEvents = {
 	onPositivePress?: () => void,
 	onNegativePress?: () => void,
 	onNeutralPress?: () => void,
-	onDismiss?: () => void,
 }
 
-export type DialogProps = CommonDialogProps & IosDialogProps & AndroidDialogProps & CommonDialogEvents;
+type InputDialogEvents = {
+	onPositivePress?: (value: string) => void,
+	onNegativePress?: (value: string) => void,
+	onNeutralPress?: (value: string) => void,
+}
 
-export type InputDialogProps = CommonDialogProps & IosDialogProps & AndroidDialogProps & {
+type ItemsDialogEvents = {
+	onItemSelect?: (selectedId: Id) => void,
+}
+
+type NumberPickerDialogEvents = {
+	onPositivePress?: (value: number) => void,
+	onNegativePress?: (value: number) => void,
+	onNeutralPress?: (value: number) => void,
+}
+
+export type DialogProps = CommonDialogProps & CommonDialogEvents;
+
+export type InputDialogProps = CommonDialogProps & InputDialogEvents & {
 	value?: string,
 	placeholder?: string,
 	keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad',
@@ -50,36 +69,40 @@ export type InputDialogProps = CommonDialogProps & IosDialogProps & AndroidDialo
 	autoCapitalize?: 'characters' | 'words' | 'sentences' | 'none',
 	selectTextOnFocus?: boolean,
 	secureTextEntry?: boolean,
-
-	onPositivePress?: (value: string) => void,
-	onNegativePress?: (value: string) => void,
-	onNeutralPress?: (value: string) => void,
 }
 
-export type ItemsDialogProps = DialogProps & {
+export type ItemsDialogProps = CommonDialogProps & ItemsDialogEvents & {
 	mode?: 'default' | 'single' | 'multiple',
 	items: Items,
 	selectedItems?: Id,
-
-	onItemSelect?: (selectedId: Id) => void,
 }
 
-export type ProgressDialogProps = DialogProps & {
+export type ProgressDialogProps = CommonDialogProps & CommonDialogEvents & {
 	size?: 'large' | 'small',
 }
 
-export type TipDialogProps = DialogProps & {
+export type TipDialogProps = CommonDialogProps & CommonDialogEvents & {
 	image?: any,
 	id?: string,
 	dontShowAgain?: string,
 	force?: boolean,
 }
 
-export type DatePickerDialogProps = DialogProps & {}
+export type DatePickerDialogProps = CommonDialogProps & CommonDialogEvents & {
+	date: Date | Moment,
+	mode?: 'date' | 'time' | 'datetime',
+	is24Hour?: boolean,
+	minDate?: Date | Moment,
+	maxDate?: Date | Moment,
+}
 
-export type NumberPickerDialogProps = DialogProps & {}
+export type NumberPickerDialogProps = CommonDialogProps & NumberPickerDialogEvents & {
+	value: number,
+	minValue?: number,
+	maxValue?: number,
+}
 
-export type RatingDialogProps = DialogProps & {}
+export type RatingDialogProps = CommonDialogProps & CommonDialogEvents & {}
 
 declare const showDialog: (props: DialogProps) => void;
 declare const showInputDialog: (props: InputDialogProps) => void;

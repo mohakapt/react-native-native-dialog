@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -26,13 +27,13 @@ import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_SINGLE;
 
 public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public final static String TAG = "RNNativeDialog";
+    private final int dialogTheme;
     private final int lightDialogTheme;
-    private final int darkDialogTheme;
 
-    public RNNativeDialogModule(ReactApplicationContext reactContext, @StyleRes int lightDialogTheme, @StyleRes int darkDialogTheme) {
+    public RNNativeDialogModule(ReactApplicationContext reactContext, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
         super(reactContext);
+        this.dialogTheme = dialogTheme;
         this.lightDialogTheme = lightDialogTheme;
-        this.darkDialogTheme = darkDialogTheme;
     }
 
     @Override
@@ -64,6 +65,12 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         emitData(event, params);
     }
 
+    private void emitInput(String event, int value) {
+        WritableMap params = Arguments.createMap();
+        params.putInt("value", value);
+        emitData(event, params);
+    }
+
     private void emitSelection(ItemsDialogOptions.Item[] items) {
         ReactApplicationContext context = getReactApplicationContext();
         if (context == null) return;
@@ -80,39 +87,31 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
     //endregion
 
-    private DialogInterface.OnDismissListener onDismiss = new DialogInterface.OnDismissListener() {
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            emitEvent(EVENT_DISMISS_DIALOG);
-        }
-    };
+    private DialogInterface.OnDismissListener onDismiss = dialog -> emitEvent(EVENT_DISMISS_DIALOG);
 
     @ReactMethod
     public void showDialog(ReadableMap map) {
         Activity activity = getCurrentActivity();
         if (activity == null) return;
 
-        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        emitEvent(EVENT_POSITIVE_BUTTON);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        emitEvent(EVENT_NEGATIVE_BUTTON);
-                        break;
-                    case DialogInterface.BUTTON_NEUTRAL:
-                        emitEvent(EVENT_NEUTRAL_BUTTON);
-                        break;
-                }
+        DialogInterface.OnClickListener onClick = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    emitEvent(EVENT_POSITIVE_BUTTON);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    emitEvent(EVENT_NEGATIVE_BUTTON);
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    emitEvent(EVENT_NEUTRAL_BUTTON);
+                    break;
             }
         };
 
         DialogOptions dialog = new DialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
+        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
     }
 
     @ReactMethod
@@ -120,32 +119,29 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         Activity activity = getCurrentActivity();
         if (activity == null) return;
 
-        DialogInterface.OnClickListener onButtonClick = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                AlertDialog alertDialog = (AlertDialog) dialog;
+        DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
+            AlertDialog alertDialog = (AlertDialog) dialog;
 
-                EditText txtInput = alertDialog.findViewById(R.id.txtInput);
-                String newValue = txtInput.getText().toString();
+            EditText txtInput = alertDialog.findViewById(R.id.txtInput);
+            String newValue = txtInput.getText().toString();
 
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        emitInput(EVENT_POSITIVE_BUTTON, newValue);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        emitInput(EVENT_NEGATIVE_BUTTON, newValue);
-                        break;
-                    case DialogInterface.BUTTON_NEUTRAL:
-                        emitInput(EVENT_NEUTRAL_BUTTON, newValue);
-                        break;
-                }
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    emitInput(EVENT_POSITIVE_BUTTON, newValue);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    emitInput(EVENT_NEGATIVE_BUTTON, newValue);
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    emitInput(EVENT_NEUTRAL_BUTTON, newValue);
+                    break;
             }
         };
 
         InputDialogOptions dialog = new InputDialogOptions(map);
         dialog.setClickListener(onButtonClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
+        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
     }
 
     @ReactMethod
@@ -155,52 +151,49 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
 
         final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map);
 
-        DialogInterface.OnClickListener onButtonClick = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        emitEvent(EVENT_NEGATIVE_BUTTON);
-                        return;
-                    case DialogInterface.BUTTON_NEUTRAL:
-                        emitEvent(EVENT_NEUTRAL_BUTTON);
-                        return;
+        DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_NEGATIVE:
+                    emitEvent(EVENT_NEGATIVE_BUTTON);
+                    return;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    emitEvent(EVENT_NEUTRAL_BUTTON);
+                    return;
+            }
+
+            int mode = itemsDialog.getMode();
+            List<ItemsDialogOptions.Item> itemList = itemsDialog.getItems();
+            switch (mode) {
+                case MODE_DEFAULT:
+                default:
+                    emitSelection(new ItemsDialogOptions.Item[]{itemList.get(which)});
+                    break;
+                case MODE_SINGLE: {
+                    ListView listView = ((AlertDialog) dialog).getListView();
+                    int checkedItemPosition = listView.getCheckedItemPosition();
+                    emitSelection(new ItemsDialogOptions.Item[]{itemList.get(checkedItemPosition)});
+                    break;
                 }
+                case MODE_MULTIPLE: {
+                    ListView listView = ((AlertDialog) dialog).getListView();
+                    SparseBooleanArray checkedItemPositions = listView.getCheckedItemPositions();
 
-                int mode = itemsDialog.getMode();
-                List<ItemsDialogOptions.Item> itemList = itemsDialog.getItems();
-                switch (mode) {
-                    case MODE_DEFAULT:
-                    default:
-                        emitSelection(new ItemsDialogOptions.Item[]{itemList.get(which)});
-                        break;
-                    case MODE_SINGLE: {
-                        ListView listView = ((AlertDialog) dialog).getListView();
-                        int checkedItemPosition = listView.getCheckedItemPosition();
-                        emitSelection(new ItemsDialogOptions.Item[]{itemList.get(checkedItemPosition)});
-                        break;
-                    }
-                    case MODE_MULTIPLE: {
-                        ListView listView = ((AlertDialog) dialog).getListView();
-                        SparseBooleanArray checkedItemPositions = listView.getCheckedItemPositions();
+                    List<ItemsDialogOptions.Item> selectedItemsList = new ArrayList<>();
+                    for (int i = 0; i < itemList.size(); i++)
+                        if (checkedItemPositions.get(i))
+                            selectedItemsList.add(itemList.get(i));
+                    ItemsDialogOptions.Item[] selectedItemsArray = new ItemsDialogOptions.Item[selectedItemsList.size()];
+                    selectedItemsArray = selectedItemsList.toArray(selectedItemsArray);
 
-                        List<ItemsDialogOptions.Item> selectedItemsList = new ArrayList<>();
-                        for (int i = 0; i < itemList.size(); i++)
-                            if (checkedItemPositions.get(i))
-                                selectedItemsList.add(itemList.get(i));
-                        ItemsDialogOptions.Item[] selectedItemsArray = new ItemsDialogOptions.Item[selectedItemsList.size()];
-                        selectedItemsArray = selectedItemsList.toArray(selectedItemsArray);
-
-                        emitSelection(selectedItemsArray);
-                        break;
-                    }
+                    emitSelection(selectedItemsArray);
+                    break;
                 }
             }
         };
 
         itemsDialog.setClickListener(onButtonClick);
         itemsDialog.setDismissListener(onDismiss);
-        itemsDialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
+        itemsDialog.showDialog(activity, dialogTheme, lightDialogTheme);
     }
 
     @ReactMethod
@@ -208,27 +201,24 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         Activity activity = getCurrentActivity();
         if (activity == null) return;
 
-        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        emitEvent(EVENT_POSITIVE_BUTTON);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        emitEvent(EVENT_NEGATIVE_BUTTON);
-                        break;
-                    case DialogInterface.BUTTON_NEUTRAL:
-                        emitEvent(EVENT_NEUTRAL_BUTTON);
-                        break;
-                }
+        DialogInterface.OnClickListener onClick = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    emitEvent(EVENT_POSITIVE_BUTTON);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    emitEvent(EVENT_NEGATIVE_BUTTON);
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    emitEvent(EVENT_NEUTRAL_BUTTON);
+                    break;
             }
         };
 
         ProgressDialogOptions dialog = new ProgressDialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
+        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
     }
 
     @ReactMethod
@@ -236,26 +226,63 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         Activity activity = getCurrentActivity();
         if (activity == null) return;
 
-        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        emitEvent(EVENT_POSITIVE_BUTTON);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        emitEvent(EVENT_NEGATIVE_BUTTON);
-                        break;
-                    case DialogInterface.BUTTON_NEUTRAL:
-                        emitEvent(EVENT_NEUTRAL_BUTTON);
-                        break;
-                }
+        DialogInterface.OnClickListener onClick = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    emitEvent(EVENT_POSITIVE_BUTTON);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    emitEvent(EVENT_NEGATIVE_BUTTON);
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    emitEvent(EVENT_NEUTRAL_BUTTON);
+                    break;
             }
         };
 
         TipDialogOptions dialog = new TipDialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, lightDialogTheme, darkDialogTheme);
+        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+    }
+
+    @ReactMethod
+    public void showDatePickerDialog(ReadableMap map) {
+
+    }
+
+    @ReactMethod
+    public void showNumberPickerDialog(ReadableMap map) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) return;
+
+        DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
+            AlertDialog alertDialog = (AlertDialog) dialog;
+
+            NumberPicker picNumber = alertDialog.findViewById(R.id.picNumber);
+            int newValue = picNumber.getValue();
+
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    emitInput(EVENT_POSITIVE_BUTTON, newValue);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    emitInput(EVENT_NEGATIVE_BUTTON, newValue);
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    emitInput(EVENT_NEUTRAL_BUTTON, newValue);
+                    break;
+            }
+        };
+
+        NumberPickerDialogOptions dialog = new NumberPickerDialogOptions(map);
+        dialog.setClickListener(onButtonClick);
+        dialog.setDismissListener(onDismiss);
+        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+    }
+
+    @ReactMethod
+    public void showRatingDialog(ReadableMap map) {
+
     }
 }
