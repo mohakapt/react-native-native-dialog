@@ -51,7 +51,7 @@ export default class App extends Component<Props, State> {
 		// 	// onDismiss: () => console.warn('dismiss'),
 		// });
 
-		ModalAlert.showNumberPickerDialog({
+		ModalAlert.showRatingDialog({
 			title: 'Pick a Number',
 
 			value: 20,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
 
 const { RNNativeDialog } = NativeModules;
 const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
@@ -70,8 +70,18 @@ const removeAllListeners = () => {
 	RNNativeDialogEvents.removeAllListeners(EVENT_DISMISS_DIALOG);
 };
 
+const checkIfSupported = (ios, android, condition = true) => {
+	const supported = condition && (ios && Platform.OS === 'ios' || android && Platform.OS === 'android');
+	if (!supported) {
+		console.warn('This feature is not supported yet, If you have the time and the skill please consider spending some time to help implementing it.');
+	}
+	return supported;
+};
+
 export default {
 	showDialog(props) {
+		if (!checkIfSupported(true, true)) return;
+
 		if (!props) return;
 		props = { ...defaultDialogProps, ...props };
 
@@ -100,6 +110,8 @@ export default {
 	},
 
 	showInputDialog(props) {
+		if (!checkIfSupported(false, true)) return;
+
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -132,6 +144,8 @@ export default {
 	},
 
 	showItemsDialog(props) {
+		if (!checkIfSupported(false, true)) return;
+
 		if (!props || !props.items || !Array.isArray(props.items)) return;
 		props = {
 			...defaultDialogProps,
@@ -180,6 +194,8 @@ export default {
 	},
 
 	showProgressDialog(props) {
+		if (!checkIfSupported(false, true)) return;
+
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -212,6 +228,8 @@ export default {
 	},
 
 	showTipDialog(props) {
+		if (!checkIfSupported(false, true)) return;
+
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -250,6 +268,8 @@ export default {
 	},
 
 	showDatePickerDialog(props) {
+		if (!checkIfSupported(false, false)) return;
+
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -259,6 +279,8 @@ export default {
 	},
 
 	showNumberPickerDialog(props) {
+		if (!checkIfSupported(false, true)) return;
+
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
@@ -291,6 +313,8 @@ export default {
 	},
 
 	showRatingDialog(props) {
+		if (!checkIfSupported(false, false)) return;
+
 		if (!props) return;
 		props = {
 			...defaultDialogProps,

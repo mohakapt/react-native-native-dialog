@@ -78,4 +78,24 @@ class NativeDialog: RCTEventEmitter {
   func showProgressDialog(options: [String: Any]) {
 
   }
+
+  @objc(showTipDialog:)
+  func showTipDialog(options: [String: Any]) {
+
+  }
+
+  @objc(showDatePickerDialog:)
+  func showDatePickerDialog(options: [String: Any]) {
+
+  }
+
+  @objc(showNumberPickerDialog:)
+  func showNumberPickerDialog(options: [String: Any]) {
+
+  }
+
+  @objc(showRatingDialog:)
+  func showRatingDialog(options: [String: Any]) {
+
+  }
 }
