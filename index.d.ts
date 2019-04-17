@@ -47,7 +47,7 @@ type InputDialogEvents = {
 	onNeutralPress?: (value: string) => void,
 }
 
-type ItemsDialogEvents<T extends string | number> = {
+type ItemsDialogEvents<T extends string | number> = CommonDialogEvents & {
 	onItemSelect?: (selectedId: Id<T>) => void,
 }
 

@@ -2,6 +2,11 @@ example/
 *.iml
 .idea
 android/build
+android/.gradle
+android/gradle
+android/gradlew
+android/gradlew.bat
+android/local.properties
 ios/RNNativeDialog.xcodeproj/xcuserdata
 ios/RNNativeDialog.xcodeproj/project.xcworkspace
 .gitattributes
