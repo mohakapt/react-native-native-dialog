@@ -20,13 +20,29 @@ class InputViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.updateTheme()
 
     titleLabel.text = dialogOptions.title
     messageLabel.text = dialogOptions.message
 
-    self.updateTheme()
-//    commentTextField.delegate = self
-//    view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+    textField.text = dialogOptions.value
+    textField.placeholder = dialogOptions.placeholder
+    textField.keyboardType = dialogOptions.keyboardType
+    textField.autocorrectionType = dialogOptions.autoCorrect ? .yes : .no
+    textField.autocapitalizationType = dialogOptions.autoCapitalize
+    textField.isSecureTextEntry = dialogOptions.secureTextEntry
+
+    textField.delegate = dialogOptions
+
+    view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    if dialogOptions.autoFocus {
+      textField.becomeFirstResponder()
+    }
   }
 
   private func updateTheme() {

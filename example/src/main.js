@@ -44,11 +44,12 @@ export default class App extends Component<Props, State> {
 
 			autoFocus: true,
 			maxLength: 5,
-			// onPositivePress: () => console.warn('positive'),
-			// onNegativePress: () => console.warn('negative'),
-			// onNeutralPress: () => console.warn('neutral'),
-			//
-			// onDismiss: () => console.warn('dismiss'),
+
+			onPositivePress: (input) => console.warn('positive - ', input),
+			onNegativePress: (input) => console.warn('negative - ', input),
+			onNeutralPress: (input) => console.warn('neutral - ', input),
+
+			onDismiss: () => console.warn('dismiss'),
 		});
 
 		// ModalAlert.showRatingDialog({
