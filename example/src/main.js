@@ -23,44 +23,44 @@ export default class App extends Component<Props, State> {
 	}
 
 	onTouched = () => {
-		// ModalAlert.showInputDialog({
-		// 	title: 'Do you want to update your iCloud Backup before erasing?',
-		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
-		//
-		// 	positiveButton: 'Back Up Then Erase',
-		// 	negativeButton: 'Erase Now',
-		// 	neutralButton: 'Cancel',
-		//
-		// 	neutralButtonStyle: 'cancel',
-		//
-		// 	// preferredStyle: 'alert',
-		//
-		// 	theme: 'dark',
-		// 	accentColor: '#0ad2c4',
-		//
-		// 	value: 'asdf',
-		// 	placeholder: 'Enter your password',
-		// 	keyboardType: 'number-pad',
-		//
-		// 	autoFocus: true,
-		// 	maxLength: 5,
-		// 	// onPositivePress: () => console.warn('positive'),
-		// 	// onNegativePress: () => console.warn('negative'),
-		// 	// onNeutralPress: () => console.warn('neutral'),
-		// 	//
-		// 	// onDismiss: () => console.warn('dismiss'),
-		// });
+		ModalAlert.showInputDialog({
+			title: 'Do you want to update your iCloud Backup before erasing?',
+			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
 
-		ModalAlert.showRatingDialog({
-			title: 'Pick a Number',
+			positiveButton: 'Back Up Then Erase',
+			negativeButton: 'Erase Now',
+			neutralButton: 'Cancel',
 
-			value: 20,
-			positiveButton: 'Pick',
+			neutralButtonStyle: 'cancel',
 
-			onPositivePress: value => {
-				console.warn('---- ', value);
-			},
+			preferredStyle: 'popupDialog',
+
+			theme: 'dark',
+			accentColor: '#0ad2c4',
+
+			value: 'asdf',
+			placeholder: 'Enter your password',
+			keyboardType: 'number-pad',
+
+			autoFocus: true,
+			maxLength: 5,
+			// onPositivePress: () => console.warn('positive'),
+			// onNegativePress: () => console.warn('negative'),
+			// onNeutralPress: () => console.warn('neutral'),
+			//
+			// onDismiss: () => console.warn('dismiss'),
 		});
+
+		// ModalAlert.showRatingDialog({
+		// 	title: 'Pick a Number',
+		//
+		// 	value: 20,
+		// 	positiveButton: 'Pick',
+		//
+		// 	onPositivePress: value => {
+		// 		console.warn('---- ', value);
+		// 	},
+		// });
 	};
 
 	render() {

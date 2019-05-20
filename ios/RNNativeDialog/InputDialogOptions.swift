@@ -16,16 +16,33 @@ class InputViewController: UIViewController {
   @IBOutlet weak var messageLabel: UILabel!
   @IBOutlet weak var textField: UITextField!
 
+  var dialogOptions: InputDialogOptions!
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    titleLabel.text = dialogOptions.title
+    messageLabel.text = dialogOptions.message
+
+    self.updateTheme()
 //    commentTextField.delegate = self
 //    view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(endEditing)))
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  private func updateTheme() {
+    self.view.tintColor = dialogOptions.accentColor
+
+    if dialogOptions.theme == .dark {
+      titleLabel.textColor = UIColor(white: 1, alpha: 1)
+      messageLabel.textColor = UIColor(white: 0.8, alpha: 1)
+      textField.backgroundColor = UIColor(white: 1, alpha: 0.05)
+      textField.textColor = .white
+    } else {
+      titleLabel.textColor = UIColor(white: 0, alpha: 1)
+      messageLabel.textColor = UIColor(white: 0.2, alpha: 1)
+      textField.backgroundColor = UIColor(white: 0, alpha: 0.005)
+      textField.textColor = .black
+    }
   }
 
   @objc func endEditing() {
@@ -133,6 +150,7 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
 
     let bundle = Bundle(for: InputViewController.self)
     let inputVC = InputViewController(nibName: "InputViewController", bundle: bundle)
+    inputVC.dialogOptions = self
     let popupController = PopupDialog(viewController: inputVC, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, preferredWidth: preferredWidth, tapGestureDismissal: cancelOnTouchOutside, panGestureDismissal: cancellable, hideStatusBar: hideStatusBar) {
       self.dismissHandler?()
     }

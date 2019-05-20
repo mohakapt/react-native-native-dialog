@@ -110,7 +110,7 @@ export default {
 	},
 
 	showInputDialog(props) {
-		if (!checkIfSupported(false, true)) return;
+		if (!checkIfSupported(true, true)) return;
 
 		if (!props) return;
 		props = {
