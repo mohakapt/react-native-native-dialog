@@ -26,7 +26,9 @@ class InputViewController: UIViewController {
     messageLabel.text = dialogOptions.message
 
     textField.text = dialogOptions.value
-    textField.placeholder = dialogOptions.placeholder
+    textField.attributedPlaceholder = NSAttributedString(string: dialogOptions.placeholder ?? "",
+                                                         attributes: [.foregroundColor: UIColor(white: 0.6, alpha: 1)])
+
     textField.keyboardType = dialogOptions.keyboardType
     textField.autocorrectionType = dialogOptions.autoCorrect ? .yes : .no
     textField.autocapitalizationType = dialogOptions.autoCapitalize
@@ -49,12 +51,12 @@ class InputViewController: UIViewController {
     self.view.tintColor = dialogOptions.accentColor
 
     if dialogOptions.theme == .dark {
-      titleLabel.textColor = UIColor(white: 1, alpha: 1)
+      titleLabel.textColor = .white
       messageLabel.textColor = UIColor(white: 0.8, alpha: 1)
-      textField.backgroundColor = UIColor(white: 1, alpha: 0.05)
+      textField.backgroundColor = UIColor(white: 1, alpha: 0.03)
       textField.textColor = .white
     } else {
-      titleLabel.textColor = UIColor(white: 0, alpha: 1)
+      titleLabel.textColor = .black
       messageLabel.textColor = UIColor(white: 0.2, alpha: 1)
       textField.backgroundColor = UIColor(white: 0, alpha: 0.005)
       textField.textColor = .black
@@ -75,6 +77,7 @@ extension InputViewController: UITextFieldDelegate {
 }
 
 class InputDialogOptions: DialogOptions, UITextFieldDelegate {
+
   let value: String?
   let placeholder: String?
   let keyboardType: UIKeyboardType
@@ -84,6 +87,8 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
   let autoCapitalize: UITextAutocapitalizationType
   let secureTextEntry: Bool
   let selectTextOnFocus: Bool // Not supported yet
+
+  private var newValue: String?
 
   override init(options: [String: Any]) {
     self.value = options["value"] as? String
@@ -153,40 +158,28 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
   }
 
   override func buildPopupDialog() -> PopupDialog {
-    let buildButton = { (title: String, style: UIAlertAction.Style, handler: (() -> Void)?) -> PopupDialogButton in
-      switch style {
-      case .default:
-        return DefaultButton(title: title, action: handler)
-      case .cancel:
-        return CancelButton(title: title, action: handler)
-      case .destructive:
-        return DestructiveButton(title: title, action: handler)
-      }
-    }
-
     let bundle = Bundle(for: InputViewController.self)
     let inputVC = InputViewController(nibName: "InputViewController", bundle: bundle)
     inputVC.dialogOptions = self
+
     let popupController = PopupDialog(viewController: inputVC, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, preferredWidth: preferredWidth, tapGestureDismissal: cancelOnTouchOutside, panGestureDismissal: cancellable, hideStatusBar: hideStatusBar) {
       self.dismissHandler?()
     }
 
-    if let title = positiveButton {
-      let button = buildButton(title, positiveButtonStyle, positiveButtonHandler)
-      popupController.addButton(button)
-    }
-
-    if let title = negativeButton {
-      let button = buildButton(title, negativeButtonStyle, negativeButtonHandler)
-      popupController.addButton(button)
-    }
-
-    if let title = neutralButton {
-      let button = buildButton(title, neutralButtonStyle, neutralButtonHandler)
-      popupController.addButton(button)
-    }
-
+    injectButtons(dialog: popupController)
     return popupController
+  }
+
+  override func positiveButtonTouched() {
+    self.buttonHandler?(.positive, ["value": newValue])
+  }
+
+  override func negativeButtonTouched() {
+    self.buttonHandler?(.negative, ["value": newValue])
+  }
+
+  override func neutralButtonTouched() {
+    self.buttonHandler?(.neutral, ["value": newValue])
   }
 
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -201,5 +194,9 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
     guard let maxLength = self.maxLength, let text = textField.text else { return true }
     let count = text.count + string.count - range.length
     return count <= maxLength
+  }
+
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    self.newValue = textField.text
   }
 }

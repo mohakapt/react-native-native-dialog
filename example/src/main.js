@@ -33,7 +33,7 @@ export default class App extends Component<Props, State> {
 
 			neutralButtonStyle: 'cancel',
 
-			preferredStyle: 'popupDialog',
+			preferredStyle: 'alert',
 
 			theme: 'dark',
 			accentColor: '#0ad2c4',

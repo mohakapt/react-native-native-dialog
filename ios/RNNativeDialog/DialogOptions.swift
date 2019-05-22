@@ -21,6 +21,12 @@ enum DialogStyle: String {
   case actionSheet
 }
 
+enum DialogButton: String {
+  case positive
+  case negative
+  case neutral
+}
+
 class DialogOptions: NSObject {
   let theme: Theme
   let accentColor: UIColor
@@ -44,9 +50,7 @@ class DialogOptions: NSObject {
   let negativeButtonStyle: UIAlertAction.Style
   let neutralButtonStyle: UIAlertAction.Style
 
-  var positiveButtonHandler: (() -> Void)?
-  var negativeButtonHandler: (() -> Void)?
-  var neutralButtonHandler: (() -> Void)?
+  var buttonHandler: ((DialogButton, [String: String?]?) -> Void)?
   var dismissHandler: (() -> Void)?
 
   init(options: [String: Any]) {
@@ -140,7 +144,7 @@ class DialogOptions: NSObject {
 
   }
 
-  internal func presentDialog(in viewController: UIViewController) {
+  func presentDialog(in viewController: UIViewController) {
     if preferredStyle != .popupDialog {
       let dialog = buildNativeDialog()
       viewController.present(dialog, animated: true)
@@ -152,34 +156,39 @@ class DialogOptions: NSObject {
     }
   }
 
-  internal func buildNativeDialog() -> UIAlertController {
+  func buildNativeDialog() -> UIAlertController {
     let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle == .alert ? .alert : .actionSheet)
-
-    if let title = positiveButton {
-      let action = UIAlertAction(title: title, style: positiveButtonStyle) { (_) in
-        self.positiveButtonHandler?()
-      }
-      alertController.addAction(action)
-    }
-
-    if let title = negativeButton {
-      let action = UIAlertAction(title: title, style: negativeButtonStyle) { (_) in
-        self.negativeButtonHandler?()
-      }
-      alertController.addAction(action)
-    }
-
-    if let title = neutralButton {
-      let action = UIAlertAction(title: title, style: neutralButtonStyle) { (_) in
-        self.neutralButtonHandler?()
-      }
-      alertController.addAction(action)
-    }
-
+    injectButtons(dialog: alertController)
     return alertController
   }
 
-  internal func buildPopupDialog() -> PopupDialog {
+  func buildPopupDialog() -> PopupDialog {
+    let popupController = PopupDialog(title: title, message: message, image: nil, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, preferredWidth: preferredWidth, tapGestureDismissal: cancelOnTouchOutside, panGestureDismissal: cancellable, hideStatusBar: hideStatusBar) {
+      self.dismissHandler?()
+    }
+
+    injectButtons(dialog: popupController)
+    return popupController
+  }
+
+  func injectButtons(dialog: UIAlertController) {
+    if let title = positiveButton {
+      let action = UIAlertAction(title: title, style: positiveButtonStyle) { (_) in self.positiveButtonTouched() }
+      dialog.addAction(action)
+    }
+
+    if let title = negativeButton {
+      let action = UIAlertAction(title: title, style: negativeButtonStyle) { (_) in self.negativeButtonTouched() }
+      dialog.addAction(action)
+    }
+
+    if let title = neutralButton {
+      let action = UIAlertAction(title: title, style: neutralButtonStyle) { (_) in self.neutralButtonTouched() }
+      dialog.addAction(action)
+    }
+  }
+
+  func injectButtons(dialog: PopupDialog) {
     let buildButton = { (title: String, style: UIAlertAction.Style, handler: (() -> Void)?) -> PopupDialogButton in
       switch style {
       case .default:
@@ -191,29 +200,35 @@ class DialogOptions: NSObject {
       }
     }
 
-    let popupController = PopupDialog(title: title, message: message, image: nil, buttonAlignment: buttonAlignment, transitionStyle: transitionStyle, preferredWidth: preferredWidth, tapGestureDismissal: cancelOnTouchOutside, panGestureDismissal: cancellable, hideStatusBar: hideStatusBar) {
-      self.dismissHandler?()
-    }
-
     if let title = positiveButton {
-      let button = buildButton(title, positiveButtonStyle, positiveButtonHandler)
-      popupController.addButton(button)
+      let button = buildButton(title, positiveButtonStyle) { () in self.positiveButtonTouched() }
+      dialog.addButton(button)
     }
 
     if let title = negativeButton {
-      let button = buildButton(title, negativeButtonStyle, negativeButtonHandler)
-      popupController.addButton(button)
+      let button = buildButton(title, negativeButtonStyle) { () in self.negativeButtonTouched() }
+      dialog.addButton(button)
     }
 
     if let title = neutralButton {
-      let button = buildButton(title, neutralButtonStyle, neutralButtonHandler)
-      popupController.addButton(button)
+      let button = buildButton(title, neutralButtonStyle) { () in self.neutralButtonTouched() }
+      dialog.addButton(button)
     }
-
-    return popupController
   }
 
-  internal func updateTheme() {
+  func positiveButtonTouched() {
+    self.buttonHandler?(.positive, nil)
+  }
+
+  func negativeButtonTouched() {
+    self.buttonHandler?(.negative, nil)
+  }
+
+  func neutralButtonTouched() {
+    self.buttonHandler?(.neutral, nil)
+  }
+
+  func updateTheme() {
     if theme == .dark {
       // Customize the container view appearance
       let pcv = PopupDialogContainerView.appearance()

@@ -30,15 +30,20 @@ class NativeDialog: RCTEventEmitter {
     }
 
     let dialogOptions = DialogOptions(options: options)
-    dialogOptions.positiveButtonHandler = { () in
-      self.sendEvent(withName: "native_dialog__positive_button", body: nil)
+    dialogOptions.buttonHandler = { (button, extra) in
+      switch button {
+      case .positive:
+        self.sendEvent(withName: "native_dialog__positive_button", body: nil)
+        break
+      case .negative:
+        self.sendEvent(withName: "native_dialog__negative_button", body: nil)
+        break
+      case .neutral:
+        self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
+        break
+      }
     }
-    dialogOptions.negativeButtonHandler = { () in
-      self.sendEvent(withName: "native_dialog__negative_button", body: nil)
-    }
-    dialogOptions.neutralButtonHandler = { () in
-      self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
-    }
+
     dialogOptions.dismissHandler = { () in
       self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
     }
@@ -53,15 +58,20 @@ class NativeDialog: RCTEventEmitter {
     }
 
     let dialogOptions = InputDialogOptions(options: options)
-    dialogOptions.positiveButtonHandler = { () in
-      self.sendEvent(withName: "native_dialog__positive_button", body: nil)
+    dialogOptions.buttonHandler = { (button, extra) in
+      switch button {
+      case .positive:
+        self.sendEvent(withName: "native_dialog__positive_button", body: extra)
+        break
+      case .negative:
+        self.sendEvent(withName: "native_dialog__negative_button", body: extra)
+        break
+      case .neutral:
+        self.sendEvent(withName: "native_dialog__neutral_button", body: extra)
+        break
+      }
     }
-    dialogOptions.negativeButtonHandler = { () in
-      self.sendEvent(withName: "native_dialog__negative_button", body: nil)
-    }
-    dialogOptions.neutralButtonHandler = { () in
-      self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
-    }
+
     dialogOptions.dismissHandler = { () in
       self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
     }
