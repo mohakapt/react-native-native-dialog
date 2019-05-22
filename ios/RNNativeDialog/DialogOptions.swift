@@ -118,15 +118,15 @@ class DialogOptions: NSObject {
       break
     }
 
-    switch (options["negativeButtonStyle"] as? String ?? "default").lowercased() {
-    case "cancel":
-      self.negativeButtonStyle = .cancel
+    switch (options["negativeButtonStyle"] as? String ?? "cancel").lowercased() {
+    case "default":
+      self.negativeButtonStyle = .default
       break
     case "destructive":
       self.negativeButtonStyle = .destructive
       break
     default:
-      self.negativeButtonStyle = .default
+      self.negativeButtonStyle = .cancel
       break
     }
 
@@ -158,7 +158,11 @@ class DialogOptions: NSObject {
 
   func buildNativeDialog() -> UIAlertController {
     let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle == .alert ? .alert : .actionSheet)
-    injectButtons(dialog: alertController)
+
+    if shouldInjectButtons() {
+      injectButtons(dialog: alertController)
+    }
+
     return alertController
   }
 
@@ -167,7 +171,10 @@ class DialogOptions: NSObject {
       self.dismissHandler?()
     }
 
-    injectButtons(dialog: popupController)
+    if shouldInjectButtons() {
+      injectButtons(dialog: popupController)
+    }
+
     return popupController
   }
 
@@ -214,6 +221,10 @@ class DialogOptions: NSObject {
       let button = buildButton(title, neutralButtonStyle) { () in self.neutralButtonTouched() }
       dialog.addButton(button)
     }
+  }
+
+  func shouldInjectButtons() -> Bool {
+    return true
   }
 
   func positiveButtonTouched() {

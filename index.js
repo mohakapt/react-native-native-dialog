@@ -18,7 +18,7 @@ const defaultDialogProps = {
 	hideStatusBar: false,
 
 	positiveButtonStyle: 'default',
-	negativeButtonStyle: 'default',
+	negativeButtonStyle: 'cancel',
 	neutralButtonStyle: 'default',
 };
 
@@ -144,7 +144,7 @@ export default {
 	},
 
 	showItemsDialog(props) {
-		if (!checkIfSupported(false, true)) return;
+		if (!checkIfSupported(true, true, props.mode === 'default')) return;
 
 		if (!props || !props.items || !Array.isArray(props.items)) return;
 		props = {

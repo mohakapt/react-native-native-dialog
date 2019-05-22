@@ -81,7 +81,16 @@ class NativeDialog: RCTEventEmitter {
 
   @objc(showItemsDialog:)
   func showItemsDialog(options: [String: Any]) {
+    guard let viewConroller = UIApplication.shared.keyWindow?.rootViewController else {
+      return
+    }
 
+    let dialogOptions = ItemsDialogOptions(options: options)
+    dialogOptions.dismissHandler = { () in
+      self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
+    }
+
+    dialogOptions.presentDialog(in: viewConroller)
   }
 
   @objc(showProgressDialog:)

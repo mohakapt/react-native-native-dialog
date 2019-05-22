@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { Button, Platform, StyleSheet, Text, View } from 'react-native';
-import ModalAlert from 'react-native-native-dialog';
+import NativeDialog from 'react-native-native-dialog';
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -23,33 +23,48 @@ export default class App extends Component<Props, State> {
 	}
 
 	onTouched = () => {
-		ModalAlert.showInputDialog({
-			title: 'Do you want to update your iCloud Backup before erasing?',
-			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
+		// ModalAlert.showInputDialog({
+		// 	title: 'Do you want to update your iCloud Backup before erasing?',
+		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
+		//
+		// 	positiveButton: 'Back Up Then Erase',
+		// 	negativeButton: 'Erase Now',
+		// 	neutralButton: 'Cancel',
+		//
+		// 	neutralButtonStyle: 'cancel',
+		//
+		// 	preferredStyle: 'alert',
+		//
+		// 	theme: 'dark',
+		// 	accentColor: '#0ad2c4',
+		//
+		// 	value: 'asdf',
+		// 	placeholder: 'Enter your password',
+		// 	keyboardType: 'number-pad',
+		//
+		// 	autoFocus: true,
+		// 	maxLength: 5,
+		//
+		// 	onPositivePress: (input) => console.warn('positive - ', input),
+		// 	onNegativePress: (input) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		//
+		// 	onDismiss: () => console.warn('dismiss'),
+		// });
 
-			positiveButton: 'Back Up Then Erase',
-			negativeButton: 'Erase Now',
-			neutralButton: 'Cancel',
+		NativeDialog.showItemsDialog({
+			title: 'How would you like to pay for your meal?',
 
-			neutralButtonStyle: 'cancel',
+			mode: 'default',
+			items: ['Credit Card', 'Debit Card', 'Cash'],
+			selectedItems: [0],
 
 			preferredStyle: 'alert',
 
 			theme: 'dark',
-			accentColor: '#0ad2c4',
+			accentColor: '#a62f3b',
 
-			value: 'asdf',
-			placeholder: 'Enter your password',
-			keyboardType: 'number-pad',
-
-			autoFocus: true,
-			maxLength: 5,
-
-			onPositivePress: (input) => console.warn('positive - ', input),
-			onNegativePress: (input) => console.warn('negative - ', input),
-			onNeutralPress: (input) => console.warn('neutral - ', input),
-
-			onDismiss: () => console.warn('dismiss'),
+			negativeButton: 'Cancel',
 		});
 
 		// ModalAlert.showRatingDialog({
