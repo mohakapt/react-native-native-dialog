@@ -240,56 +240,58 @@ class DialogOptions: NSObject {
   }
 
   func updateTheme() {
+    let pcv = PopupDialogContainerView.appearance()
+    let pv = PopupDialogDefaultView.appearance()
+    let db = DefaultButton.appearance()
+    let cb = CancelButton.appearance()
+    let eb = DestructiveButton.appearance()
+
+    pv.titleFont = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    pv.messageFont = UIFont.systemFont(ofSize: 15)
+    db.titleFont = UIFont.systemFont(ofSize: 15)
+    cb.titleFont = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    eb.titleFont = UIFont.systemFont(ofSize: 15)
+
     if theme == .dark {
       // Customize the container view appearance
-      let pcv = PopupDialogContainerView.appearance()
       pcv.backgroundColor = UIColor(hexString: "#333333")
 
       // Customize dialog appearance
-      let pv = PopupDialogDefaultView.appearance()
       pv.titleColor = UIColor(white: 1, alpha: 1)
       pv.messageColor = UIColor(white: 0.8, alpha: 1)
 
       // Customize default button appearance
-      let db = DefaultButton.appearance()
       db.titleColor = accentColor
       db.buttonColor = UIColor(white: 1, alpha: 0.04)
       db.separatorColor = UIColor(white: 1, alpha: 0.08)
 
       // Customize cancel button appearance
-      let cb = CancelButton.appearance()
       cb.titleColor = accentColor.withAlphaComponent(0.8)
       cb.buttonColor = UIColor(white: 1, alpha: 0.04)
       cb.separatorColor = UIColor(white: 1, alpha: 0.08)
 
       // Customize cancel button appearance
-      let eb = DestructiveButton.appearance()
       eb.buttonColor = UIColor(white: 1, alpha: 0.04)
       eb.separatorColor = UIColor(white: 1, alpha: 0.08)
     } else {
       // Customize the container view appearance
-      let pcv = PopupDialogContainerView.appearance()
       pcv.backgroundColor = .white
 
       // Customize dialog appearance
-      let pv = PopupDialogDefaultView.appearance()
       pv.titleColor = UIColor(white: 0, alpha: 1)
       pv.messageColor = UIColor(white: 0.2, alpha: 1)
 
       // Customize default button appearance
-      let db = DefaultButton.appearance()
       db.titleColor = accentColor
       db.buttonColor = UIColor(white: 0, alpha: 0.04)
       db.separatorColor = UIColor(white: 0, alpha: 0.08)
 
       // Customize cancel button appearance
-      let cb = CancelButton.appearance()
       cb.titleColor = accentColor.withAlphaComponent(0.8)
       cb.buttonColor = UIColor(white: 0, alpha: 0.04)
       cb.separatorColor = UIColor(white: 0, alpha: 0.08)
 
       // Customize cancel button appearance
-      let eb = DestructiveButton.appearance()
       eb.buttonColor = UIColor(white: 0, alpha: 0.04)
       eb.separatorColor = UIColor(white: 0, alpha: 0.08)
     }

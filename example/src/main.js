@@ -23,51 +23,53 @@ export default class App extends Component<Props, State> {
 	}
 
 	onTouched = () => {
-		// ModalAlert.showInputDialog({
-		// 	title: 'Do you want to update your iCloud Backup before erasing?',
-		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
-		//
-		// 	positiveButton: 'Back Up Then Erase',
-		// 	negativeButton: 'Erase Now',
-		// 	neutralButton: 'Cancel',
-		//
-		// 	neutralButtonStyle: 'cancel',
-		//
-		// 	preferredStyle: 'alert',
-		//
-		// 	theme: 'dark',
-		// 	accentColor: '#0ad2c4',
-		//
-		// 	value: 'asdf',
-		// 	placeholder: 'Enter your password',
-		// 	keyboardType: 'number-pad',
-		//
-		// 	autoFocus: true,
-		// 	maxLength: 5,
-		//
-		// 	onPositivePress: (input) => console.warn('positive - ', input),
-		// 	onNegativePress: (input) => console.warn('negative - ', input),
-		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
-		//
-		// 	onDismiss: () => console.warn('dismiss'),
-		// });
+		NativeDialog.showInputDialog({
+			title: 'Do you want to update your iCloud Backup before erasing?',
+			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
 
-		NativeDialog.showItemsDialog({
-			title: 'How would you like to pay for your meal?',
+			positiveButton: 'Back Up Then Erase',
+			negativeButton: 'Erase Now',
+			neutralButton: 'Cancel',
 
-			mode: 'default',
-			items: ['Credit Card', 'Debit Card', 'Cash'],
-			selectedItems: [0],
+			negativeButtonStyle: 'default',
+			neutralButtonStyle: 'cancel',
 
-			preferredStyle: 'alert',
+			transitionStyle: 'bounceUp',
+			preferredStyle: 'popupDialog',
 
 			theme: 'dark',
-			accentColor: '#a62f3b',
+			accentColor: '#ff4a9e',
 
-			negativeButton: 'Cancel',
+			value: 'asdf',
+			placeholder: 'Enter your password',
+			keyboardType: 'number-pad',
+
+			autoFocus: true,
+			maxLength: 5,
+
+			onPositivePress: (input) => console.warn('positive - ', input),
+			onNegativePress: (input) => console.warn('negative - ', input),
+			onNeutralPress: (input) => console.warn('neutral - ', input),
+
+			onDismiss: () => console.warn('dismiss'),
 		});
 
-		// ModalAlert.showRatingDialog({
+		// NativeDialog.showItemsDialog({
+		// 	title: 'How would you like to pay for your meal today?',
+		//
+		// 	mode: 'default',
+		// 	items: ['Credit Card', 'Debit Card', 'Cash'],
+		// 	selectedItems: [0],
+		//
+		// 	preferredStyle: 'popupDialog',
+		//
+		// 	theme: 'light',
+		// 	accentColor: '#ff4a9e',
+		//
+		// 	negativeButton: 'Cancel',
+		// });
+
+		// NativeDialog.showNumberPickerDialog({
 		// 	title: 'Pick a Number',
 		//
 		// 	value: 20,

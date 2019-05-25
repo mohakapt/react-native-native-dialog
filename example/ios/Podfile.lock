@@ -54,7 +54,7 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNNativeDialog (0.8.9):
+  - RNNativeDialog (0.9.0):
     - PopupDialog
     - React
   - yoga (0.59.4.React)
@@ -102,7 +102,7 @@ SPEC CHECKSUMS:
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   PopupDialog: f4bb461bf70ff422be0b56656566424ee9273080
   React: 5cb71fb1a15b5ce04794ab49e24b48ebe4c94e65
-  RNNativeDialog: b904feb599b9dca78de0f3c2c22fc2bacc77612d
+  RNNativeDialog: b34454aec1ea73f44038a094f5540bf018972387
   yoga: 596e61c9b57751d08a22b07aba310dbd3e65ab75
 
 PODFILE CHECKSUM: 5f9bf7a20efbb512abd04c3a4efbc49a69797195

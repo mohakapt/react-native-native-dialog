@@ -39,6 +39,7 @@
 		714F1E3C222FB78C00C332C0 /* TipDialogOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDialogOptions.swift; sourceTree = "<group>"; };
 		7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		7178227821F89FCF00B5A9B3 /* NativeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDialog.swift; sourceTree = "<group>"; };
+		71BEF2C82296A6D100AD229F /* ItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemsViewController.xib; sourceTree = "<group>"; };
 		71E629D2223536380039BCFD /* InputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputViewController.xib; sourceTree = "<group>"; };
 		911BE484201C8E8200474413 /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNativeDialog.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,6 +84,7 @@
 				714F1E3A222FB77F00C332C0 /* ProgressDialogOptions.swift */,
 				714F1E3C222FB78C00C332C0 /* TipDialogOptions.swift */,
 				71E629D2223536380039BCFD /* InputViewController.xib */,
+				71BEF2C82296A6D100AD229F /* ItemsViewController.xib */,
 			);
 			path = RNNativeDialog;
 			sourceTree = "<group>";
@@ -127,6 +129,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 58B511D21A9E6C8500147676;
