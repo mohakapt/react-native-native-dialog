@@ -86,6 +86,10 @@ class NativeDialog: RCTEventEmitter {
     }
 
     let dialogOptions = ItemsDialogOptions(options: options)
+    dialogOptions.itemSelectHandler = { (selectedIds) in
+      self.sendEvent(withName: "native_dialog__positive_button", body: selectedIds)
+    }
+
     dialogOptions.dismissHandler = { () in
       self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
     }

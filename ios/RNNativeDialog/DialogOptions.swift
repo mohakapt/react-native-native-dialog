@@ -246,10 +246,10 @@ class DialogOptions: NSObject {
     let cb = CancelButton.appearance()
     let eb = DestructiveButton.appearance()
 
-    pv.titleFont = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    pv.titleFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
     pv.messageFont = UIFont.systemFont(ofSize: 15)
     db.titleFont = UIFont.systemFont(ofSize: 15)
-    cb.titleFont = UIFont.systemFont(ofSize: 15, weight: .semibold)
+    cb.titleFont = UIFont.systemFont(ofSize: 15, weight: .bold)
     eb.titleFont = UIFont.systemFont(ofSize: 15)
 
     if theme == .dark {

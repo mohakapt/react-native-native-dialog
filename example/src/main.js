@@ -22,52 +22,56 @@ export default class App extends Component<Props, State> {
 		this.state = { selectedPositions: [] };
 	}
 
-	onTouched = () => {
-		NativeDialog.showInputDialog({
-			title: 'Do you want to update your iCloud Backup before erasing?',
-			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
-
-			positiveButton: 'Back Up Then Erase',
-			negativeButton: 'Erase Now',
-			neutralButton: 'Cancel',
-
-			negativeButtonStyle: 'default',
-			neutralButtonStyle: 'cancel',
-
-			transitionStyle: 'bounceUp',
-			preferredStyle: 'popupDialog',
-
-			theme: 'dark',
-			accentColor: '#ff4a9e',
-
-			value: 'asdf',
-			placeholder: 'Enter your password',
-			keyboardType: 'number-pad',
-
-			autoFocus: true,
-			maxLength: 5,
-
-			onPositivePress: (input) => console.warn('positive - ', input),
-			onNegativePress: (input) => console.warn('negative - ', input),
-			onNeutralPress: (input) => console.warn('neutral - ', input),
-
-			onDismiss: () => console.warn('dismiss'),
-		});
-
-		// NativeDialog.showItemsDialog({
-		// 	title: 'How would you like to pay for your meal today?',
+	onTouched = (style) => {
+		// NativeDialog.showInputDialog({
+		// 	title: 'Do you want to update your iCloud Backup before erasing?',
+		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
 		//
-		// 	mode: 'default',
-		// 	items: ['Credit Card', 'Debit Card', 'Cash'],
-		// 	selectedItems: [0],
+		// 	positiveButton: 'Back Up Then Erase',
+		// 	negativeButton: 'Erase Now',
+		// 	neutralButton: 'Cancel',
 		//
-		// 	preferredStyle: 'popupDialog',
+		// 	negativeButtonStyle: 'default',
+		// 	neutralButtonStyle: 'cancel',
 		//
-		// 	theme: 'light',
+		// 	transitionStyle: 'bounceUp',
+		// 	preferredStyle: style,
+		//
+		// 	theme: 'dark',
 		// 	accentColor: '#ff4a9e',
 		//
-		// 	negativeButton: 'Cancel',
+		// 	value: 'asdf',
+		// 	placeholder: 'Enter your password',
+		// 	keyboardType: 'number-pad',
+		//
+		// 	autoFocus: true,
+		// 	maxLength: 5,
+		//
+		// 	onPositivePress: (input) => console.warn('positive - ', input),
+		// 	onNegativePress: (input) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		//
+		// 	onDismiss: () => console.warn('dismiss'),
 		// });
+
+		NativeDialog.showItemsDialog({
+			title: 'How would you like to pay for your meal today?',
+
+			mode: 'default',
+			items: ['Credit Card', 'Debit Card', 'PayPal', 'Cash'],
+			selectedItems: [0],
+
+			preferredStyle: style,
+
+			theme: 'dark',
+			accentColor: '#1cc35d',
+
+			negativeButton: 'Cancel',
+
+			onItemSelect: selectedId => {
+				console.warn(selectedId);
+			},
+		});
 
 		// NativeDialog.showNumberPickerDialog({
 		// 	title: 'Pick a Number',
@@ -87,7 +91,8 @@ export default class App extends Component<Props, State> {
 				<Text style={styles.welcome}>Welcome to React Native!</Text>
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
-				<Button title={'Show Dialog'} onPress={this.onTouched} />
+				<Button title={'Show Dialog (Alert)'} onPress={() => this.onTouched('alert')} />
+				<Button title={'Show Dialog (PopupDialog)'} onPress={() => this.onTouched('popupDialog')} />
 			</View>
 		);
 	}

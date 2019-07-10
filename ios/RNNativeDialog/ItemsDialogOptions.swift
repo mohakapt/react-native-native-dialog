@@ -35,8 +35,6 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
   override func viewDidLoad() {
     super.viewDidLoad()
 
-//    let bundle = Bundle(for: ItemsViewController.self)
-//    let nib = UINib.init(nibName: "ItemTableCell", bundle: bundle)
     self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "itemTableCell")
     self.tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
 
@@ -97,10 +95,10 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
     if dialogOptions.theme == .dark {
       cell.textLabel?.textColor = UIColor(white: 0.9, alpha: 1)
-      cell.selectedBackgroundView?.backgroundColor = UIColor(white: 1, alpha: 0.02)
+      cell.selectedBackgroundView?.backgroundColor = UIColor(white: 1, alpha: 0.04)
     } else {
       cell.textLabel?.textColor = UIColor(white: 0.1, alpha: 1)
-      cell.selectedBackgroundView?.backgroundColor = UIColor(white: 0, alpha: 0.02)
+      cell.selectedBackgroundView?.backgroundColor = UIColor(white: 0, alpha: 0.04)
     }
   }
 
@@ -110,9 +108,10 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "itemTableCell", for: indexPath)
-    updateTheme(cell)
-
+    cell.selectedBackgroundView = UIView()
     cell.textLabel?.text = dialogOptions.items[indexPath.row].title
+
+    updateTheme(cell)
     return cell
   }
 
@@ -123,7 +122,19 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let cell = tableView.cellForRow(at: indexPath as IndexPath)
     cell?.setSelected(false, animated: true)
-    cell?.accessoryType = .checkmark
+//    cell?.accessoryType = .checkmark
+
+    switch dialogOptions.mode {
+    case .multiple:
+      break
+    case .single:
+      break
+    default:
+      let selectedItem = dialogOptions.items[indexPath.row]
+      dialogOptions.itemSelectHandler?([selectedItem.id])
+      self.dismiss(animated: true, completion: nil)
+      break
+    }
   }
 }
 
@@ -131,6 +142,7 @@ class ItemsDialogOptions: DialogOptions {
   let mode: ItemsMode
   let items: [Item]
   let selectedIds: [String]
+  var itemSelectHandler: (([String]) -> Void)?
 
   override init(options: [String: Any]) {
     self.items = (options["items"] as? [[String: Any]])?.map({ x in
