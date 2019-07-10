@@ -2,8 +2,8 @@ package com.github.mohaka.nativedialog;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.widget.EditText;
 import android.widget.ListView;

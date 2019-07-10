@@ -1,8 +1,8 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Activity;
-import android.support.annotation.StyleRes;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
 import android.widget.NumberPicker;
 
 import com.facebook.react.bridge.ReadableMap;
