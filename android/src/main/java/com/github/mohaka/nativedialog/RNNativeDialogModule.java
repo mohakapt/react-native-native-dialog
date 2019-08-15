@@ -2,12 +2,12 @@ package com.github.mohaka.nativedialog;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -24,16 +24,14 @@ import java.util.List;
 import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_DEFAULT;
 import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_MULTIPLE;
 import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_SINGLE;
+import static com.github.mohaka.nativedialog.RNNativeDialogPackage.dialogTheme;
+import static com.github.mohaka.nativedialog.RNNativeDialogPackage.lightDialogTheme;
 
 public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public final static String TAG = "RNNativeDialog";
-    private final int dialogTheme;
-    private final int lightDialogTheme;
 
-    public RNNativeDialogModule(ReactApplicationContext reactContext, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
+    public RNNativeDialogModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        this.dialogTheme = dialogTheme;
-        this.lightDialogTheme = lightDialogTheme;
     }
 
     @Override

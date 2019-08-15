@@ -24,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.asList(
                     new MainReactPackage(),
-                    new RNNativeDialogPackage(R.style.AlertDialog, R.style.LightAlertDialog)
+                    new RNNativeDialogPackage()
             );
         }
 
@@ -43,5 +43,6 @@ public class MainApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+        RNNativeDialogPackage.setDialogTheme(R.style.AlertDialog, R.style.LightAlertDialog);
     }
 }

@@ -70,8 +70,8 @@ const removeAllListeners = () => {
 	RNNativeDialogEvents.removeAllListeners(EVENT_DISMISS_DIALOG);
 };
 
-const checkIfSupported = (ios, android, condition = true) => {
-	const supported = condition && (ios && Platform.OS === 'ios' || android && Platform.OS === 'android');
+const checkIfSupported = (ios, android, iosCondition = true, androidCondition = true) => {
+	const supported = (iosCondition && ios && Platform.OS === 'ios') || (androidCondition && android && Platform.OS === 'android');
 	if (!supported) {
 		console.warn('This feature is not supported yet, If you have the time and the skill please consider spending some time to help implementing it.');
 	}
