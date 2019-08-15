@@ -26,15 +26,14 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react-native": ">=0.60.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/runtime": "^7.4.3",
-    "metro-react-native-babel-preset": "^0.53.1",
-    "react": "16.8.3",
-    "react-native": "0.59.4"
+    "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react": "16.8.6",
+    "react-native": "0.60.5"
   },
   "optionalDependencies": {
     "moment": "^2.*"
