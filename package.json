@@ -1,6 +1,6 @@
 {
   "name": "react-native-native-dialog",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "TODO",
   "main": "index.js",
   "homepage": "https://github.com/mohakapt/react-native-native-dialog",
@@ -8,8 +8,7 @@
   "licenseFilename": "LICENSE",
   "readmeFilename": "README.md",
   "private": false,
-  "scripts": {
-  },
+  "scripts": {},
   "author": {
     "name": "Heysem Katibi",
     "email": "mohakapt@gmail.com"
