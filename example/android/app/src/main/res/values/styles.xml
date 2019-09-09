@@ -5,7 +5,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-
     <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorPrimary">#FFB300</item>
         <item name="colorPrimaryDark">#FFB300</item>
@@ -17,4 +16,5 @@
         <item name="colorPrimaryDark">#E6A100</item>
         <item name="colorAccent">#E6A100</item>
     </style>
+
 </resources>

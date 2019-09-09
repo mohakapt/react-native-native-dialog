@@ -1,4 +1,9 @@
 example/
+.git
+.gitignore
+.npmignore
+scripts/
+yarn.lock
 *.iml
 .idea
 android/build

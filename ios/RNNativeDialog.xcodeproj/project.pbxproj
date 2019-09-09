@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		71441FFC222D786D00BC92A0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71441FFB222D786D00BC92A0 /* Extensions.swift */; };
-		714F1E35222FB75100C332C0 /* DialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F1E34222FB75100C332C0 /* DialogOptions.swift */; };
-		714F1E37222FB76300C332C0 /* InputDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F1E36222FB76300C332C0 /* InputDialogOptions.swift */; };
-		714F1E39222FB77000C332C0 /* ItemsDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F1E38222FB77000C332C0 /* ItemsDialogOptions.swift */; };
-		714F1E3B222FB77F00C332C0 /* ProgressDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F1E3A222FB77F00C332C0 /* ProgressDialogOptions.swift */; };
-		714F1E3D222FB78C00C332C0 /* TipDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F1E3C222FB78C00C332C0 /* TipDialogOptions.swift */; };
-		7178227921F89FCF00B5A9B3 /* NativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7178227821F89FCF00B5A9B3 /* NativeDialog.swift */; };
-		911BE485201C8E8200474413 /* RNNativeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 911BE484201C8E8200474413 /* RNNativeDialog.m */; };
+		7130E9092326408600946A44 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E8FF2326408600946A44 /* Extensions.swift */; };
+		7130E90A2326408600946A44 /* DialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9022326408600946A44 /* DialogOptions.swift */; };
+		7130E90B2326408600946A44 /* RNNativeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9032326408600946A44 /* RNNativeDialog.m */; };
+		7130E90C2326408600946A44 /* TipDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9042326408600946A44 /* TipDialogOptions.swift */; };
+		7130E90D2326408600946A44 /* ProgressDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9052326408600946A44 /* ProgressDialogOptions.swift */; };
+		7130E90E2326408600946A44 /* ItemsDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9062326408600946A44 /* ItemsDialogOptions.swift */; };
+		7130E90F2326408600946A44 /* NativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9072326408600946A44 /* NativeDialog.swift */; };
+		7130E9102326408600946A44 /* InputDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9082326408600946A44 /* InputDialogOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,17 +31,17 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNativeDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNativeDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		71441FFB222D786D00BC92A0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		714F1E34222FB75100C332C0 /* DialogOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogOptions.swift; sourceTree = "<group>"; };
-		714F1E36222FB76300C332C0 /* InputDialogOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputDialogOptions.swift; sourceTree = "<group>"; };
-		714F1E38222FB77000C332C0 /* ItemsDialogOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsDialogOptions.swift; sourceTree = "<group>"; };
-		714F1E3A222FB77F00C332C0 /* ProgressDialogOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressDialogOptions.swift; sourceTree = "<group>"; };
-		714F1E3C222FB78C00C332C0 /* TipDialogOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipDialogOptions.swift; sourceTree = "<group>"; };
-		7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
-		7178227821F89FCF00B5A9B3 /* NativeDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDialog.swift; sourceTree = "<group>"; };
-		71BEF2C82296A6D100AD229F /* ItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemsViewController.xib; sourceTree = "<group>"; };
-		71E629D2223536380039BCFD /* InputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputViewController.xib; sourceTree = "<group>"; };
-		911BE484201C8E8200474413 /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNativeDialog.m; sourceTree = "<group>"; };
+		7130E8FD2326408500946A44 /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
+		7130E8FE2326408600946A44 /* InputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InputViewController.xib; path = RNNativeDialog/InputViewController.xib; sourceTree = "<group>"; };
+		7130E8FF2326408600946A44 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = RNNativeDialog/Extensions.swift; sourceTree = "<group>"; };
+		7130E9012326408600946A44 /* ItemsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ItemsViewController.xib; path = RNNativeDialog/ItemsViewController.xib; sourceTree = "<group>"; };
+		7130E9022326408600946A44 /* DialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DialogOptions.swift; path = RNNativeDialog/DialogOptions.swift; sourceTree = "<group>"; };
+		7130E9032326408600946A44 /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNNativeDialog.m; path = RNNativeDialog/RNNativeDialog.m; sourceTree = "<group>"; };
+		7130E9042326408600946A44 /* TipDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TipDialogOptions.swift; path = RNNativeDialog/TipDialogOptions.swift; sourceTree = "<group>"; };
+		7130E9052326408600946A44 /* ProgressDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressDialogOptions.swift; path = RNNativeDialog/ProgressDialogOptions.swift; sourceTree = "<group>"; };
+		7130E9062326408600946A44 /* ItemsDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemsDialogOptions.swift; path = RNNativeDialog/ItemsDialogOptions.swift; sourceTree = "<group>"; };
+		7130E9072326408600946A44 /* NativeDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NativeDialog.swift; path = RNNativeDialog/NativeDialog.swift; sourceTree = "<group>"; };
+		7130E9082326408600946A44 /* InputDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputDialogOptions.swift; path = RNNativeDialog/InputDialogOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,27 +66,19 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				911BE482201C8E5700474413 /* RNNativeDialog */,
+				7130E9072326408600946A44 /* NativeDialog.swift */,
+				7130E9022326408600946A44 /* DialogOptions.swift */,
+				7130E9082326408600946A44 /* InputDialogOptions.swift */,
+				7130E9062326408600946A44 /* ItemsDialogOptions.swift */,
+				7130E9052326408600946A44 /* ProgressDialogOptions.swift */,
+				7130E9042326408600946A44 /* TipDialogOptions.swift */,
+				7130E9012326408600946A44 /* ItemsViewController.xib */,
+				7130E8FE2326408600946A44 /* InputViewController.xib */,
+				7130E8FF2326408600946A44 /* Extensions.swift */,
+				7130E9032326408600946A44 /* RNNativeDialog.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				7130E8FD2326408500946A44 /* RNNativeDialog-Bridging-Header.h */,
 			);
-			sourceTree = "<group>";
-		};
-		911BE482201C8E5700474413 /* RNNativeDialog */ = {
-			isa = PBXGroup;
-			children = (
-				7178227721F89FCF00B5A9B3 /* RNNativeDialog-Bridging-Header.h */,
-				911BE484201C8E8200474413 /* RNNativeDialog.m */,
-				7178227821F89FCF00B5A9B3 /* NativeDialog.swift */,
-				71441FFB222D786D00BC92A0 /* Extensions.swift */,
-				714F1E34222FB75100C332C0 /* DialogOptions.swift */,
-				714F1E36222FB76300C332C0 /* InputDialogOptions.swift */,
-				714F1E38222FB77000C332C0 /* ItemsDialogOptions.swift */,
-				714F1E3A222FB77F00C332C0 /* ProgressDialogOptions.swift */,
-				714F1E3C222FB78C00C332C0 /* TipDialogOptions.swift */,
-				71E629D2223536380039BCFD /* InputViewController.xib */,
-				71BEF2C82296A6D100AD229F /* ItemsViewController.xib */,
-			);
-			path = RNNativeDialog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,12 +107,12 @@
 		58B511D31A9E6C8500147676 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -147,14 +139,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				714F1E37222FB76300C332C0 /* InputDialogOptions.swift in Sources */,
-				7178227921F89FCF00B5A9B3 /* NativeDialog.swift in Sources */,
-				714F1E3D222FB78C00C332C0 /* TipDialogOptions.swift in Sources */,
-				71441FFC222D786D00BC92A0 /* Extensions.swift in Sources */,
-				714F1E35222FB75100C332C0 /* DialogOptions.swift in Sources */,
-				911BE485201C8E8200474413 /* RNNativeDialog.m in Sources */,
-				714F1E39222FB77000C332C0 /* ItemsDialogOptions.swift in Sources */,
-				714F1E3B222FB77F00C332C0 /* ProgressDialogOptions.swift in Sources */,
+				7130E9092326408600946A44 /* Extensions.swift in Sources */,
+				7130E90B2326408600946A44 /* RNNativeDialog.m in Sources */,
+				7130E90E2326408600946A44 /* ItemsDialogOptions.swift in Sources */,
+				7130E9102326408600946A44 /* InputDialogOptions.swift in Sources */,
+				7130E90F2326408600946A44 /* NativeDialog.swift in Sources */,
+				7130E90D2326408600946A44 /* ProgressDialogOptions.swift in Sources */,
+				7130E90C2326408600946A44 /* TipDialogOptions.swift in Sources */,
+				7130E90A2326408600946A44 /* DialogOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,19 +161,29 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -209,19 +211,28 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -241,9 +252,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
-					"$(PROJECT_DIR)/../../../ios/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -262,9 +273,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native/React/**",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
 					"$(SRCROOT)/../../react-native/React/**",
-					"$(PROJECT_DIR)/../../../ios/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";

@@ -1,39 +1,36 @@
 {
   "name": "react-native-native-dialog",
   "version": "2.0.0",
-  "description": "Library description goes here.",
+  "description": "TODO",
   "main": "index.js",
   "homepage": "https://github.com/mohakapt/react-native-native-dialog",
   "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
   "private": false,
   "scripts": {
-    "start": "react-native start"
   },
-  "contributors": [
-    {
-      "name": "Heysem KATIBI",
-      "email": "mohakapt@gmail.com"
-    }
-  ],
+  "author": {
+    "name": "Heysem Katibi",
+    "email": "mohakapt@gmail.com"
+  },
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "dialog"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mohakapt/react-native-native-dialog"
+    "url": "git+https://github.com/mohakapt/react-native-native-dialog.git",
+    "baseUrl": "https://github.com/mohakapt/react-native-native-dialog"
   },
-  "dependencies": {},
   "peerDependencies": {
     "react-native": ">=0.60.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
-    "metro-react-native-babel-preset": "^0.56.0",
-    "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react": "^16.8.0",
+    "react-native": "^0.60.0"
   },
   "optionalDependencies": {
     "moment": "^2.*"
