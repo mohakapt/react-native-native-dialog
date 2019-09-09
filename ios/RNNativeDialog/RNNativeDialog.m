@@ -6,8 +6,8 @@
 //  Copyright © 2018 Facebook. All rights reserved.
 //
 
-#import "React/RCTBridgeModule.h"
-#import "React/RCTEventEmitter.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
 
 @interface RCT_EXTERN_REMAP_MODULE(RNNativeDialog, NativeDialog, RCTEventEmitter)
 

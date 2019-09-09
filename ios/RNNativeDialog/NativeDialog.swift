@@ -6,7 +6,6 @@
 //  Copyright © 2019 Facebook. All rights reserved.
 //
 
-import React
 import Foundation
 import UIKit
 import PopupDialog

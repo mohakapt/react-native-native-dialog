@@ -31,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libRNNativeDialog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNNativeDialog.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7130E8FD2326408500946A44 /* RNNativeDialog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNNativeDialog-Bridging-Header.h"; sourceTree = "<group>"; };
 		7130E8FE2326408600946A44 /* InputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = InputViewController.xib; path = RNNativeDialog/InputViewController.xib; sourceTree = "<group>"; };
 		7130E8FF2326408600946A44 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = RNNativeDialog/Extensions.swift; sourceTree = "<group>"; };
 		7130E9012326408600946A44 /* ItemsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ItemsViewController.xib; path = RNNativeDialog/ItemsViewController.xib; sourceTree = "<group>"; };
@@ -77,7 +76,6 @@
 				7130E8FF2326408600946A44 /* Extensions.swift */,
 				7130E9032326408600946A44 /* RNNativeDialog.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				7130E8FD2326408500946A44 /* RNNativeDialog-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -261,7 +259,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNativeDialog;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog/RNNativeDialog-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 			};
@@ -282,7 +280,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNNativeDialog;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog/RNNativeDialog-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "RNNativeDialog-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
