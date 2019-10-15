@@ -144,7 +144,7 @@ export default {
 	},
 
 	showItemsDialog(props) {
-		if (!checkIfSupported(true, true, props.mode === 'default')) return;
+		if (!checkIfSupported(true, true)) return;
 
 		if (!props || !props.items || !Array.isArray(props.items)) return;
 		props = {

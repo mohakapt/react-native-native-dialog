@@ -17,8 +17,7 @@ enum ItemsMode {
 }
 
 struct Item {
-  let id: String
-  let idNumber: Bool
+  let id: NSObject
   let title: String
 }
 
@@ -109,7 +108,12 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "itemTableCell", for: indexPath)
     cell.selectedBackgroundView = UIView()
-    cell.textLabel?.text = dialogOptions.items[indexPath.row].title
+
+    let item = dialogOptions.items[indexPath.row]
+    let selected = dialogOptions.selectedIds.contains(item.id)
+
+    cell.textLabel?.text = item.title
+    cell.accessoryType = selected ? .checkmark : .none
 
     updateTheme(cell)
     return cell
@@ -122,12 +126,33 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let cell = tableView.cellForRow(at: indexPath as IndexPath)
     cell?.setSelected(false, animated: true)
-//    cell?.accessoryType = .checkmark
+
+    let item = dialogOptions.items[indexPath.row]
 
     switch dialogOptions.mode {
     case .multiple:
+      if dialogOptions.selectedIds.contains(item.id) {
+        dialogOptions.selectedIds.removeAll { $0 == item.id }
+        cell?.accessoryType = .none
+      } else {
+        dialogOptions.selectedIds.append(item.id)
+        cell?.accessoryType = .checkmark
+      }
       break
     case .single:
+      if let selectedCellId = dialogOptions.selectedIds.first {
+        guard selectedCellId != item.id else {
+          return
+        }
+        if let selectedCellIndex = dialogOptions.items.firstIndex(where: { $0.id == selectedCellId }) {
+          let selectedCell = tableView.cellForRow(at: IndexPath(row: selectedCellIndex, section: 0))
+          selectedCell?.accessoryType = .none
+        }
+      }
+
+      dialogOptions.selectedIds.removeAll()
+      dialogOptions.selectedIds.append(item.id)
+      cell?.accessoryType = .checkmark
       break
     default:
       let selectedItem = dialogOptions.items[indexPath.row]
@@ -141,24 +166,19 @@ class ItemsViewController: UIViewController, UITableViewDataSource, UITableViewD
 class ItemsDialogOptions: DialogOptions {
   let mode: ItemsMode
   let items: [Item]
-  let selectedIds: [String]
-  var itemSelectHandler: (([String]) -> Void)?
+  var selectedIds: [NSObject]
+  var itemSelectHandler: (([NSObject]) -> Void)?
 
   override init(options: [String: Any]) {
     self.items = (options["items"] as? [[String: Any]])?.map({ x in
-      let idNumber = x["id"] is Int
-      let id = idNumber
-        ? String(x["id"] as? Int ?? 0)
-        : x["id"] as? String ?? "0"
+      let id = x["id"] ?? 0
       let title = x["title"] as? String ?? ""
 
-      return Item(id: id, idNumber: idNumber, title: title)
+      return Item(id: id as! NSObject, title: title)
     }) ?? []
 
     self.selectedIds = (options["selectedItems"] as? [Any] ?? []).map({ x in
-      return x is Int
-        ? String(x as? Int ?? 0)
-        : x as? String ?? "0"
+      return x as! NSObject
     })
 
     switch (options["mode"] as? String ?? "default").lowercased() {
@@ -202,5 +222,15 @@ class ItemsDialogOptions: DialogOptions {
 
   override func shouldInjectButtons() -> Bool {
     return false
+  }
+
+  override func positiveButtonTouched() {
+    switch mode {
+    case .multiple, .single:
+      itemSelectHandler?(selectedIds)
+      break
+    default:
+      super.positiveButtonTouched()
+    }
   }
 }

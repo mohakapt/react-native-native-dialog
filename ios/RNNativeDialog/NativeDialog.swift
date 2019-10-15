@@ -89,6 +89,20 @@ class NativeDialog: RCTEventEmitter {
       self.sendEvent(withName: "native_dialog__positive_button", body: selectedIds)
     }
 
+    dialogOptions.buttonHandler = { (button, extra) in
+      switch button {
+      case .positive:
+        self.sendEvent(withName: "native_dialog__positive_button", body: nil)
+        break
+      case .negative:
+        self.sendEvent(withName: "native_dialog__negative_button", body: nil)
+        break
+      case .neutral:
+        self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
+        break
+      }
+    }
+
     dialogOptions.dismissHandler = { () in
       self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
     }

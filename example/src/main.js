@@ -57,20 +57,28 @@ export default class App extends Component<Props, State> {
 		NativeDialog.showItemsDialog({
 			title: 'How would you like to pay for your meal today?',
 
-			mode: 'default',
-			items: ['Credit Card', 'Debit Card', 'PayPal', 'Cash'],
-			selectedItems: [0],
+			mode: 'multiple',
+			items: [
+				{ id: 'cc', title: 'Credit Card' },
+				{ id: 'dc', title: 'Debit Card' },
+				{ id: 'pp', title: 'PayPal' },
+				{ id: 'c', title: 'Cash' },
+			],
+			selectedItems: ['pp', 'c'],
 
 			preferredStyle: style,
 
-			theme: 'dark',
+			theme: 'light',
 			accentColor: '#1cc35d',
 
+			positiveButton: 'Select',
 			negativeButton: 'Cancel',
 
 			onItemSelect: selectedId => {
 				console.warn(selectedId);
 			},
+			onNegativePress: () => console.warn('negative'),
+			onDismiss: () => console.warn('dismiss'),
 		});
 
 		// NativeDialog.showNumberPickerDialog({

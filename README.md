@@ -1,5 +1,5 @@
 # react-native-native-dialog
-One Paragraph of project description goes here
+> A native library for React Native to display common dialogs with native feel and look on Android and iOS.
 
 [![Latest Stable Version](https://img.shields.io/npm/v/react-native-native-dialog.svg)](https://www.npmjs.com/package/react-native-native-dialog)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-native-dialog.svg)](https://www.npmjs.com/package/react-native-native-dialog)
@@ -19,8 +19,11 @@ npm install react-native-native-dialog --save
 ```bash
 yarn add react-native-native-dialog
 ```
+> ⚠ The library only works with react-native@0.60 and up.
+>
+### Additional Setup
 
-### Link Native Code.
+
 
 **Automatically:**
 ```bash
