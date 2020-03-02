@@ -62,7 +62,7 @@ We would love to have community contributions and support! A few areas where cou
 * Writing tests
 * Creating examples for the docs
 
-If you want to contribute, please submit a pull request, or contact m.yaman.katby@gmail.com for more information.
+If you want to contribute, please submit a pull request, or contact mohakapt@gmail.com for more information.
 When you commit your messages, follow this convention:
 ```
 Main changes subject
