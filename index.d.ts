@@ -1,5 +1,3 @@
-import { Moment } from 'moment';
-
 export type Id<T extends string | number> = T | T[];
 export type Items<T extends string | number> = string[] | { id: T, title: string }[];
 export type IosButtonType = 'default' | 'cancel' | 'destructive';
@@ -77,25 +75,6 @@ export type ItemsDialogProps<T extends string | number> = CommonDialogProps & It
 	selectedItems?: Id<T>,
 }
 
-export type ProgressDialogProps = CommonDialogProps & CommonDialogEvents & {
-	size?: 'large' | 'small',
-}
-
-export type TipDialogProps = CommonDialogProps & CommonDialogEvents & {
-	image?: any,
-	id?: string,
-	dontShowAgain?: string,
-	force?: boolean,
-}
-
-export type DatePickerDialogProps = CommonDialogProps & CommonDialogEvents & {
-	date: Date | Moment,
-	mode?: 'date' | 'time' | 'datetime',
-	is24Hour?: boolean,
-	minDate?: Date | Moment,
-	maxDate?: Date | Moment,
-}
-
 export type NumberPickerDialogProps = CommonDialogProps & NumberPickerDialogEvents & {
 	value: number,
 	minValue?: number,
@@ -107,9 +86,6 @@ export type RatingDialogProps = CommonDialogProps & CommonDialogEvents & {}
 declare const showDialog: (props: DialogProps) => void;
 declare const showInputDialog: (props: InputDialogProps) => void;
 declare const showItemsDialog: <T extends string | number>(props: ItemsDialogProps<T>) => void;
-declare const showProgressDialog: (props: ProgressDialogProps) => void;
-declare const showTipDialog: (props: TipDialogProps) => void;
-declare const showDatePickerDialog: (props: DatePickerDialogProps) => void;
 declare const showNumberPickerDialog: (props: NumberPickerDialogProps) => void;
 declare const showRatingDialog: (props: RatingDialogProps) => void;
 
@@ -117,9 +93,6 @@ export {
 	showDialog,
 	showInputDialog,
 	showItemsDialog,
-	showProgressDialog,
-	showTipDialog,
-	showDatePickerDialog,
 	showNumberPickerDialog,
 	showRatingDialog,
 };
