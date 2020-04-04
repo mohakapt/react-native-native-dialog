@@ -27,6 +27,9 @@ enum DialogButton: String {
   case neutral
 }
 
+typealias FinishHandler = (_ dialogButton: DialogButton, _ with: [String: String?]?) -> Void
+typealias DismissHandler = () -> Void
+
 class DialogOptions: NSObject {
   let theme: Theme
   let accentColor: UIColor
@@ -50,8 +53,8 @@ class DialogOptions: NSObject {
   let negativeButtonStyle: UIAlertAction.Style
   let neutralButtonStyle: UIAlertAction.Style
 
-  var buttonHandler: ((DialogButton, [String: String?]?) -> Void)?
-  var dismissHandler: (() -> Void)?
+  var finishHandler: FinishHandler?
+  var dismissHandler: DismissHandler?
 
   init(options: [String: Any]) {
     self.title = options["title"] as? String
@@ -158,6 +161,9 @@ class DialogOptions: NSObject {
 
   func buildNativeDialog() -> UIAlertController {
     let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle == .alert ? .alert : .actionSheet)
+    if #available(iOS 13.0, *) {
+      alertController.overrideUserInterfaceStyle = theme == .dark ? .dark : .light
+    }
 
     if shouldInjectButtons() {
       injectButtons(dialog: alertController)
@@ -228,15 +234,15 @@ class DialogOptions: NSObject {
   }
 
   func positiveButtonTouched() {
-    self.buttonHandler?(.positive, nil)
+    self.finishHandler?(.positive, nil)
   }
 
   func negativeButtonTouched() {
-    self.buttonHandler?(.negative, nil)
+    self.finishHandler?(.negative, nil)
   }
 
   func neutralButtonTouched() {
-    self.buttonHandler?(.neutral, nil)
+    self.finishHandler?(.neutral, nil)
   }
 
   func updateTheme() {

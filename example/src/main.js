@@ -3,8 +3,6 @@
 import React, { Component } from 'react';
 import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 import NativeDialog from 'react-native-native-dialog';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import moment from 'moment';
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -25,7 +23,31 @@ export default class App extends Component<Props, State> {
 		this.state = { selectedPositions: [], isVisible: false };
 	}
 
-	onTouched = (style) => {
+	onTouched = (style, theme) => {
+		// NativeDialog.showDialog({
+		// 	title: 'Do you want to update your iCloud Backup before erasing?',
+		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
+		//
+		// 	positiveButton: 'Back Up Then Erase',
+		// 	negativeButton: 'Erase Now',
+		// 	neutralButton: 'Cancel',
+		//
+		// 	negativeButtonStyle: 'default',
+		// 	neutralButtonStyle: 'cancel',
+		//
+		// 	transitionStyle: 'bounceUp',
+		// 	preferredStyle: style,
+		//
+		// 	theme,
+		// 	accentColor: '#ff4a9e',
+		//
+		// 	onPositivePress: (input) => console.warn('positive - ', input),
+		// 	onNegativePress: (input) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		//
+		// 	onDismiss: () => console.warn('dismiss'),
+		// });
+
 		// NativeDialog.showInputDialog({
 		// 	title: 'Do you want to update your iCloud Backup before erasing?',
 		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
@@ -40,7 +62,7 @@ export default class App extends Component<Props, State> {
 		// 	transitionStyle: 'bounceUp',
 		// 	preferredStyle: style,
 		//
-		// 	theme: 'dark',
+		// 	theme,
 		// 	accentColor: '#ff4a9e',
 		//
 		// 	value: 'asdf',
@@ -57,32 +79,32 @@ export default class App extends Component<Props, State> {
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
 
-		// NativeDialog.showItemsDialog({
-		// 	title: 'How would you like to pay for your meal today?',
-		//
-		// 	mode: 'multiple',
-		// 	items: [
-		// 		{ id: 'cc', title: 'Credit Card' },
-		// 		{ id: 'dc', title: 'Debit Card' },
-		// 		{ id: 'pp', title: 'PayPal' },
-		// 		{ id: 'c', title: 'Cash' },
-		// 	],
-		// 	selectedItems: ['pp', 'c'],
-		//
-		// 	preferredStyle: style,
-		//
-		// 	theme: 'light',
-		// 	accentColor: '#1cc35d',
-		//
-		// 	positiveButton: 'Select',
-		// 	negativeButton: 'Cancel',
-		//
-		// 	onItemSelect: selectedId => {
-		// 		console.warn(selectedId);
-		// 	},
-		// 	onNegativePress: () => console.warn('negative'),
-		// 	onDismiss: () => console.warn('dismiss'),
-		// });
+		NativeDialog.showItemsDialog({
+			title: 'How would you like to pay for your meal today?',
+
+			mode: 'default',
+			items: [
+				{ id: 'cc', title: 'Credit Card' },
+				{ id: 'dc', title: 'Debit Card' },
+				{ id: 'pp', title: 'PayPal' },
+				{ id: 'c', title: 'Cash' },
+			],
+			// selectedItems: ['pp', 'c'],
+
+			preferredStyle: 'actionSheet',
+
+			theme,
+			accentColor: '#1cc35d',
+
+			positiveButton: 'Select',
+			negativeButton: 'Cancel',
+
+			onItemSelect: selectedId => {
+				console.warn(selectedId);
+			},
+			onNegativePress: () => console.warn('negative'),
+			onDismiss: () => console.warn('dismiss'),
+		});
 
 		// NativeDialog.showNumberPickerDialog({
 		// 	title: 'Pick a Number',
@@ -95,10 +117,10 @@ export default class App extends Component<Props, State> {
 		// 	},
 		// });
 
-		NativeDialog.showDatePickerDialog({
-			theme: 'dark',
-			date: '01/01/1996',
-		});
+		// NativeDialog.showDatePickerDialog({
+		// 	theme,
+		// 	date: '01/01/1996',
+		// });
 	};
 
 	render() {
@@ -107,15 +129,10 @@ export default class App extends Component<Props, State> {
 				<Text style={styles.welcome}>Welcome to React Native!</Text>
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
-				<Button title={'Show Dialog (Alert)'} onPress={() => this.onTouched('alert')} />
-				<Button title={'Show Dialog (PopupDialog)'} onPress={() => this.setState({ isVisible: true })} />
-
-				<DateTimePicker
-					isVisible={this.state.isVisible}
-					mode={'datetime'}
-					onConfirm={() => undefined}
-					onCancel={() => undefined}
-				/>
+				<Button title={'Show Dialog (Alert) - Light'} onPress={() => this.onTouched('alert', 'light')} />
+				<Button title={'Show Dialog (PopupDialog) - Light'} onPress={() => this.onTouched('popupDialog', 'light')} />
+				<Button title={'Show Dialog (Alert) - Dark'} onPress={() => this.onTouched('alert', 'dark')} />
+				<Button title={'Show Dialog (PopupDialog) - Dark'} onPress={() => this.onTouched('popupDialog', 'dark')} />
 			</View>
 		);
 	}

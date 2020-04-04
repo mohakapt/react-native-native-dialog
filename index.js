@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { DatePickerAndroid, NativeEventEmitter, NativeModules, Platform } from 'react-native';
-import moment from 'moment';
+import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
 
 const { RNNativeDialog } = NativeModules;
 const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
@@ -34,22 +33,6 @@ const defaultInputDialogProps = {
 
 const defaultItemsDialogProps = {
 	mode: 'default',
-};
-
-const defaultProgressDialogProps = {
-	cancellable: false,
-	cancelOnTouchOutside: false,
-
-	size: 'large',
-};
-
-const defaultTipDialogProps = {
-	force: false,
-};
-
-const defaultDatePickerDialogProps = {
-	mode: 'date',
-	is24Hour: true,
 };
 
 const defaultNumberPickerDialogProps = {
@@ -86,62 +69,26 @@ export default {
 		if (!props) return;
 		props = { ...defaultDialogProps, ...props };
 
-		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, () => {
-			const { onPositivePress } = props;
-			if (onPositivePress) onPositivePress();
-			removeAllListeners();
+		RNNativeDialog.showDialog(props).then(({ action }) => {
+			switch (action) {
+				case 'positive':
+					const { onPositivePress } = props;
+					if (onPositivePress) onPositivePress();
+					return;
+				case 'negative':
+					const { onNegativePress } = props;
+					if (onNegativePress) onNegativePress();
+					return;
+				case 'neutral':
+					const { onNeutralPress } = props;
+					if (onNeutralPress) onNeutralPress();
+					return;
+				case 'dismiss':
+					const { onDismiss } = props;
+					if (onDismiss) onDismiss();
+					return;
+			}
 		});
-		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, () => {
-			const { onNegativePress } = props;
-			if (onNegativePress) onNegativePress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, () => {
-			const { onNeutralPress } = props;
-			if (onNeutralPress) onNeutralPress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
-			const { onDismiss } = props;
-			if (onDismiss) onDismiss();
-			removeAllListeners();
-		});
-
-		RNNativeDialog.showDialog(props);
-	},
-
-	showInputDialog(props) {
-		if (!checkIfSupported(true, true)) return;
-
-		if (!props) return;
-		props = {
-			...defaultDialogProps,
-			...defaultInputDialogProps,
-			...props,
-		};
-
-		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, ({ value } = {}) => {
-			const { onPositivePress } = props;
-			if (onPositivePress) onPositivePress(value);
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, ({ value } = {}) => {
-			const { onNegativePress } = props;
-			if (onNegativePress) onNegativePress(value);
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, ({ value } = {}) => {
-			const { onNeutralPress } = props;
-			if (onNeutralPress) onNeutralPress(value);
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
-			const { onDismiss } = props;
-			if (onDismiss) onDismiss();
-			removeAllListeners();
-		});
-
-		RNNativeDialog.showInputDialog(props);
 	},
 
 	showItemsDialog(props) {
@@ -164,134 +111,64 @@ export default {
 		if (mode !== 'single' && mode !== 'multiple')
 			props.positiveButton = undefined;
 
-		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, () => {
-			const { onNegativePress } = props;
-			if (onNegativePress) onNegativePress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, () => {
-			const { onNeutralPress } = props;
-			if (onNeutralPress) onNeutralPress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, (value) => {
-			const { onItemSelect, mode } = props;
+		RNNativeDialog.showItemsDialog(props).then(({ action, value }) => {
+			switch (action) {
+				case 'positive':
+					const { onItemSelect, mode } = props;
 
-			if (onItemSelect && value && Array.isArray(value)) {
-				if (mode === 'multiple')
-					onItemSelect(value);
-				else
-					onItemSelect(value.length > 0 ? value[0] : -1);
+					if (onItemSelect && value && Array.isArray(value)) {
+						if (mode === 'multiple')
+							onItemSelect(value);
+						else
+							onItemSelect(value.length > 0 ? value[0] : -1);
+					}
+					return;
+				case 'negative':
+					const { onNegativePress } = props;
+					if (onNegativePress) onNegativePress();
+					return;
+				case 'neutral':
+					const { onNeutralPress } = props;
+					if (onNeutralPress) onNeutralPress();
+					return;
+				case 'dismiss':
+					const { onDismiss } = props;
+					if (onDismiss) onDismiss();
+					return;
 			}
-			removeAllListeners();
 		});
-		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
-			const { onDismiss } = props;
-			if (onDismiss) onDismiss();
-			removeAllListeners();
-		});
-
-		RNNativeDialog.showItemsDialog(props);
 	},
 
-	showProgressDialog(props) {
-		if (!checkIfSupported(false, true)) return;
+	showInputDialog(props) {
+		if (!checkIfSupported(true, true)) return;
 
 		if (!props) return;
 		props = {
 			...defaultDialogProps,
-			...defaultProgressDialogProps,
+			...defaultInputDialogProps,
 			...props,
 		};
 
-		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, () => {
-			const { onPositivePress } = props;
-			if (onPositivePress) onPositivePress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, () => {
-			const { onNegativePress } = props;
-			if (onNegativePress) onNegativePress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, () => {
-			const { onNeutralPress } = props;
-			if (onNeutralPress) onNeutralPress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
-			const { onDismiss } = props;
-			if (onDismiss) onDismiss();
-			removeAllListeners();
-		});
-
-		RNNativeDialog.showProgressDialog(props);
-	},
-
-	showTipDialog(props) {
-		if (!checkIfSupported(false, true)) return;
-
-		if (!props) return;
-		props = {
-			...defaultDialogProps,
-			...defaultTipDialogProps,
-			...props,
-		};
-		if (props.image) {
-			const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
-			const { uri } = resolveAssetSource(props.image);
-			props.image = undefined;
-			props.imageUri = uri;
-		}
-
-		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, () => {
-			const { onPositivePress } = props;
-			if (onPositivePress) onPositivePress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, () => {
-			const { onNegativePress } = props;
-			if (onNegativePress) onNegativePress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, () => {
-			const { onNeutralPress } = props;
-			if (onNeutralPress) onNeutralPress();
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
-			const { onDismiss } = props;
-			if (onDismiss) onDismiss();
-			removeAllListeners();
-		});
-
-		RNNativeDialog.showTipDialog(props);
-	},
-
-	showDatePickerDialog(props) {
-		if (!checkIfSupported(false, true)) return;
-
-		if (!props) return;
-		props = {
-			...defaultDialogProps,
-			...defaultDatePickerDialogProps,
-			...props,
-		};
-		if (props.date)
-			props.date = moment(props.date);
-
-		if (props.minDate)
-			props.minDate = moment(props.minDate);
-
-		if (props.maxDate)
-			props.maxDate = moment(props.maxDate);
-
-		// RNNativeDialog.showDatePickerDialog(props);
-
-		DatePickerAndroid.open({
-			date: props.date.toDate(),
-			mode: 'default',
-		});
+		RNNativeDialog.showInputDialog(props).then(({ action, value }) => {
+			switch (action) {
+				case 'positive':
+					const { onPositivePress } = props;
+					if (onPositivePress) onPositivePress(value);
+					return;
+				case 'negative':
+					const { onNegativePress } = props;
+					if (onNegativePress) onNegativePress(value);
+					return;
+				case 'neutral':
+					const { onNeutralPress } = props;
+					if (onNeutralPress) onNeutralPress(value);
+					return;
+				case 'dismiss':
+					const { onDismiss } = props;
+					if (onDismiss) onDismiss();
+					return;
+			}
+		}).catch(() => console.warn('I am here'));
 	},
 
 	showNumberPickerDialog(props) {
@@ -304,28 +181,26 @@ export default {
 			...props,
 		};
 
-		RNNativeDialogEvents.addListener(EVENT_POSITIVE_BUTTON, ({ value } = {}) => {
-			const { onPositivePress } = props;
-			if (onPositivePress) onPositivePress(value);
-			removeAllListeners();
+		RNNativeDialog.showNumberPickerDialog(props).then(({ action, value }) => {
+			switch (action) {
+				case 'positive':
+					const { onPositivePress } = props;
+					if (onPositivePress) onPositivePress(value);
+					return;
+				case 'negative':
+					const { onNegativePress } = props;
+					if (onNegativePress) onNegativePress(value);
+					return;
+				case 'neutral':
+					const { onNeutralPress } = props;
+					if (onNeutralPress) onNeutralPress(value);
+					return;
+				case 'dismiss':
+					const { onDismiss } = props;
+					if (onDismiss) onDismiss();
+					return;
+			}
 		});
-		RNNativeDialogEvents.addListener(EVENT_NEGATIVE_BUTTON, ({ value } = {}) => {
-			const { onNegativePress } = props;
-			if (onNegativePress) onNegativePress(value);
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_NEUTRAL_BUTTON, ({ value } = {}) => {
-			const { onNeutralPress } = props;
-			if (onNeutralPress) onNeutralPress(value);
-			removeAllListeners();
-		});
-		RNNativeDialogEvents.addListener(EVENT_DISMISS_DIALOG, () => {
-			const { onDismiss } = props;
-			if (onDismiss) onDismiss();
-			removeAllListeners();
-		});
-
-		RNNativeDialog.showNumberPickerDialog(props);
 	},
 
 	showRatingDialog(props) {

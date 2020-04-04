@@ -16,12 +16,20 @@
   return dispatch_get_main_queue();
 }
 
-RCT_EXTERN_METHOD(showDialog:(NSDictionary* ) options)
-RCT_EXTERN_METHOD(showInputDialog:(NSDictionary* ) options)
-RCT_EXTERN_METHOD(showItemsDialog:(NSDictionary* ) options)
-RCT_EXTERN_METHOD(showProgressDialog:(NSDictionary* ) options)
-RCT_EXTERN_METHOD(showTipDialog:(NSDictionary* ) options)
-RCT_EXTERN_METHOD(showDatePickerDialog:(NSDictionary* ) options)
+RCT_EXTERN_METHOD(showDialog: (NSDictionary* )options
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+
+RCT_EXTERN_METHOD(showInputDialog: (NSDictionary* )options
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+
+RCT_EXTERN_METHOD(showItemsDialog:(NSDictionary* ) options
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(showNumberPickerDialog:(NSDictionary* ) options)
 RCT_EXTERN_METHOD(showRatingDialog:(NSDictionary* ) options)
 @end

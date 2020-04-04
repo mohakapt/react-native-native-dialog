@@ -22,107 +22,104 @@ class NativeDialog: RCTEventEmitter {
     return true
   }
 
-  @objc(showDialog:)
-  func showDialog(options: [String: Any]) {
+  func buildParams(_ button: DialogButton) -> [String: String] {
+    switch button {
+    case .positive:
+      return ["action": "positive"]
+    case .negative:
+      return ["action": "negative"]
+    case .neutral:
+      return ["action": "neutral"]
+    }
+  }
+
+  @objc(showDialog: resolver: rejecter:)
+  func showDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
     guard let viewConroller = UIApplication.shared.keyWindow?.rootViewController else {
       return
     }
 
     let dialogOptions = DialogOptions(options: options)
-    dialogOptions.buttonHandler = { (button, extra) in
-      switch button {
-      case .positive:
-        self.sendEvent(withName: "native_dialog__positive_button", body: nil)
-        break
-      case .negative:
-        self.sendEvent(withName: "native_dialog__negative_button", body: nil)
-        break
-      case .neutral:
-        self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
-        break
+
+    var resolved = false
+    dialogOptions.finishHandler = { (button, extras) in
+      if !resolved {
+        let params = self.buildParams(button)
+        resolve(params)
+        resolved = true
       }
     }
 
-    dialogOptions.dismissHandler = { () in
-      self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
+    dialogOptions.dismissHandler = {
+      if !resolved {
+        resolve(["action": "dismiss"])
+        resolved = true
+      }
     }
 
     dialogOptions.presentDialog(in: viewConroller)
   }
 
-  @objc(showInputDialog:)
-  func showInputDialog(options: [String: Any]) {
-    guard let viewConroller = UIApplication.shared.keyWindow?.rootViewController else {
+  @objc(showInputDialog: resolver: rejecter:)
+  func showInputDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {
       return
     }
 
     let dialogOptions = InputDialogOptions(options: options)
-    dialogOptions.buttonHandler = { (button, extra) in
-      switch button {
-      case .positive:
-        self.sendEvent(withName: "native_dialog__positive_button", body: extra)
-        break
-      case .negative:
-        self.sendEvent(withName: "native_dialog__negative_button", body: extra)
-        break
-      case .neutral:
-        self.sendEvent(withName: "native_dialog__neutral_button", body: extra)
-        break
+
+    var resolved = false
+    dialogOptions.finishHandler = { (button, extras) in
+      if !resolved {
+        let params = self.buildParams(button)
+        resolve(extras?.merging(params) { (_, new) in new })
+        resolved = true
       }
     }
 
-    dialogOptions.dismissHandler = { () in
-      self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
+    dialogOptions.dismissHandler = {
+      if !resolved {
+        resolve(["action": "dismiss"])
+        resolved = true
+      }
     }
 
-    dialogOptions.presentDialog(in: viewConroller)
+    dialogOptions.presentDialog(in: viewController)
   }
 
-  @objc(showItemsDialog:)
-  func showItemsDialog(options: [String: Any]) {
+  @objc(showItemsDialog: resolver: rejecter:)
+  func showItemsDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
     guard let viewConroller = UIApplication.shared.keyWindow?.rootViewController else {
       return
     }
 
-    let dialogOptions = ItemsDialogOptions(options: options)
-    dialogOptions.itemSelectHandler = { (selectedIds) in
-      self.sendEvent(withName: "native_dialog__positive_button", body: selectedIds)
-    }
 
-    dialogOptions.buttonHandler = { (button, extra) in
-      switch button {
-      case .positive:
-        self.sendEvent(withName: "native_dialog__positive_button", body: nil)
-        break
-      case .negative:
-        self.sendEvent(withName: "native_dialog__negative_button", body: nil)
-        break
-      case .neutral:
-        self.sendEvent(withName: "native_dialog__neutral_button", body: nil)
-        break
+    let dialogOptions = ItemsDialogOptions(options: options)
+
+    var resolved = false
+    dialogOptions.itemSelectHandler = { (selectedIds) in
+      if !resolved {
+        resolve(["action": "positive", "value": selectedIds])
+        resolved = true
       }
     }
 
-    dialogOptions.dismissHandler = { () in
-      self.sendEvent(withName: "native_dialog__dismiss_dialog", body: nil)
+    dialogOptions.finishHandler = { (button, extras) in
+      if !resolved {
+        let params = self.buildParams(button)
+        resolve(params)
+        resolved = true
+      }
+    }
+
+    dialogOptions.dismissHandler = {
+      if !resolved {
+        resolve(["action": "dismiss"])
+        resolved = true
+      }
     }
 
     dialogOptions.presentDialog(in: viewConroller)
-  }
-
-  @objc(showProgressDialog:)
-  func showProgressDialog(options: [String: Any]) {
-
-  }
-
-  @objc(showTipDialog:)
-  func showTipDialog(options: [String: Any]) {
-
-  }
-
-  @objc(showDatePickerDialog:)
-  func showDatePickerDialog(options: [String: Any]) {
-
   }
 
   @objc(showNumberPickerDialog:)

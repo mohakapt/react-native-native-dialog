@@ -171,15 +171,15 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
   }
 
   override func positiveButtonTouched() {
-    self.buttonHandler?(.positive, ["value": newValue])
+    self.finishHandler?(.positive, ["value": newValue])
   }
 
   override func negativeButtonTouched() {
-    self.buttonHandler?(.negative, ["value": newValue])
+    self.finishHandler?(.negative, ["value": newValue])
   }
 
   override func neutralButtonTouched() {
-    self.buttonHandler?(.neutral, ["value": newValue])
+    self.finishHandler?(.neutral, ["value": newValue])
   }
 
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
