@@ -10,13 +10,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,71 +37,38 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         return TAG;
     }
 
-    //region Event Emitter
-    private final static String EVENT_POSITIVE_BUTTON = "native_dialog__positive_button";
-    private final static String EVENT_NEGATIVE_BUTTON = "native_dialog__negative_button";
-    private final static String EVENT_NEUTRAL_BUTTON = "native_dialog__neutral_button";
-    private final static String EVENT_DISMISS_DIALOG = "native_dialog__dismiss_dialog";
+    private WritableMap getWritableResult(int which) {
+        WritableMap reVal = Arguments.createMap();
+        switch (which) {
+            case DialogInterface.BUTTON_POSITIVE:
+                reVal.putString("action", "positive");
+                break;
+            case DialogInterface.BUTTON_NEGATIVE:
+                reVal.putString("action", "negative");
+                break;
+            case DialogInterface.BUTTON_NEUTRAL:
+                reVal.putString("action", "neutral");
+                break;
 
-    private void emitEvent(String event) {
-        emitData(event, null);
+            default:
+                reVal.putString("action", "dismiss");
+                break;
+        }
+        return reVal;
     }
-
-    private void emitData(String event, WritableMap data) {
-        ReactApplicationContext context = getReactApplicationContext();
-        if (context == null) return;
-
-        context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(event, data);
-    }
-
-    private void emitInput(String event, String value) {
-        WritableMap params = Arguments.createMap();
-        params.putString("value", value);
-        emitData(event, params);
-    }
-
-    private void emitInput(String event, int value) {
-        WritableMap params = Arguments.createMap();
-        params.putInt("value", value);
-        emitData(event, params);
-    }
-
-    private void emitSelection(ItemsDialogOptions.Item[] items) {
-        ReactApplicationContext context = getReactApplicationContext();
-        if (context == null) return;
-
-        WritableArray params = Arguments.createArray();
-        for (ItemsDialogOptions.Item item : items)
-            if (item.isIdNumber())
-                params.pushInt((Integer) item.getId());
-            else
-                params.pushString((String) item.getId());
-
-        context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(EVENT_POSITIVE_BUTTON, params);
-    }
-    //endregion
-
-    private DialogInterface.OnDismissListener onDismiss = dialog -> emitEvent(EVENT_DISMISS_DIALOG);
 
     @ReactMethod
-    public void showDialog(ReadableMap map) {
+    public void showDialog(ReadableMap map, Promise promise) {
         AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         DialogInterface.OnClickListener onClick = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    emitEvent(EVENT_POSITIVE_BUTTON);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    emitEvent(EVENT_NEGATIVE_BUTTON);
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    emitEvent(EVENT_NEUTRAL_BUTTON);
-                    break;
-            }
+            WritableMap params = getWritableResult(which);
+            promise.resolve(params);
+        };
+        DialogInterface.OnDismissListener onDismiss = dialog -> {
+            WritableMap params = getWritableResult(101);
+            promise.resolve(params);
         };
 
         DialogOptions dialog = new DialogOptions(map);
@@ -111,7 +78,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showInputDialog(ReadableMap map) {
+    public void showInputDialog(ReadableMap map, Promise promise) {
         AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
@@ -121,17 +88,13 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
             EditText txtInput = alertDialog.findViewById(R.id.txtInput);
             String newValue = txtInput.getText().toString();
 
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    emitInput(EVENT_POSITIVE_BUTTON, newValue);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    emitInput(EVENT_NEGATIVE_BUTTON, newValue);
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    emitInput(EVENT_NEUTRAL_BUTTON, newValue);
-                    break;
-            }
+            WritableMap params = getWritableResult(which);
+            params.putString("value", newValue);
+            promise.resolve(params);
+        };
+        DialogInterface.OnDismissListener onDismiss = dialog -> {
+            WritableMap params = getWritableResult(101);
+            promise.resolve(params);
         };
 
         InputDialogOptions dialog = new InputDialogOptions(map);
@@ -141,33 +104,33 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showItemsDialog(ReadableMap map) {
+    public void showItemsDialog(ReadableMap map, Promise promise) {
         AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map);
 
         DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
+            WritableMap params = getWritableResult(which);
             switch (which) {
                 case DialogInterface.BUTTON_NEGATIVE:
-                    emitEvent(EVENT_NEGATIVE_BUTTON);
-                    return;
                 case DialogInterface.BUTTON_NEUTRAL:
-                    emitEvent(EVENT_NEUTRAL_BUTTON);
+                    promise.resolve(params);
                     return;
             }
 
             int mode = itemsDialog.getMode();
             List<ItemsDialogOptions.Item> itemList = itemsDialog.getItems();
+            ItemsDialogOptions.Item[] items;
             switch (mode) {
                 case MODE_DEFAULT:
                 default:
-                    emitSelection(new ItemsDialogOptions.Item[]{itemList.get(which)});
+                    items = new ItemsDialogOptions.Item[]{itemList.get(which)};
                     break;
                 case MODE_SINGLE: {
                     ListView listView = ((AlertDialog) dialog).getListView();
                     int checkedItemPosition = listView.getCheckedItemPosition();
-                    emitSelection(new ItemsDialogOptions.Item[]{itemList.get(checkedItemPosition)});
+                    items = new ItemsDialogOptions.Item[]{itemList.get(checkedItemPosition)};
                     break;
                 }
                 case MODE_MULTIPLE: {
@@ -181,10 +144,24 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
                     ItemsDialogOptions.Item[] selectedItemsArray = new ItemsDialogOptions.Item[selectedItemsList.size()];
                     selectedItemsArray = selectedItemsList.toArray(selectedItemsArray);
 
-                    emitSelection(selectedItemsArray);
+                    items = selectedItemsArray;
                     break;
                 }
             }
+
+            WritableArray values = Arguments.createArray();
+            for (ItemsDialogOptions.Item item : items)
+                if (item.isIdNumber())
+                    values.pushInt((Integer) item.getId());
+                else
+                    values.pushString((String) item.getId());
+            params.putArray("value", values);
+
+            promise.resolve(params);
+        };
+        DialogInterface.OnDismissListener onDismiss = dialog -> {
+            WritableMap params = getWritableResult(101);
+            promise.resolve(params);
         };
 
         itemsDialog.setClickListener(onButtonClick);
@@ -193,66 +170,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showProgressDialog(ReadableMap map) {
-        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
-        if (activity == null) return;
-
-        DialogInterface.OnClickListener onClick = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    emitEvent(EVENT_POSITIVE_BUTTON);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    emitEvent(EVENT_NEGATIVE_BUTTON);
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    emitEvent(EVENT_NEUTRAL_BUTTON);
-                    break;
-            }
-        };
-
-        ProgressDialogOptions dialog = new ProgressDialogOptions(map);
-        dialog.setClickListener(onClick);
-        dialog.setDismissListener(onDismiss);
-        dialog.show(activity.getSupportFragmentManager(), "dialog_progress");
-    }
-
-    @ReactMethod
-    public void showTipDialog(ReadableMap map) {
-        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
-        if (activity == null) return;
-
-        DialogInterface.OnClickListener onClick = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    emitEvent(EVENT_POSITIVE_BUTTON);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    emitEvent(EVENT_NEGATIVE_BUTTON);
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    emitEvent(EVENT_NEUTRAL_BUTTON);
-                    break;
-            }
-        };
-
-        TipDialogOptions dialog = new TipDialogOptions(map);
-        dialog.setClickListener(onClick);
-        dialog.setDismissListener(onDismiss);
-        dialog.show(activity.getSupportFragmentManager(), "dialog_tip");
-    }
-
-    @ReactMethod
-    public void showDatePickerDialog(ReadableMap map) {
-        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
-        if (activity == null) return;
-
-        DatePickerDialogOptions dialog = new DatePickerDialogOptions(map);
-        dialog.show(activity.getSupportFragmentManager(), "dialog_date_picker");
-    }
-
-    @ReactMethod
-    public void showNumberPickerDialog(ReadableMap map) {
+    public void showNumberPickerDialog(ReadableMap map, Promise promise) {
         AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
@@ -262,17 +180,13 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
             NumberPicker picNumber = alertDialog.findViewById(R.id.picNumber);
             int newValue = picNumber.getValue();
 
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    emitInput(EVENT_POSITIVE_BUTTON, newValue);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    emitInput(EVENT_NEGATIVE_BUTTON, newValue);
-                    break;
-                case DialogInterface.BUTTON_NEUTRAL:
-                    emitInput(EVENT_NEUTRAL_BUTTON, newValue);
-                    break;
-            }
+            WritableMap params = getWritableResult(which);
+            params.putInt("value", newValue);
+            promise.resolve(params);
+        };
+        DialogInterface.OnDismissListener onDismiss = dialog -> {
+            WritableMap params = getWritableResult(101);
+            promise.resolve(params);
         };
 
         NumberPickerDialogOptions dialog = new NumberPickerDialogOptions(map);
@@ -282,7 +196,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showRatingDialog(ReadableMap map) {
+    public void showRatingDialog(ReadableMap map, Promise promise) {
         AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
     }
