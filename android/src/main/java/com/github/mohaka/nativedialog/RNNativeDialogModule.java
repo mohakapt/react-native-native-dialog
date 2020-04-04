@@ -1,6 +1,5 @@
 package com.github.mohaka.nativedialog;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.util.SparseBooleanArray;
 import android.widget.EditText;
@@ -8,6 +7,7 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -24,8 +24,6 @@ import java.util.List;
 import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_DEFAULT;
 import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_MULTIPLE;
 import static com.github.mohaka.nativedialog.ItemsDialogOptions.MODE_SINGLE;
-import static com.github.mohaka.nativedialog.RNNativeDialogPackage.dialogTheme;
-import static com.github.mohaka.nativedialog.RNNativeDialogPackage.lightDialogTheme;
 
 public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public final static String TAG = "RNNativeDialog";
@@ -89,7 +87,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void showDialog(ReadableMap map) {
-        Activity activity = getCurrentActivity();
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         DialogInterface.OnClickListener onClick = (dialog, which) -> {
@@ -109,12 +107,12 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         DialogOptions dialog = new DialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+        dialog.show(activity.getSupportFragmentManager(), "dialog");
     }
 
     @ReactMethod
     public void showInputDialog(ReadableMap map) {
-        Activity activity = getCurrentActivity();
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
@@ -139,12 +137,12 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         InputDialogOptions dialog = new InputDialogOptions(map);
         dialog.setClickListener(onButtonClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+        dialog.show(activity.getSupportFragmentManager(), "dialog_input");
     }
 
     @ReactMethod
     public void showItemsDialog(ReadableMap map) {
-        Activity activity = getCurrentActivity();
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map);
@@ -191,12 +189,12 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
 
         itemsDialog.setClickListener(onButtonClick);
         itemsDialog.setDismissListener(onDismiss);
-        itemsDialog.showDialog(activity, dialogTheme, lightDialogTheme);
+        itemsDialog.show(activity.getSupportFragmentManager(), "dialog_items");
     }
 
     @ReactMethod
     public void showProgressDialog(ReadableMap map) {
-        Activity activity = getCurrentActivity();
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         DialogInterface.OnClickListener onClick = (dialog, which) -> {
@@ -216,12 +214,12 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         ProgressDialogOptions dialog = new ProgressDialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+        dialog.show(activity.getSupportFragmentManager(), "dialog_progress");
     }
 
     @ReactMethod
     public void showTipDialog(ReadableMap map) {
-        Activity activity = getCurrentActivity();
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         DialogInterface.OnClickListener onClick = (dialog, which) -> {
@@ -241,17 +239,21 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         TipDialogOptions dialog = new TipDialogOptions(map);
         dialog.setClickListener(onClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+        dialog.show(activity.getSupportFragmentManager(), "dialog_tip");
     }
 
     @ReactMethod
     public void showDatePickerDialog(ReadableMap map) {
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
+        if (activity == null) return;
 
+        DatePickerDialogOptions dialog = new DatePickerDialogOptions(map);
+        dialog.show(activity.getSupportFragmentManager(), "dialog_date_picker");
     }
 
     @ReactMethod
     public void showNumberPickerDialog(ReadableMap map) {
-        Activity activity = getCurrentActivity();
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
 
         DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
@@ -276,11 +278,12 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         NumberPickerDialogOptions dialog = new NumberPickerDialogOptions(map);
         dialog.setClickListener(onButtonClick);
         dialog.setDismissListener(onDismiss);
-        dialog.showDialog(activity, dialogTheme, lightDialogTheme);
+        dialog.show(activity.getSupportFragmentManager(), "dialog_number_picker");
     }
 
     @ReactMethod
     public void showRatingDialog(ReadableMap map) {
-
+        AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
+        if (activity == null) return;
     }
 }

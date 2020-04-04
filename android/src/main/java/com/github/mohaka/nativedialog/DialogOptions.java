@@ -1,15 +1,22 @@
 package com.github.mohaka.nativedialog;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
+import android.os.Bundle;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.facebook.react.bridge.ReadableMap;
 
-public class DialogOptions {
+import static com.github.mohaka.nativedialog.RNNativeDialogPackage.dialogTheme;
+import static com.github.mohaka.nativedialog.RNNativeDialogPackage.lightDialogTheme;
+
+public class DialogOptions extends DialogFragment {
     public final static int THEME_LIGHT = 100;
     public final static int THEME_DARK = 101;
 
@@ -35,6 +42,7 @@ public class DialogOptions {
     public DialogOptions(ReadableMap map) {
         this.populate(map);
     }
+
 
     public int getTheme() {
         return theme;
@@ -79,6 +87,7 @@ public class DialogOptions {
     public DialogInterface.OnDismissListener getDismissListener() {
         return dismissListener;
     }
+
 
     public void setTheme(int theme) {
         this.theme = theme;
@@ -145,19 +154,18 @@ public class DialogOptions {
             setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
     }
 
-    protected AlertDialog.Builder buildDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
+    protected AlertDialog.Builder buildDialog() {
         int dialogThemeResId;
         if (getTheme() == THEME_DARK)
             dialogThemeResId = dialogTheme == 0 ? R.style.Theme_AppCompat_Dialog_Alert : dialogTheme;
         else
             dialogThemeResId = lightDialogTheme == 0 ? R.style.Theme_AppCompat_Light_Dialog_Alert : lightDialogTheme;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, dialogThemeResId);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), dialogThemeResId);
 
         builder.setTitle(getTitle());
         builder.setMessage(getMessage());
         builder.setCancelable(isCancellable());
-        builder.setOnDismissListener(getDismissListener());
 
         if (!TextUtils.isEmpty(getPositiveButton()))
             builder.setPositiveButton(getPositiveButton(), getClickListener());
@@ -171,10 +179,17 @@ public class DialogOptions {
         return builder;
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
-        AlertDialog alertDialog = buildDialog(activity, dialogTheme, lightDialogTheme).create();
-        alertDialog.setCanceledOnTouchOutside(isCancelOnTouchOutside());
-        alertDialog.show();
-        return alertDialog;
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        return buildDialog().create();
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if(getDismissListener() != null)
+            getDismissListener().onDismiss(dialog);
     }
 }

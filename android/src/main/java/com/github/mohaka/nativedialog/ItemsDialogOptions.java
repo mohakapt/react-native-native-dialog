@@ -1,8 +1,10 @@
 package com.github.mohaka.nativedialog;
 
-import android.app.Activity;
+import android.app.Dialog;
+import android.os.Bundle;
 
-import androidx.annotation.StyleRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.facebook.react.bridge.ReadableArray;
@@ -142,8 +144,10 @@ public class ItemsDialogOptions extends DialogOptions {
         }
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
-        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme, lightDialogTheme);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = super.buildDialog();
 
         String[] titles = getTitles();
         Object[] selections = getSelections();

@@ -1,17 +1,20 @@
 package com.github.mohaka.nativedialog;
 
-import android.app.Activity;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.facebook.react.bridge.ReadableMap;
 
@@ -102,13 +105,14 @@ public class TipDialogOptions extends DialogOptions {
         if (map.hasKey("force")) setForce(map.getBoolean("force"));
     }
 
+    @NonNull
     @Override
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean dontShowAgainValue = preferences.getBoolean("__dialog_" + getDialogId(), false);
         if (!isForce() && hasDontShowAgain()) if (dontShowAgainValue) return null;
 
-        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme, lightDialogTheme);
+        AlertDialog.Builder builder = super.buildDialog();
         builder.setTitle(null);
         builder.setMessage(null);
         builder.setView(R.layout.dialog_tip);

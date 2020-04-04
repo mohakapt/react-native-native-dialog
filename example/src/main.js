@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 import NativeDialog from 'react-native-native-dialog';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import moment from 'moment';
 
 const instructions = Platform.select({
 	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -14,12 +16,13 @@ const instructions = Platform.select({
 type Props = {};
 type State = {
 	selectedPositions: Array<number>,
+	isVisible: boolean
 }
 export default class App extends Component<Props, State> {
 
 	constructor(props) {
 		super(props);
-		this.state = { selectedPositions: [] };
+		this.state = { selectedPositions: [], isVisible: false };
 	}
 
 	onTouched = (style) => {
@@ -54,32 +57,32 @@ export default class App extends Component<Props, State> {
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
 
-		NativeDialog.showItemsDialog({
-			title: 'How would you like to pay for your meal today?',
-
-			mode: 'multiple',
-			items: [
-				{ id: 'cc', title: 'Credit Card' },
-				{ id: 'dc', title: 'Debit Card' },
-				{ id: 'pp', title: 'PayPal' },
-				{ id: 'c', title: 'Cash' },
-			],
-			selectedItems: ['pp', 'c'],
-
-			preferredStyle: style,
-
-			theme: 'light',
-			accentColor: '#1cc35d',
-
-			positiveButton: 'Select',
-			negativeButton: 'Cancel',
-
-			onItemSelect: selectedId => {
-				console.warn(selectedId);
-			},
-			onNegativePress: () => console.warn('negative'),
-			onDismiss: () => console.warn('dismiss'),
-		});
+		// NativeDialog.showItemsDialog({
+		// 	title: 'How would you like to pay for your meal today?',
+		//
+		// 	mode: 'multiple',
+		// 	items: [
+		// 		{ id: 'cc', title: 'Credit Card' },
+		// 		{ id: 'dc', title: 'Debit Card' },
+		// 		{ id: 'pp', title: 'PayPal' },
+		// 		{ id: 'c', title: 'Cash' },
+		// 	],
+		// 	selectedItems: ['pp', 'c'],
+		//
+		// 	preferredStyle: style,
+		//
+		// 	theme: 'light',
+		// 	accentColor: '#1cc35d',
+		//
+		// 	positiveButton: 'Select',
+		// 	negativeButton: 'Cancel',
+		//
+		// 	onItemSelect: selectedId => {
+		// 		console.warn(selectedId);
+		// 	},
+		// 	onNegativePress: () => console.warn('negative'),
+		// 	onDismiss: () => console.warn('dismiss'),
+		// });
 
 		// NativeDialog.showNumberPickerDialog({
 		// 	title: 'Pick a Number',
@@ -91,6 +94,11 @@ export default class App extends Component<Props, State> {
 		// 		console.warn('---- ', value);
 		// 	},
 		// });
+
+		NativeDialog.showDatePickerDialog({
+			theme: 'dark',
+			date: '01/01/1996',
+		});
 	};
 
 	render() {
@@ -100,7 +108,14 @@ export default class App extends Component<Props, State> {
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
 				<Button title={'Show Dialog (Alert)'} onPress={() => this.onTouched('alert')} />
-				<Button title={'Show Dialog (PopupDialog)'} onPress={() => this.onTouched('popupDialog')} />
+				<Button title={'Show Dialog (PopupDialog)'} onPress={() => this.setState({ isVisible: true })} />
+
+				<DateTimePicker
+					isVisible={this.state.isVisible}
+					mode={'datetime'}
+					onConfirm={() => undefined}
+					onCancel={() => undefined}
+				/>
 			</View>
 		);
 	}

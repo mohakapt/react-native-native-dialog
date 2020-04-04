@@ -1,8 +1,14 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Activity;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AlertDialog;
+
+import android.app.Dialog;
+import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.WindowManager;
@@ -10,6 +16,9 @@ import android.widget.EditText;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
+
+import static com.github.mohaka.nativedialog.RNNativeDialogPackage.dialogTheme;
+import static com.github.mohaka.nativedialog.RNNativeDialogPackage.lightDialogTheme;
 
 public class InputDialogOptions extends DialogOptions {
     private String value;
@@ -123,8 +132,10 @@ public class InputDialogOptions extends DialogOptions {
             setSelectTextOnFocus(map.getBoolean("selectTextOnFocus"));
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
-        AlertDialog.Builder builder = super.buildDialog(activity, dialogTheme, lightDialogTheme);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = super.buildDialog();
         builder.setView(R.layout.dialog_input);
 
         AlertDialog alertDialog = builder.create();

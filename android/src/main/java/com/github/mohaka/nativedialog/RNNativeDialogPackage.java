@@ -1,6 +1,7 @@
 package com.github.mohaka.nativedialog;
 
 import androidx.annotation.StyleRes;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -14,6 +15,9 @@ public class RNNativeDialogPackage implements ReactPackage {
     static int dialogTheme = 0;
     static int lightDialogTheme = 0;
 
+    static int dateDialogTheme = 0;
+    static int lightDateDialogTheme = 0;
+
     public static void setDialogTheme(@StyleRes int dialogTheme) {
         RNNativeDialogPackage.dialogTheme = dialogTheme;
         RNNativeDialogPackage.lightDialogTheme = dialogTheme;
@@ -22,6 +26,16 @@ public class RNNativeDialogPackage implements ReactPackage {
     public static void setDialogTheme(@StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
         RNNativeDialogPackage.dialogTheme = dialogTheme;
         RNNativeDialogPackage.lightDialogTheme = lightDialogTheme;
+    }
+
+    public static void setDatePickerDialogTheme(@StyleRes int dateDialogTheme) {
+        RNNativeDialogPackage.dateDialogTheme = dateDialogTheme;
+        RNNativeDialogPackage.lightDateDialogTheme = dateDialogTheme;
+    }
+
+    public static void setDatePickerDialogTheme(@StyleRes int dateDialogTheme, @StyleRes int lightDateDialogTheme) {
+        RNNativeDialogPackage.dateDialogTheme = dateDialogTheme;
+        RNNativeDialogPackage.lightDateDialogTheme = lightDateDialogTheme;
     }
 
     @Override

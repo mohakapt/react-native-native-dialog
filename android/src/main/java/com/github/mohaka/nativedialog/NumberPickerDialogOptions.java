@@ -1,9 +1,12 @@
 package com.github.mohaka.nativedialog;
 
-import android.app.Activity;
-import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AlertDialog;
+import android.app.Dialog;
+import android.os.Bundle;
 import android.widget.NumberPicker;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.facebook.react.bridge.ReadableMap;
 
@@ -51,8 +54,10 @@ public class NumberPickerDialogOptions extends DialogOptions {
         if (map.hasKey("maxValue")) setMaxValue(map.getInt("maxValue"));
     }
 
-    public AlertDialog showDialog(Activity activity, @StyleRes int dialogTheme, @StyleRes int lightDialogTheme) {
-        AlertDialog.Builder builder = buildDialog(activity, dialogTheme, lightDialogTheme);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        AlertDialog.Builder builder = buildDialog();
 
         builder.setView(R.layout.dialog_number_picker);
 
@@ -67,5 +72,4 @@ public class NumberPickerDialogOptions extends DialogOptions {
 
         return alertDialog;
     }
-
 }

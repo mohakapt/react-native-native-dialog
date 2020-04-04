@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:${safeExtGet('gradlePluginVersion', '3.4.1')}")
+        classpath("com.android.tools.build:gradle:${safeExtGet('gradlePluginVersion', '3.4.2')}")
     }
 }
 
@@ -45,6 +45,7 @@ repositories {
 dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     implementation "androidx.appcompat:appcompat:${safeExtGet('appCompatVersion', '1.0.0')}"
+    implementation "androidx.fragment:fragment:${safeExtGet('appCompatVersion', '1.0.0')}"
 }
 
 def configureReactNativePom(def pom) {

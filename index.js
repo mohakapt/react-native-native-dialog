@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import { DatePickerAndroid, NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import moment from 'moment';
 
 const { RNNativeDialog } = NativeModules;
 const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
@@ -268,7 +269,7 @@ export default {
 	},
 
 	showDatePickerDialog(props) {
-		if (!checkIfSupported(false, false)) return;
+		if (!checkIfSupported(false, true)) return;
 
 		if (!props) return;
 		props = {
@@ -276,6 +277,21 @@ export default {
 			...defaultDatePickerDialogProps,
 			...props,
 		};
+		if (props.date)
+			props.date = moment(props.date);
+
+		if (props.minDate)
+			props.minDate = moment(props.minDate);
+
+		if (props.maxDate)
+			props.maxDate = moment(props.maxDate);
+
+		// RNNativeDialog.showDatePickerDialog(props);
+
+		DatePickerAndroid.open({
+			date: props.date.toDate(),
+			mode: 'default',
+		});
 	},
 
 	showNumberPickerDialog(props) {
