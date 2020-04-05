@@ -46,6 +46,8 @@ dependencies {
     implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
     implementation "androidx.appcompat:appcompat:${safeExtGet('appCompatVersion', '1.0.0')}"
     implementation "androidx.fragment:fragment:${safeExtGet('appCompatVersion', '1.0.0')}"
+
+    implementation 'com.github.mohaka:rating-star:0.1.1'
 }
 
 def configureReactNativePom(def pom) {

@@ -139,7 +139,7 @@ export default class App extends Component<Props, State> {
 			accentColor: '#8782ff',
 
 			mode: 'bar',
-			value: 1,
+			value: 2,
 
 			positiveButton: 'Submit',
 			negativeButton: 'Don\'t Ask Again',

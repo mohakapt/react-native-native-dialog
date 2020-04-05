@@ -5,6 +5,7 @@ import android.util.SparseBooleanArray;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.RatingBar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
+import com.github.mohaka.ratingstar.RatingStar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,5 +201,32 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
     public void showRatingDialog(ReadableMap map, Promise promise) {
         AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
         if (activity == null) return;
+
+        RatingDialogOptions dialogOptions = new RatingDialogOptions(map);
+
+        DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
+            AlertDialog alertDialog = (AlertDialog) dialog;
+
+            int newValue;
+            if (dialogOptions.getMode() == RatingDialogOptions.MODE_BAR) {
+                RatingBar ratingBar = alertDialog.findViewById(R.id.ratingBar);
+                newValue = (int) ratingBar.getRating();
+            } else {
+                RatingStar ratingStar = alertDialog.findViewById(R.id.ratingStar);
+                newValue = ratingStar.getRating();
+            }
+
+            WritableMap params = getWritableResult(which);
+            params.putInt("value", newValue);
+            promise.resolve(params);
+        };
+        DialogInterface.OnDismissListener onDismiss = dialog -> {
+            WritableMap params = getWritableResult(101);
+            promise.resolve(params);
+        };
+
+        dialogOptions.setClickListener(onButtonClick);
+        dialogOptions.setDismissListener(onDismiss);
+        dialogOptions.show(activity.getSupportFragmentManager(), "dialog_rating");
     }
 }

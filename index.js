@@ -216,7 +216,7 @@ export default {
 	},
 
 	showRatingDialog(props) {
-		if (!checkIfSupported(true, false)) return;
+		if (!checkIfSupported(true, true)) return;
 
 		if (!props) return;
 		props = {
