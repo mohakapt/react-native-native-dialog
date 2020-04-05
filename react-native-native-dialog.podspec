@@ -21,5 +21,7 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
   s.dependency "PopupDialog"
+  s.dependency "Cosmos"
+  s.dependency "RatingStar"
 end
 

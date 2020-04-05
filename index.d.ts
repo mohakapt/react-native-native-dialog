@@ -81,7 +81,10 @@ export type NumberPickerDialogProps = CommonDialogProps & NumberPickerDialogEven
 	maxValue?: number,
 }
 
-export type RatingDialogProps = CommonDialogProps & CommonDialogEvents & {}
+export type RatingDialogProps = CommonDialogProps & CommonDialogEvents & {
+	mode?: 'rose' | 'bar',
+	value: 0 | 1 | 2 | 3 | 4 | 5,
+}
 
 declare const showDialog: (props: DialogProps) => void;
 declare const showInputDialog: (props: InputDialogProps) => void;

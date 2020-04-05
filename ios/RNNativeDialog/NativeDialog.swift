@@ -148,8 +148,30 @@ class NativeDialog: RCTEventEmitter {
     dialogOptions.presentDialog(in: viewController)
   }
 
-  @objc(showRatingDialog:)
-  func showRatingDialog(options: [String: Any]) {
+  @objc(showRatingDialog: resolver: rejecter:)
+  func showRatingDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {
+      return
+    }
 
+    let dialogOptions = RatingDialogOptions(options: options)
+
+    var resolved = false
+    dialogOptions.finishHandler = { (button, extras) in
+      if !resolved {
+        let params = self.buildParams(button)
+        resolve(extras?.merging(params) { (_, new) in new })
+        resolved = true
+      }
+    }
+
+    dialogOptions.dismissHandler = {
+      if !resolved {
+        resolve(["action": "dismiss"])
+        resolved = true
+      }
+    }
+
+    dialogOptions.presentDialog(in: viewController)
   }
 }

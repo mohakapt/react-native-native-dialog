@@ -39,7 +39,9 @@ const defaultNumberPickerDialogProps = {
 	maxValue: 100,
 };
 
-const defaultRatingDialogProps = {};
+const defaultRatingDialogProps = {
+	mode: 'rose',
+};
 
 const checkIfSupported = (ios, android, iosCondition = true, androidCondition = true) => {
 	const supported = (iosCondition && ios && Platform.OS === 'ios') || (androidCondition && android && Platform.OS === 'android');
@@ -214,7 +216,7 @@ export default {
 	},
 
 	showRatingDialog(props) {
-		if (!checkIfSupported(false, false)) return;
+		if (!checkIfSupported(true, false)) return;
 
 		if (!props) return;
 		props = {
@@ -222,5 +224,36 @@ export default {
 			...defaultRatingDialogProps,
 			...props,
 		};
+
+		if (props.value < 0 || props.value > 5) {
+			console.warn('"value" must be between 0 and 5.');
+			return;
+		}
+
+		if (Platform.OS === 'ios' && props.preferredStyle !== 'popupDialog') {
+			console.warn('UIAlertController doesn\'t support custom, Consider using "popupDialog" in "preferredStyle"');
+			return;
+		}
+
+		RNNativeDialog.showRatingDialog(props).then(({ action, value }) => {
+			switch (action) {
+				case 'positive':
+					const { onPositivePress } = props;
+					if (onPositivePress) onPositivePress(value);
+					return;
+				case 'negative':
+					const { onNegativePress } = props;
+					if (onNegativePress) onNegativePress(value);
+					return;
+				case 'neutral':
+					const { onNeutralPress } = props;
+					if (onNeutralPress) onNeutralPress(value);
+					return;
+				case 'dismiss':
+					const { onDismiss } = props;
+					if (onDismiss) onDismiss();
+					return;
+			}
+		});
 	},
 };

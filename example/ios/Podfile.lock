@@ -1,5 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - Cosmos (21.0.0)
   - DoubleConversion (1.1.6)
   - DynamicBlurView (3.0.1)
   - FBLazyVector (0.62.1)
@@ -22,6 +23,7 @@ PODS:
   - glog (0.3.5)
   - PopupDialog (1.0.0):
     - DynamicBlurView (~> 3.0.1)
+  - RatingStar (0.2.2)
   - RCTRequired (0.62.1)
   - RCTTypeSafety (0.62.1):
     - FBLazyVector (= 0.62.1)
@@ -186,7 +188,9 @@ PODS:
     - React-jsi (= 0.62.1)
   - React-jsinspector (0.62.1)
   - react-native-native-dialog (2.1.0):
+    - Cosmos
     - PopupDialog
+    - RatingStar
     - React
   - React-RCTActionSheet (0.62.1):
     - React-Core/RCTActionSheetHeaders (= 0.62.1)
@@ -283,8 +287,10 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - Cosmos
     - DynamicBlurView
     - PopupDialog
+    - RatingStar
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -342,6 +348,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  Cosmos: 3dfb6e4ba48bd48b8c9aa2a77048ae11ed114f96
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   DynamicBlurView: b1df5415f9bd31897549e5d7077e5ec120a4d636
   FBLazyVector: 95ee3e58937a6052f86b0e32f142388c22fa22c5
@@ -349,6 +356,7 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   PopupDialog: 28f29a1ffe9e1fab32fb258b53d56ca31670e8a2
+  RatingStar: fd5f9adb0006c6e3ec8a43e7b64bd7dc6cff113c
   RCTRequired: e291538a455f5ad1afc2139a4288990be0cadd46
   RCTTypeSafety: 8b6237185765dd9a03a3647807e08864105b1f95
   React: 7b33e15fab929c47ac9c3c94c409258b13cfe452
@@ -358,7 +366,7 @@ SPEC CHECKSUMS:
   React-jsi: 600d8e42510c3254fd2abd702f4b9d3f598d8f52
   React-jsiexecutor: e9698dee4fd43ceb44832baf15d5745f455b0157
   React-jsinspector: f74a62727e5604119abd4a1eda52c0a12144bcd5
-  react-native-native-dialog: b99b69aa3c38d48ffc3eb4ec0c6abbd3f9be4e3f
+  react-native-native-dialog: cf763a2d965ec730627858eaf89f9ebbd06a5812
   React-RCTActionSheet: af8f28dd82fec89b8fe29637b8c779829e016a88
   React-RCTAnimation: 0d21fff7c20fb8ee41de5f2ebb63221127febd96
   React-RCTBlob: 9496bd93130b22069bfbc5d35e98653dae7c35c6

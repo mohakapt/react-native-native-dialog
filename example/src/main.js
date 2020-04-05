@@ -79,32 +79,32 @@ export default class App extends Component<Props, State> {
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
 
-		NativeDialog.showItemsDialog({
-			title: 'How would you like to pay for your meal today?',
-
-			mode: 'single',
-			items: [
-				{ id: 'cc', title: 'Credit Card' },
-				{ id: 'dc', title: 'Debit Card' },
-				{ id: 'pp', title: 'PayPal' },
-				{ id: 'c', title: 'Cash' },
-			],
-			selectedItems: ['pp', 'c'],
-
-			preferredStyle: style,
-
-			theme,
-			accentColor: '#1cc35d',
-
-			positiveButton: 'Select',
-			negativeButton: 'Cancel',
-
-			onItemSelect: selectedId => {
-				console.warn(selectedId);
-			},
-			onNegativePress: () => console.warn('negative'),
-			onDismiss: () => console.warn('dismiss'),
-		});
+		// NativeDialog.showItemsDialog({
+		// 	title: 'How would you like to pay for your meal today?',
+		//
+		// 	mode: 'single',
+		// 	items: [
+		// 		{ id: 'cc', title: 'Credit Card' },
+		// 		{ id: 'dc', title: 'Debit Card' },
+		// 		{ id: 'pp', title: 'PayPal' },
+		// 		{ id: 'c', title: 'Cash' },
+		// 	],
+		// 	selectedItems: ['pp', 'c'],
+		//
+		// 	preferredStyle: style,
+		//
+		// 	theme,
+		// 	accentColor: '#1cc35d',
+		//
+		// 	positiveButton: 'Select',
+		// 	negativeButton: 'Cancel',
+		//
+		// 	onItemSelect: selectedId => {
+		// 		console.warn(selectedId);
+		// 	},
+		// 	onNegativePress: () => console.warn('negative'),
+		// 	onDismiss: () => console.warn('dismiss'),
+		// });
 
 		// NativeDialog.showNumberPickerDialog({
 		// 	title: 'Pick a Number',
@@ -130,6 +130,27 @@ export default class App extends Component<Props, State> {
 		// 	theme,
 		// 	date: '01/01/1996',
 		// });
+
+		NativeDialog.showRatingDialog({
+			title: 'Rate The App',
+
+			preferredStyle: style,
+			theme,
+			accentColor: '#8782ff',
+
+			mode: 'bar',
+			value: 1,
+
+			positiveButton: 'Submit',
+			negativeButton: 'Don\'t Ask Again',
+			neutralButton: 'Remind Me Later',
+
+			onPositivePress: (input) => console.warn('positive - ', input),
+			onNegativePress: (input) => console.warn('negative - ', input),
+			onNeutralPress: (input) => console.warn('neutral - ', input),
+
+			onDismiss: () => console.warn('dismiss'),
+		});
 	};
 
 	render() {

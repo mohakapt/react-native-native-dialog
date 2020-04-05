@@ -203,12 +203,14 @@
 				"${PODS_ROOT}/../../../ios/RNNativeDialog/InputViewController.xib",
 				"${PODS_ROOT}/../../../ios/RNNativeDialog/ItemsViewController.xib",
 				"${PODS_ROOT}/../../../ios/RNNativeDialog/NumberPickerViewController.xib",
+				"${PODS_ROOT}/../../../ios/RNNativeDialog/RatingViewController.xib",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/InputViewController.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ItemsViewController.nib",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/NumberPickerViewController.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RatingViewController.nib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
