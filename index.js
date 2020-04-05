@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { NativeEventEmitter, NativeModules, Platform } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 const { RNNativeDialog } = NativeModules;
-const RNNativeDialogEvents = new NativeEventEmitter(RNNativeDialog);
 
 const defaultDialogProps = {
 	cancellable: true,
@@ -41,18 +40,6 @@ const defaultNumberPickerDialogProps = {
 };
 
 const defaultRatingDialogProps = {};
-
-const EVENT_POSITIVE_BUTTON = 'native_dialog__positive_button';
-const EVENT_NEGATIVE_BUTTON = 'native_dialog__negative_button';
-const EVENT_NEUTRAL_BUTTON = 'native_dialog__neutral_button';
-const EVENT_DISMISS_DIALOG = 'native_dialog__dismiss_dialog';
-
-const removeAllListeners = () => {
-	RNNativeDialogEvents.removeAllListeners(EVENT_POSITIVE_BUTTON);
-	RNNativeDialogEvents.removeAllListeners(EVENT_NEGATIVE_BUTTON);
-	RNNativeDialogEvents.removeAllListeners(EVENT_NEUTRAL_BUTTON);
-	RNNativeDialogEvents.removeAllListeners(EVENT_DISMISS_DIALOG);
-};
 
 const checkIfSupported = (ios, android, iosCondition = true, androidCondition = true) => {
 	const supported = (iosCondition && ios && Platform.OS === 'ios') || (androidCondition && android && Platform.OS === 'android');
@@ -104,12 +91,19 @@ export default {
 		const { items, mode } = props;
 		if (items.every(x => typeof x === 'string')) {
 			props.items = items.map((item, index) => ({ id: index, title: item }));
-		} else if (!items.every(x => typeof x === 'object' && 'id' in x && 'title' in x))
+		} else if (!items.every(x => typeof x === 'object' && 'id' in x && 'title' in x && typeof x['title'] === 'string')) {
+			console.warn('Unable to understand "items", Dialog items can be either Array<string> or Array<{ id: number | string, title: string }>');
 			return;
+		}
 
 		props.message = undefined;
 		if (mode !== 'single' && mode !== 'multiple')
 			props.positiveButton = undefined;
+
+		if ((mode === 'single' || mode === 'multiple') && props.preferredStyle !== 'popupDialog') {
+			console.warn('UIAlertController doesn\'t support "single" or "multiple" modes, Consider using "popupDialog" in "preferredStyle"');
+			return;
+		}
 
 		RNNativeDialog.showItemsDialog(props).then(({ action, value }) => {
 			switch (action) {
@@ -172,7 +166,7 @@ export default {
 	},
 
 	showNumberPickerDialog(props) {
-		if (!checkIfSupported(false, true)) return;
+		if (!checkIfSupported(true, true)) return;
 
 		if (!props) return;
 		props = {
@@ -180,6 +174,22 @@ export default {
 			...defaultNumberPickerDialogProps,
 			...props,
 		};
+
+		const { value, minValue, maxValue } = props;
+		if (minValue > maxValue) {
+			console.warn('"minValue" must be less or equal to "maxValue"');
+			return;
+		}
+
+		if (value < minValue || value > maxValue) {
+			console.warn('"value" must be in range between "minValue" and "maxValue"');
+			return;
+		}
+
+		if (props.preferredStyle !== 'popupDialog') {
+			console.warn('UIAlertController doesn\'t support UIPickerView, Consider using "popupDialog" in "preferredStyle"');
+			return;
+		}
 
 		RNNativeDialog.showNumberPickerDialog(props).then(({ action, value }) => {
 			switch (action) {

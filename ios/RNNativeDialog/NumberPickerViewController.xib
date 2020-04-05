@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NumberPickerViewController" customModule="react_native_native_dialog">
+            <connections>
+                <outlet property="messageLabel" destination="2HH-oa-iPg" id="fk6-lY-alv"/>
+                <outlet property="pickerView" destination="KFK-rr-cK1" id="X1J-bW-fjq"/>
+                <outlet property="titleLabel" destination="Fsa-tf-R3H" id="lYC-nq-T3Z"/>
+                <outlet property="view" destination="l1G-N8-DQg" id="MbR-Wh-aro"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="l1G-N8-DQg">
+            <rect key="frame" x="0.0" y="0.0" width="381" height="607"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pJa-vP-fY0">
+                    <rect key="frame" x="20" y="30" width="341" height="547"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsa-tf-R3H">
+                            <rect key="frame" x="0.0" y="0.0" width="341" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HH-oa-iPg">
+                            <rect key="frame" x="0.0" y="8" width="341" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LbI-6o-lTv">
+                            <rect key="frame" x="0.0" y="16" width="341" height="14"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="14" id="5Yb-d9-Ahz"/>
+                            </constraints>
+                        </view>
+                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KFK-rr-cK1">
+                            <rect key="frame" x="0.0" y="38" width="341" height="509"/>
+                        </pickerView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="pJa-vP-fY0" secondAttribute="bottom" constant="30" id="2OO-z7-BzO"/>
+                <constraint firstItem="pJa-vP-fY0" firstAttribute="leading" secondItem="l1G-N8-DQg" secondAttribute="leading" constant="20" id="lqQ-hs-F21"/>
+                <constraint firstItem="pJa-vP-fY0" firstAttribute="top" secondItem="l1G-N8-DQg" secondAttribute="top" constant="30" id="lrx-Oy-exP"/>
+                <constraint firstAttribute="trailing" secondItem="pJa-vP-fY0" secondAttribute="trailing" constant="20" id="rwU-YX-Lc0"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="28.260869565217394" y="175.78125"/>
+        </view>
+    </objects>
+</document>

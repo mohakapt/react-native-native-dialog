@@ -93,7 +93,6 @@ class NativeDialog: RCTEventEmitter {
       return
     }
 
-
     let dialogOptions = ItemsDialogOptions(options: options)
 
     var resolved = false
@@ -122,9 +121,31 @@ class NativeDialog: RCTEventEmitter {
     dialogOptions.presentDialog(in: viewConroller)
   }
 
-  @objc(showNumberPickerDialog:)
-  func showNumberPickerDialog(options: [String: Any]) {
+  @objc(showNumberPickerDialog: resolver: rejecter:)
+  func showNumberPickerDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {
+      return
+    }
 
+    let dialogOptions = NumberPickerDialogOptions(options: options)
+
+    var resolved = false
+    dialogOptions.finishHandler = { (button, extras) in
+      if !resolved {
+        let params = self.buildParams(button)
+        resolve(extras?.merging(params) { (_, new) in new })
+        resolved = true
+      }
+    }
+
+    dialogOptions.dismissHandler = {
+      if !resolved {
+        resolve(["action": "dismiss"])
+        resolved = true
+      }
+    }
+
+    dialogOptions.presentDialog(in: viewController)
   }
 
   @objc(showRatingDialog:)

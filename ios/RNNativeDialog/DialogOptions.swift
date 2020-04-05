@@ -27,7 +27,7 @@ enum DialogButton: String {
   case neutral
 }
 
-typealias FinishHandler = (_ dialogButton: DialogButton, _ with: [String: String?]?) -> Void
+typealias FinishHandler = (_ dialogButton: DialogButton, _ with: [String: Any?]?) -> Void
 typealias DismissHandler = () -> Void
 
 class DialogOptions: NSObject {

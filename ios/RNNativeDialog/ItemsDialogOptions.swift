@@ -184,12 +184,17 @@ class ItemsDialogOptions: DialogOptions {
     switch (options["mode"] as? String ?? "default").lowercased() {
     case "single":
       self.mode = .single
+      if self.selectedIds.count > 1 {
+        self.selectedIds = [self.selectedIds[0]]
+      }
       break
     case "multiple":
       self.mode = .multiple
       break
     default:
       self.mode = .default
+      self.selectedIds = []
+      break
     }
 
     super.init(options: options)
@@ -199,7 +204,9 @@ class ItemsDialogOptions: DialogOptions {
     let alertController = super.buildNativeDialog()
 
     self.items.forEach { item in
-      let action = UIAlertAction(title: item.title, style: .default, handler: nil)
+      let action = UIAlertAction(title: item.title, style: .default) { _ in
+        self.itemSelectHandler?([item.id])
+      }
       alertController.addAction(action)
     }
 
@@ -227,7 +234,7 @@ class ItemsDialogOptions: DialogOptions {
   override func positiveButtonTouched() {
     switch mode {
     case .multiple, .single:
-      itemSelectHandler?(selectedIds)
+      self.itemSelectHandler?(selectedIds)
       break
     default:
       super.positiveButtonTouched()

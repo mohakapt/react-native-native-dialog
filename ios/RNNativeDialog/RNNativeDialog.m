@@ -30,6 +30,12 @@ RCT_EXTERN_METHOD(showItemsDialog:(NSDictionary* ) options
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(showNumberPickerDialog:(NSDictionary* ) options)
-RCT_EXTERN_METHOD(showRatingDialog:(NSDictionary* ) options)
+RCT_EXTERN_METHOD(showNumberPickerDialog:(NSDictionary* ) options
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+
+RCT_EXTERN_METHOD(showRatingDialog:(NSDictionary* ) options
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
 @end

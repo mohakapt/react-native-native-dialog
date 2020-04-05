@@ -79,43 +79,52 @@ export default class App extends Component<Props, State> {
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
 
-		NativeDialog.showItemsDialog({
-			title: 'How would you like to pay for your meal today?',
-
-			mode: 'default',
-			items: [
-				{ id: 'cc', title: 'Credit Card' },
-				{ id: 'dc', title: 'Debit Card' },
-				{ id: 'pp', title: 'PayPal' },
-				{ id: 'c', title: 'Cash' },
-			],
-			// selectedItems: ['pp', 'c'],
-
-			preferredStyle: 'actionSheet',
-
-			theme,
-			accentColor: '#1cc35d',
-
-			positiveButton: 'Select',
-			negativeButton: 'Cancel',
-
-			onItemSelect: selectedId => {
-				console.warn(selectedId);
-			},
-			onNegativePress: () => console.warn('negative'),
-			onDismiss: () => console.warn('dismiss'),
-		});
-
-		// NativeDialog.showNumberPickerDialog({
-		// 	title: 'Pick a Number',
+		// NativeDialog.showItemsDialog({
+		// 	title: 'How would you like to pay for your meal today?',
 		//
-		// 	value: 20,
-		// 	positiveButton: 'Pick',
+		// 	mode: 'single',
+		// 	items: [
+		// 		{ id: 'cc', title: 'Credit Card' },
+		// 		{ id: 'dc', title: 'Debit Card' },
+		// 		{ id: 'pp', title: 'PayPal' },
+		// 		{ id: 'c', title: 'Cash' },
+		// 	],
+		// 	selectedItems: ['pp', 'c'],
 		//
-		// 	onPositivePress: value => {
-		// 		console.warn('---- ', value);
+		// 	preferredStyle: style,
+		//
+		// 	theme,
+		// 	accentColor: '#1cc35d',
+		//
+		// 	positiveButton: 'Select',
+		// 	negativeButton: 'Cancel',
+		//
+		// 	onItemSelect: selectedId => {
+		// 		console.warn(selectedId);
 		// 	},
+		// 	onNegativePress: () => console.warn('negative'),
+		// 	onDismiss: () => console.warn('dismiss'),
 		// });
+
+		NativeDialog.showNumberPickerDialog({
+			title: 'Pick a Number',
+
+			preferredStyle: style,
+			theme,
+			accentColor: '#ff4a9e',
+
+			minValue: -6,
+			maxValue: 6,
+			value: 5,
+			positiveButton: 'Pick',
+
+			onPositivePress: (input) => console.warn('positive - ', input),
+			onNegativePress: (input) => console.warn('negative - ', input),
+			onNeutralPress: (input) => console.warn('neutral - ', input),
+
+			onDismiss: () => console.warn('dismiss'),
+
+		});
 
 		// NativeDialog.showDatePickerDialog({
 		// 	theme,
@@ -130,9 +139,11 @@ export default class App extends Component<Props, State> {
 				<Text style={styles.instructions}>To get started, edit App.js</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
 				<Button title={'Show Dialog (Alert) - Light'} onPress={() => this.onTouched('alert', 'light')} />
-				<Button title={'Show Dialog (PopupDialog) - Light'} onPress={() => this.onTouched('popupDialog', 'light')} />
+				<Button title={'Show Dialog (PopupDialog) - Light'}
+				        onPress={() => this.onTouched('popupDialog', 'light')} />
 				<Button title={'Show Dialog (Alert) - Dark'} onPress={() => this.onTouched('alert', 'dark')} />
-				<Button title={'Show Dialog (PopupDialog) - Dark'} onPress={() => this.onTouched('popupDialog', 'dark')} />
+				<Button title={'Show Dialog (PopupDialog) - Dark'}
+				        onPress={() => this.onTouched('popupDialog', 'dark')} />
 			</View>
 		);
 	}

@@ -10,11 +10,10 @@
 		7130E9092326408600946A44 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E8FF2326408600946A44 /* Extensions.swift */; };
 		7130E90A2326408600946A44 /* DialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9022326408600946A44 /* DialogOptions.swift */; };
 		7130E90B2326408600946A44 /* RNNativeDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9032326408600946A44 /* RNNativeDialog.m */; };
-		7130E90C2326408600946A44 /* TipDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9042326408600946A44 /* TipDialogOptions.swift */; };
-		7130E90D2326408600946A44 /* ProgressDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9052326408600946A44 /* ProgressDialogOptions.swift */; };
 		7130E90E2326408600946A44 /* ItemsDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9062326408600946A44 /* ItemsDialogOptions.swift */; };
 		7130E90F2326408600946A44 /* NativeDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9072326408600946A44 /* NativeDialog.swift */; };
 		7130E9102326408600946A44 /* InputDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7130E9082326408600946A44 /* InputDialogOptions.swift */; };
+		71CFC7182439FCA600530669 /* NumberPickerDialogOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CFC7172439FCA600530669 /* NumberPickerDialogOptions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,11 +35,11 @@
 		7130E9012326408600946A44 /* ItemsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ItemsViewController.xib; path = RNNativeDialog/ItemsViewController.xib; sourceTree = "<group>"; };
 		7130E9022326408600946A44 /* DialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DialogOptions.swift; path = RNNativeDialog/DialogOptions.swift; sourceTree = "<group>"; };
 		7130E9032326408600946A44 /* RNNativeDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNNativeDialog.m; path = RNNativeDialog/RNNativeDialog.m; sourceTree = "<group>"; };
-		7130E9042326408600946A44 /* TipDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TipDialogOptions.swift; path = RNNativeDialog/TipDialogOptions.swift; sourceTree = "<group>"; };
-		7130E9052326408600946A44 /* ProgressDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressDialogOptions.swift; path = RNNativeDialog/ProgressDialogOptions.swift; sourceTree = "<group>"; };
 		7130E9062326408600946A44 /* ItemsDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemsDialogOptions.swift; path = RNNativeDialog/ItemsDialogOptions.swift; sourceTree = "<group>"; };
 		7130E9072326408600946A44 /* NativeDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NativeDialog.swift; path = RNNativeDialog/NativeDialog.swift; sourceTree = "<group>"; };
 		7130E9082326408600946A44 /* InputDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputDialogOptions.swift; path = RNNativeDialog/InputDialogOptions.swift; sourceTree = "<group>"; };
+		71CFC7142439FAE100530669 /* PickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PickerViewController.xib; path = RNNativeDialog/PickerViewController.xib; sourceTree = "<group>"; };
+		71CFC7172439FCA600530669 /* NumberPickerDialogOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberPickerDialogOptions.swift; path = RNNativeDialog/NumberPickerDialogOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,10 +68,10 @@
 				7130E9022326408600946A44 /* DialogOptions.swift */,
 				7130E9082326408600946A44 /* InputDialogOptions.swift */,
 				7130E9062326408600946A44 /* ItemsDialogOptions.swift */,
-				7130E9052326408600946A44 /* ProgressDialogOptions.swift */,
-				7130E9042326408600946A44 /* TipDialogOptions.swift */,
-				7130E9012326408600946A44 /* ItemsViewController.xib */,
+				71CFC7172439FCA600530669 /* NumberPickerDialogOptions.swift */,
 				7130E8FE2326408600946A44 /* InputViewController.xib */,
+				7130E9012326408600946A44 /* ItemsViewController.xib */,
+				71CFC7142439FAE100530669 /* PickerViewController.xib */,
 				7130E8FF2326408600946A44 /* Extensions.swift */,
 				7130E9032326408600946A44 /* RNNativeDialog.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -142,9 +141,8 @@
 				7130E90E2326408600946A44 /* ItemsDialogOptions.swift in Sources */,
 				7130E9102326408600946A44 /* InputDialogOptions.swift in Sources */,
 				7130E90F2326408600946A44 /* NativeDialog.swift in Sources */,
-				7130E90D2326408600946A44 /* ProgressDialogOptions.swift in Sources */,
-				7130E90C2326408600946A44 /* TipDialogOptions.swift in Sources */,
 				7130E90A2326408600946A44 /* DialogOptions.swift in Sources */,
+				71CFC7182439FCA600530669 /* NumberPickerDialogOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
