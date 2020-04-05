@@ -100,7 +100,7 @@ export default {
 		if (mode !== 'single' && mode !== 'multiple')
 			props.positiveButton = undefined;
 
-		if ((mode === 'single' || mode === 'multiple') && props.preferredStyle !== 'popupDialog') {
+		if (Platform.OS === 'ios' && (mode === 'single' || mode === 'multiple') && props.preferredStyle !== 'popupDialog') {
 			console.warn('UIAlertController doesn\'t support "single" or "multiple" modes, Consider using "popupDialog" in "preferredStyle"');
 			return;
 		}
@@ -186,7 +186,7 @@ export default {
 			return;
 		}
 
-		if (props.preferredStyle !== 'popupDialog') {
+		if (Platform.OS === 'ios' && props.preferredStyle !== 'popupDialog') {
 			console.warn('UIAlertController doesn\'t support UIPickerView, Consider using "popupDialog" in "preferredStyle"');
 			return;
 		}

@@ -79,52 +79,52 @@ export default class App extends Component<Props, State> {
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
 
-		// NativeDialog.showItemsDialog({
-		// 	title: 'How would you like to pay for your meal today?',
-		//
-		// 	mode: 'single',
-		// 	items: [
-		// 		{ id: 'cc', title: 'Credit Card' },
-		// 		{ id: 'dc', title: 'Debit Card' },
-		// 		{ id: 'pp', title: 'PayPal' },
-		// 		{ id: 'c', title: 'Cash' },
-		// 	],
-		// 	selectedItems: ['pp', 'c'],
-		//
-		// 	preferredStyle: style,
-		//
-		// 	theme,
-		// 	accentColor: '#1cc35d',
-		//
-		// 	positiveButton: 'Select',
-		// 	negativeButton: 'Cancel',
-		//
-		// 	onItemSelect: selectedId => {
-		// 		console.warn(selectedId);
-		// 	},
-		// 	onNegativePress: () => console.warn('negative'),
-		// 	onDismiss: () => console.warn('dismiss'),
-		// });
+		NativeDialog.showItemsDialog({
+			title: 'How would you like to pay for your meal today?',
 
-		NativeDialog.showNumberPickerDialog({
-			title: 'Pick a Number',
+			mode: 'single',
+			items: [
+				{ id: 'cc', title: 'Credit Card' },
+				{ id: 'dc', title: 'Debit Card' },
+				{ id: 'pp', title: 'PayPal' },
+				{ id: 'c', title: 'Cash' },
+			],
+			selectedItems: ['pp', 'c'],
 
 			preferredStyle: style,
+
 			theme,
-			accentColor: '#ff4a9e',
+			accentColor: '#1cc35d',
 
-			minValue: -6,
-			maxValue: 6,
-			value: 5,
-			positiveButton: 'Pick',
+			positiveButton: 'Select',
+			negativeButton: 'Cancel',
 
-			onPositivePress: (input) => console.warn('positive - ', input),
-			onNegativePress: (input) => console.warn('negative - ', input),
-			onNeutralPress: (input) => console.warn('neutral - ', input),
-
+			onItemSelect: selectedId => {
+				console.warn(selectedId);
+			},
+			onNegativePress: () => console.warn('negative'),
 			onDismiss: () => console.warn('dismiss'),
-
 		});
+
+		// NativeDialog.showNumberPickerDialog({
+		// 	title: 'Pick a Number',
+		//
+		// 	preferredStyle: style,
+		// 	theme,
+		// 	accentColor: '#ff4a9e',
+		//
+		// 	minValue: -6,
+		// 	maxValue: 6,
+		// 	value: 5,
+		// 	positiveButton: 'Pick',
+		//
+		// 	onPositivePress: (input) => console.warn('positive - ', input),
+		// 	onNegativePress: (input) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		//
+		// 	onDismiss: () => console.warn('dismiss'),
+		//
+		// });
 
 		// NativeDialog.showDatePickerDialog({
 		// 	theme,
