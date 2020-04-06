@@ -1,15 +1,18 @@
 # react-native-native-dialog
-> A native library for React Native to display common dialogs with native feel and look on Android and iOS.
+> A React Native module that exposes some of the common native dialogs to React Native.
 
 [![Latest Stable Version](https://img.shields.io/npm/v/react-native-native-dialog.svg)](https://www.npmjs.com/package/react-native-native-dialog)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-native-dialog.svg)](https://www.npmjs.com/package/react-native-native-dialog)
 [![GitHub issues](https://img.shields.io/github/issues-raw/mohakapt/react-native-native-dialog.svg)](https://github.com/mohakapt/react-native-native-dialog/issues)
 [![Used Languages](https://img.shields.io/github/languages/top/mohakapt/react-native-native-dialog.svg)](https://github.com/mohakapt/react-native-native-dialog/issues)
 
-Getting Started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### 🚀 Motivation
+The issue with trying to mock native components using `<View />`s is that no matter how much time and effort you spend to make it look like the real-deal, You end up with janky looking results (I spent hours taking screenshots of the real Android dialog and trying to imitate it, And didn't get a satisfying result). But to be fair, using `react-native` `<View />`s offers a lot of customization which is something you cannot simply just get with native libraries. So there is a decision that needs to be made.
 
-## Installation
+Anyways I decided to make a library for some of the commonly used dialogs using native APIs.
+
+
+### ⬇️ Installation
 
 ```bash
 npm install react-native-native-dialog --save
@@ -19,10 +22,12 @@ npm install react-native-native-dialog --save
 ```bash
 yarn add react-native-native-dialog
 ```
-> ⚠ The library only works with react-native@0.60 and up.
+> ⚠️ The library only works with react-native@0.60 and up.
 >
 ### Additional Setup
+Since this library only works with react-native@0.60.0 and up there is no need to manually link the library, But there still some additional setup you need to do.
 
+[Check ]
 
 
 **Automatically:**
