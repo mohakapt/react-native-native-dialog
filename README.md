@@ -22,7 +22,7 @@
 - [License](#license)
 
 
-### 🚀 Motivation
+## 🚀 Motivation
 The issue with trying to mock native components using `<View />`s is that no matter how much time and effort you spend to make it look like the real-deal, You end up with janky looking results (I spent hours taking screenshots of the real Android dialog and trying to imitate it, And didn't get a satisfying result). But to be fair, using `react-native` `<View />`s offers a lot of customization which is something you cannot simply just get with native libraries. So there is a decision that needs to be made.
 
 Anyways I decided to make a library for some of the commonly used dialogs using native APIs.
@@ -44,7 +44,7 @@ cd ios && pod install   # Only if you're building for iOS
 
 > ⚠️ The library only works with react-native@0.60 and up.
 >
-### Additional Setup
+## Additional Setup
 Since this library only works with react-native@0.60.0 and up there is no need to manually link the library, But there still some additional setup you need to do.
 
 **iOS**
