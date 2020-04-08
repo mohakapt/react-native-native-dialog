@@ -6,28 +6,41 @@
 [![GitHub issues](https://img.shields.io/github/issues-raw/mohakapt/react-native-native-dialog.svg)](https://github.com/mohakapt/react-native-native-dialog/issues)
 [![Used Languages](https://img.shields.io/github/languages/top/mohakapt/react-native-native-dialog.svg)](https://github.com/mohakapt/react-native-native-dialog/issues)
 
-## ✨ Features
+<h2 id='section_features'>
+✨ Features
+</h2>
+
 * ✅ Native support for the most commonly used Dialogs on `iOS`  and `Android`.
 * ✅ Dark mode 🌓 and Accent Color 🌈.
 * ✅ Easy to use Api with support for both `Callback` and `Promise`.
 
-## 🚧 Table of Contents
 
-- [Motivation](#motivation)
-- [Installation](#installation)
-- [Additional Setup](#contributing)
-- [Contributing](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+<h2 id='section_table_of_contents'>
+🚧 Table of Contents
+</h2>
+
+- [🚀 Motivation](#section_motivation)
+- [⬇️ Installation](#section_installation)
+- [⚒️ Additional Setup](#section_additional_setup)
+- [🔌 Component API](#section_component_api)
+- [🤝 Contributing](#section_contributing)
+- [💡 FAQ](#section_faq)
+- [👍 Support](#section_support)
+- [📝 License](#section_support)
 
 
-## 🚀 Motivation
+<h2 id='section_motivation'>
+🚀 Motivation
+</h2>
+
 The issue with trying to mock native components using `<View />`s is that no matter how much time and effort you spend to make it look like the real-deal, You end up with janky looking results (I spent hours taking screenshots of the real Android dialog and trying to imitate it, And didn't get a satisfying result). But to be fair, using `react-native` `<View />`s offers a lot of customization which is something you cannot simply just get with native libraries. So there is a decision that needs to be made.
 
 Anyways I decided to make a library for some of the commonly used dialogs using native APIs.
 
-## ⬇️ Installation
+
+<h2 id='section_installation'>
+⬇️ Installation
+</h2>
 
 ```bash
 npm install react-native-native-dialog --save
@@ -43,15 +56,19 @@ cd ios && pod install   # Only if you're building for iOS
 ```
 
 > ⚠️ The library only works with react-native@0.60 and up.
->
-## Additional Setup
+
+
+<h2 id='section_additional_setup'>
+⚒️ Additional Setup
+</h2>
+
 Since this library only works with react-native@0.60.0 and up there is no need to manually link the library, But there still some additional setup you need to do.
 
 **iOS**
 
 This library is written in `Swift` so we need to create a bridging header in your `XCode` project (If you've already done it you can skip this section).
 
-![Create Bridging Header](./images/create-bridging-header.gif)
+![Create Bridging Header](https://raw.githubusercontent.com/mohakapt/react-native-native-dialog/master/images/create-bridging-header.gif)
 
 0. First of all make sure you run ```pod install``` in `Terminal` inside `ios` folder.
 0. In XCode, in the project navigator, right click `[your project's name]` ➜ `New File...`
@@ -109,9 +126,16 @@ Unfortunately `Android` doesn't support changing the `accentColor` dynamically, 
    ```
 0. Build your project and start using `react-native-native-dialog`.
 
-## Component API
 
-## Contributing
+<h2 id='section_component_api'>
+🔌 Component API
+</h2>
+
+
+<h2 id='section_contributing'>
+🤝 Contributing
+</h2>
+
 We would love to have community contributions and support! A few areas where could use help right now:
 * Bug reports and/or fixes
 * Writing tests
@@ -132,13 +156,22 @@ BREAKING CHANGE: Main changes subject
 - Another optional message
 ```
 
-## Support
+
+<h2 id='section_faq'>
+💡 FAQ
+</h2>
+
+<h2 id='section_support'>
+👍 Support
+</h2>
 
 * **Heysem Katibi** - *Initial work*
 * **Yaman Katby**
 
 See also the list of [contributors](https://github.com/mohakapt/react-native-native-dialog/contributors) who participated in this project.
 
-## License
+<h2 id='section_support'>
+📝 License
+</h2>
 
 This library is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
