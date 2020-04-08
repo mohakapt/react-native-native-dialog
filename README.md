@@ -101,7 +101,7 @@ Unfortunately `Android` doesn't support changing the `accentColor` dynamically, 
    public void onCreate() {
        super.onCreate();
        SoLoader.init(this, /* native exopackage */ false);
-       + RNNativeDialogPackage.setDialogTheme(R.style.AlertDialog, R.style.LightAlertDialog);
+   +   RNNativeDialogPackage.setDialogTheme(R.style.AlertDialog, R.style.LightAlertDialog);
        initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
    }
    
