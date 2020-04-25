@@ -1,0 +1,1 @@
+# `showRatingDialog()` Component API

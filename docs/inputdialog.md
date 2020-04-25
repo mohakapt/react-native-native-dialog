@@ -1,0 +1,1 @@
+# `showInputDialog()` Component API

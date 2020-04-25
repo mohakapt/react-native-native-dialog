@@ -22,11 +22,12 @@
 - [🚀 Motivation](#section_motivation)
 - [⬇️ Installation](#section_installation)
 - [⚒️ Additional Setup](#section_additional_setup)
+- [☘️ Example](#section_example)
 - [🔌 Component API](#section_component_api)
 - [🤝 Contributing](#section_contributing)
 - [💡 FAQ](#section_faq)
 - [👍 Support](#section_support)
-- [📝 License](#section_support)
+- [📝 License](#section_license)
 
 
 <h2 id='section_motivation'>
@@ -127,9 +128,49 @@ Unfortunately `Android` doesn't support changing the `accentColor` dynamically, 
 0. Build your project and start using `react-native-native-dialog`.
 
 
+<h2 id='section_example'>
+☘️ Example
+</h2>
+
+```javascript
+import NativeDialog from 'react-native-native-dialog';
+
+NativeDialog.showDialog({
+   title: 'Do you want to update your iCloud Backup before erasing?',
+   message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
+
+   positiveButton: 'Back Up Then Erase',
+   negativeButton: 'Erase Now',
+   neutralButton: 'Cancel',
+
+   negativeButtonStyle: 'default',
+   neutralButtonStyle: 'cancel',
+
+   theme: 'dark',
+   accentColor: '#ff4a9e',
+
+   onPositivePress: () => console.warn('positive'),
+   onNegativePress: () => console.warn('negative'),
+   onNeutralPress: () => console.warn('neutral'),
+
+   onDismiss: () => console.warn('dismiss'),
+});
+```
+
+
 <h2 id='section_component_api'>
 🔌 Component API
 </h2>
+
+[`NativeDialog.showDialog()` API](docs/dialog.md)
+
+[`NativeDialog.showInputDialog()` API](docs/inputdialog.md)
+
+[`NativeDialog.showItemsDialog()` API](docs/itemsdialog.md)
+
+[`NativeDialog.showNumberPickerDialog()` API](docs/numberpickerdialog.md)
+
+[`NativeDialog.showRatingDialog()` API](docs/ratingdialog.md)
 
 
 <h2 id='section_contributing'>
@@ -170,7 +211,7 @@ BREAKING CHANGE: Main changes subject
 
 See also the list of [contributors](https://github.com/mohakapt/react-native-native-dialog/contributors) who participated in this project.
 
-<h2 id='section_support'>
+<h2 id='section_license'>
 📝 License
 </h2>
 
