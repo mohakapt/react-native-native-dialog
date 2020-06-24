@@ -39,7 +39,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         return TAG;
     }
 
-    private WritableMap getWritableResult(int which) {
+    private WritableMap getWritableResult(int which, String fallback) {
         WritableMap reVal = Arguments.createMap();
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
@@ -53,10 +53,14 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
                 break;
 
             default:
-                reVal.putString("action", "dismiss");
+                reVal.putString("action", fallback);
                 break;
         }
         return reVal;
+    }
+
+    private WritableMap getWritableResult(int which) {
+        return getWritableResult(which, "dismiss");
     }
 
     @ReactMethod
@@ -113,7 +117,7 @@ public class RNNativeDialogModule extends ReactContextBaseJavaModule {
         final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map);
 
         DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
-            WritableMap params = getWritableResult(which);
+            WritableMap params = getWritableResult(which, "positive");
             switch (which) {
                 case DialogInterface.BUTTON_NEGATIVE:
                 case DialogInterface.BUTTON_NEUTRAL:
