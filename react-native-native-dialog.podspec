@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.authors      = { "Heysem Katibi" => "mohakapt@gmail.com" }
   s.homepage     = "https://github.com/mohakapt/react-native-native-dialog"
   s.license    = { :type => "MIT", :file => "LICENSE" }
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "10.0"
   s.swift_version = '4.2'
   s.source       = { :git => "https://github.com/mohakapt/react-native-native-dialog.git", :tag => "#{s.version}" }
   s.requires_arc = true
