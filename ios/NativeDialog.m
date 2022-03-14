@@ -1,5 +1,5 @@
 //
-//  RNNativeDialog.m
+//  NativeDialog.m
 //  react-native-native-dialog
 //
 //  Created by Haytham Katby on 12/2/18.
@@ -7,9 +7,8 @@
 //
 
 #import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_REMAP_MODULE(RNNativeDialog, NativeDialog, RCTEventEmitter)
+@interface RCT_EXTERN_MODULE(NativeDialog, NSObject)
 
 - (dispatch_queue_t)methodQueue
 {

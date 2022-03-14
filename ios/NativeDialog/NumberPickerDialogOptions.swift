@@ -1,6 +1,6 @@
 //
 //  NumberPickerViewController.swift
-//  RNNativeDialog
+//  NativeDialog
 //
 //  Created by Heysem Katibi on 5.04.2020.
 //  Copyright © 2020 Facebook. All rights reserved.

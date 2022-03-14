@@ -1,6 +1,6 @@
 //
 //  NativeDialog.swift
-//  RNNativeDialog
+//  NativeDialog
 //
 //  Created by Heysem Katibi on 1/23/19.
 //  Copyright © 2019 Facebook. All rights reserved.
@@ -11,16 +11,7 @@ import UIKit
 import PopupDialog
 
 @objc(NativeDialog)
-class NativeDialog: RCTEventEmitter {
-
-  override func supportedEvents() -> [String]! {
-    return ["native_dialog__positive_button", "native_dialog__negative_button", "native_dialog__neutral_button", "native_dialog__dismiss_dialog"]
-  }
-
-  @objc
-  override static func requiresMainQueueSetup() -> Bool {
-    return true
-  }
+class NativeDialog: NSObject {
 
   func buildParams(_ button: DialogButton) -> [String: String] {
     switch button {

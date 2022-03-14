@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  RNNativeDialog
+//  NativeDialog
 //
 //  Created by Heysem Katibi on 3/4/19.
 //  Copyright © 2019 Facebook. All rights reserved.
