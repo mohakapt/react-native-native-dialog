@@ -1,20 +1,20 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-    </style>
+	<!-- Base application theme. -->
+	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+	</style>
 
-    <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="colorPrimary">#FFB300</item>
-        <item name="colorPrimaryDark">#FFB300</item>
-        <item name="colorAccent">#FFB300</item>
-    </style>
+	<style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+		<item name="colorPrimary">#FFB300</item>
+		<item name="colorPrimaryDark">#FFB300</item>
+		<item name="colorAccent">#FFB300</item>
+	</style>
 
-    <style name="LightAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorPrimary">#E6A100</item>
-        <item name="colorPrimaryDark">#E6A100</item>
-        <item name="colorAccent">#E6A100</item>
-    </style>
+	<style name="LightAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<item name="colorPrimary">#E6A100</item>
+		<item name="colorPrimaryDark">#E6A100</item>
+		<item name="colorAccent">#E6A100</item>
+	</style>
 
 </resources>
