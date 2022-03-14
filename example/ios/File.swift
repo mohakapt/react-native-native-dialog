@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  example
+//  NativeDialogExample
 //
 //  Created by Heysem Katibi on 9/9/19.
 //  Copyright © 2019 Facebook. All rights reserved.
