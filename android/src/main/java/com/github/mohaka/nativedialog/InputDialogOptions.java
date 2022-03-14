@@ -208,7 +208,7 @@ public class InputDialogOptions extends DialogOptions {
 
 			@Override
 			public void afterTextChanged(Editable s) {
-				if (allowEmptyEntry)
+				if (!getAllowEmptyEntry())
 					btnPositive.setEnabled(!s.toString().isEmpty());
 			}
 		};
