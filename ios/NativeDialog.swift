@@ -13,6 +13,11 @@ import PopupDialog
 @objc(NativeDialog)
 class NativeDialog: NSObject {
 
+  @objc
+  static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   func buildParams(_ button: DialogButton) -> [String: String] {
     switch button {
     case .positive:
@@ -26,9 +31,7 @@ class NativeDialog: NSObject {
 
   @objc(showDialog: resolver: rejecter:)
   func showDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
-    guard let viewConroller = UIApplication.shared.keyWindow?.rootViewController else {
-      return
-    }
+    guard let viewController = UIApplication.shared.topViewController else { return }
 
     let dialogOptions = DialogOptions(options: options)
 
@@ -48,14 +51,12 @@ class NativeDialog: NSObject {
       }
     }
 
-    dialogOptions.presentDialog(in: viewConroller)
+    dialogOptions.presentDialog(in: viewController)
   }
 
   @objc(showInputDialog: resolver: rejecter:)
   func showInputDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
-    guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {
-      return
-    }
+    guard let viewController = UIApplication.shared.topViewController else { return }
 
     let dialogOptions = InputDialogOptions(options: options)
 
@@ -80,9 +81,7 @@ class NativeDialog: NSObject {
 
   @objc(showItemsDialog: resolver: rejecter:)
   func showItemsDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
-    guard let viewConroller = UIApplication.shared.keyWindow?.rootViewController else {
-      return
-    }
+    guard let viewController = UIApplication.shared.topViewController else { return }
 
     let dialogOptions = ItemsDialogOptions(options: options)
 
@@ -109,14 +108,12 @@ class NativeDialog: NSObject {
       }
     }
 
-    dialogOptions.presentDialog(in: viewConroller)
+    dialogOptions.presentDialog(in: viewController)
   }
 
   @objc(showNumberPickerDialog: resolver: rejecter:)
   func showNumberPickerDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
-    guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {
-      return
-    }
+    guard let viewController = UIApplication.shared.topViewController else { return }
 
     let dialogOptions = NumberPickerDialogOptions(options: options)
 
@@ -141,9 +138,7 @@ class NativeDialog: NSObject {
 
   @objc(showRatingDialog: resolver: rejecter:)
   func showRatingDialog(options: [String: Any], resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
-    guard let viewController = UIApplication.shared.keyWindow?.rootViewController else {
-      return
-    }
+    guard let viewController = UIApplication.shared.topViewController else { return }
 
     let dialogOptions = RatingDialogOptions(options: options)
 

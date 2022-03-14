@@ -47,3 +47,40 @@ extension UIColor {
     return String(format: "# % 06x", rgb)
   }
 }
+
+extension UIViewController {
+  fileprivate func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    if let nav = base as? UINavigationController {
+      return getTopViewController(base: nav.visibleViewController)
+    } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+      return getTopViewController(base: selected)
+    } else if let presented = base?.presentedViewController {
+      return getTopViewController(base: presented)
+    }
+    return base
+  }
+
+  var topViewController: UIViewController? {
+    return getTopViewController(base: self)
+  }
+}
+
+
+extension UIApplication {
+  var topViewController: UIViewController? {
+    var keyWindow: UIWindow?
+    if #available(iOS 13.0, *) {
+      keyWindow = self.connectedScenes
+        .filter({$0.activationState == .foregroundActive})
+        .compactMap({$0 as? UIWindowScene})
+        .first?.windows
+        .filter({$0.isKeyWindow}).first
+    } else {
+      keyWindow = self.keyWindow
+    }
+
+    guard let keyWindow = keyWindow else { return nil }
+
+    return keyWindow.rootViewController?.topViewController
+  }
+}
