@@ -83,38 +83,38 @@ Unfortunately `Android` doesn't support changing the `accentColor` dynamically, 
 
 0. Open `android/app/src/main/res/values/styles.xml`
    - If you don't have one create a new file in the exact same path.
-   - Add those tow styles to the bottom of your `styles.xml` file and replace `colorPrimary`, `colorPrimaryDark` and `colorAccent` with your own colors: 
+   - Add those tow styles to the bottom of your `styles.xml` file and replace `colorPrimary`, `colorPrimaryDark` and `colorAccent` with your own colors:
    ```diff
    <resources>
        ...
-   
+
    +    <style name="AlertDialog" parent="Theme.AppCompat.Dialog.Alert">   <!--This theme is used for dark dialog-->
    +        <item name="colorPrimary">#FFB300</item>       <!--Replace the these colors with your own colors-->
    +        <item name="colorPrimaryDark">#FFB300</item>
    +        <item name="colorAccent">#FFB300</item>
    +    </style>
-   
+
    +    <style name="LightAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">   <!--This theme is used for light dialog-->
    +        <item name="colorPrimary">#E6A100</item>       <!--Replace the these colors with your own colors-->
    +        <item name="colorPrimaryDark">#E6A100</item>
    +        <item name="colorAccent">#E6A100</item>
    +    </style>
-   
+
    </resources>
    ```
 0. Next open up `android/app/src/main/java/[...]/MainAppliction.java`
    - Add `import com.github.mohaka.nativedialog.RNNativeDialogPackage;` to the imports at the top of the file
    - Add `RNNativeDialogPackage.setDialogTheme(R.style.AlertDialog, R.style.LightAlertDialog);` to the bottom of `onCreate()` method.
    ```diff
-   ... 
-   
+   ...
+
    import android.app.Application;
    import android.content.Context;
-   
+
    + import com.github.mohaka.nativedialog.RNNativeDialogPackage;
-   
+
    ...
-   
+
    @Override
    public void onCreate() {
        super.onCreate();
@@ -122,7 +122,7 @@ Unfortunately `Android` doesn't support changing the `accentColor` dynamically, 
    +   RNNativeDialogPackage.setDialogTheme(R.style.AlertDialog, R.style.LightAlertDialog);
        initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
    }
-   
+
    ...
    ```
 0. Build your project and start using `react-native-native-dialog`.
@@ -185,14 +185,14 @@ We would love to have community contributions and support! A few areas where cou
 If you want to contribute, please submit a pull request, or contact mohakapt@gmail.com for more information.
 When you commit your messages, follow this convention:
 ```
-Main changes subject
+App changes subject
 - Optional message
 - Another optional message
 ```
 
 If you do a breaking change, add an explanation preceded by `BREAKING CHANGE:` keyword. For example:
 ```
-BREAKING CHANGE: Main changes subject
+BREAKING CHANGE: App changes subject
 - Optional message
 - Another optional message
 ```

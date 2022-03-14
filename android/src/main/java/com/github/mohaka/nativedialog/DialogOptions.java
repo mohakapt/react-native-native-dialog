@@ -1,5 +1,8 @@
 package com.github.mohaka.nativedialog;
 
+import static com.github.mohaka.nativedialog.NativeDialogPackage.dialogTheme;
+import static com.github.mohaka.nativedialog.NativeDialogPackage.lightDialogTheme;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -13,183 +16,180 @@ import androidx.fragment.app.DialogFragment;
 
 import com.facebook.react.bridge.ReadableMap;
 
-import static com.github.mohaka.nativedialog.RNNativeDialogPackage.dialogTheme;
-import static com.github.mohaka.nativedialog.RNNativeDialogPackage.lightDialogTheme;
-
 public class DialogOptions extends DialogFragment {
-    public final static int THEME_LIGHT = 100;
-    public final static int THEME_DARK = 101;
+	public final static int THEME_LIGHT = 100;
+	public final static int THEME_DARK = 101;
 
-    private int theme;
-    private int accentColor;
+	private int theme;
+	private int accentColor;
 
-    private boolean cancellable;
-    private boolean cancelOnTouchOutside;
+	private boolean cancellable;
+	private boolean cancelOnTouchOutside;
 
-    private String title;
-    private String message;
+	private String title;
+	private String message;
 
-    private String positiveButton;
-    private String negativeButton;
-    private String neutralButton;
+	private String positiveButton;
+	private String negativeButton;
+	private String neutralButton;
 
-    private DialogInterface.OnClickListener clickListener;
-    private DialogInterface.OnDismissListener dismissListener;
+	private DialogInterface.OnClickListener clickListener;
+	private DialogInterface.OnDismissListener dismissListener;
 
-    public DialogOptions() {
-    }
+	public DialogOptions() {
+	}
 
-    public DialogOptions(ReadableMap map) {
-        this.populate(map);
-    }
-
-
-    public int getTheme() {
-        return theme;
-    }
-
-    public int getAccentColor() {
-        return accentColor;
-    }
-
-    public boolean isCancellable() {
-        return cancellable;
-    }
-
-    public boolean isCancelOnTouchOutside() {
-        return cancelOnTouchOutside;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getPositiveButton() {
-        return positiveButton;
-    }
-
-    public String getNegativeButton() {
-        return negativeButton;
-    }
-
-    public String getNeutralButton() {
-        return neutralButton;
-    }
-
-    public DialogInterface.OnClickListener getClickListener() {
-        return clickListener;
-    }
-
-    public DialogInterface.OnDismissListener getDismissListener() {
-        return dismissListener;
-    }
+	public DialogOptions(ReadableMap map) {
+		this.populate(map);
+	}
 
 
-    public void setTheme(int theme) {
-        this.theme = theme;
-    }
+	public int getTheme() {
+		return theme;
+	}
 
-    public void setTheme(String theme) {
-        this.setTheme("dark".equalsIgnoreCase(theme) ? THEME_DARK : THEME_LIGHT);
-    }
+	public int getAccentColor() {
+		return accentColor;
+	}
 
-    public void setAccentColor(int accentColor) {
-        this.accentColor = accentColor;
-    }
+	public boolean isCancellable() {
+		return cancellable;
+	}
 
-    public void setAccentColor(String accentColor) {
-        this.setAccentColor(Color.parseColor(accentColor));
-    }
+	public boolean isCancelOnTouchOutside() {
+		return cancelOnTouchOutside;
+	}
 
-    public void setCancellable(boolean cancellable) {
-        this.cancellable = cancellable;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
-        this.cancelOnTouchOutside = cancelOnTouchOutside;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getPositiveButton() {
+		return positiveButton;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	public String getNegativeButton() {
+		return negativeButton;
+	}
 
-    public void setPositiveButton(String positiveButton) {
-        this.positiveButton = positiveButton;
-    }
+	public String getNeutralButton() {
+		return neutralButton;
+	}
 
-    public void setNegativeButton(String negativeButton) {
-        this.negativeButton = negativeButton;
-    }
+	public DialogInterface.OnClickListener getClickListener() {
+		return clickListener;
+	}
 
-    public void setNeutralButton(String neutralButton) {
-        this.neutralButton = neutralButton;
-    }
+	public DialogInterface.OnDismissListener getDismissListener() {
+		return dismissListener;
+	}
 
-    public void setClickListener(DialogInterface.OnClickListener listener) {
-        this.clickListener = listener;
-    }
 
-    public void setDismissListener(DialogInterface.OnDismissListener listener) {
-        this.dismissListener = listener;
-    }
+	public void setTheme(int theme) {
+		this.theme = theme;
+	}
 
-    public void populate(ReadableMap map) {
-        if (map.hasKey("theme")) setTheme(map.getString("theme"));
-        if (map.hasKey("accentColor")) setAccentColor(map.getString("accentColor"));
-        if (map.hasKey("title")) setTitle(map.getString("title"));
-        if (map.hasKey("message")) setMessage(map.getString("message"));
-        if (map.hasKey("positiveButton")) setPositiveButton(map.getString("positiveButton"));
-        if (map.hasKey("negativeButton")) setNegativeButton(map.getString("negativeButton"));
-        if (map.hasKey("neutralButton")) setNeutralButton(map.getString("neutralButton"));
-        if (map.hasKey("cancellable")) setCancellable(map.getBoolean("cancellable"));
-        if (map.hasKey("cancelOnTouchOutside"))
-            setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
-    }
+	public void setTheme(String theme) {
+		this.setTheme("dark".equalsIgnoreCase(theme) ? THEME_DARK : THEME_LIGHT);
+	}
 
-    protected AlertDialog.Builder buildDialog() {
-        int dialogThemeResId;
-        if (getTheme() == THEME_DARK)
-            dialogThemeResId = dialogTheme == 0 ? R.style.Theme_AppCompat_Dialog_Alert : dialogTheme;
-        else
-            dialogThemeResId = lightDialogTheme == 0 ? R.style.Theme_AppCompat_Light_Dialog_Alert : lightDialogTheme;
+	public void setAccentColor(int accentColor) {
+		this.accentColor = accentColor;
+	}
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), dialogThemeResId);
+	public void setAccentColor(String accentColor) {
+		this.setAccentColor(Color.parseColor(accentColor));
+	}
 
-        builder.setTitle(getTitle());
-        builder.setMessage(getMessage());
-        builder.setCancelable(isCancellable());
+	public void setCancellable(boolean cancellable) {
+		this.cancellable = cancellable;
+	}
 
-        if (!TextUtils.isEmpty(getPositiveButton()))
-            builder.setPositiveButton(getPositiveButton(), getClickListener());
+	public void setCancelOnTouchOutside(boolean cancelOnTouchOutside) {
+		this.cancelOnTouchOutside = cancelOnTouchOutside;
+	}
 
-        if (!TextUtils.isEmpty(getNegativeButton()))
-            builder.setNegativeButton(getNegativeButton(), getClickListener());
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-        if (!TextUtils.isEmpty(getNeutralButton()))
-            builder.setNeutralButton(getNeutralButton(), getClickListener());
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-        return builder;
-    }
+	public void setPositiveButton(String positiveButton) {
+		this.positiveButton = positiveButton;
+	}
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return buildDialog().create();
-    }
+	public void setNegativeButton(String negativeButton) {
+		this.negativeButton = negativeButton;
+	}
 
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
+	public void setNeutralButton(String neutralButton) {
+		this.neutralButton = neutralButton;
+	}
 
-        if(getDismissListener() != null)
-            getDismissListener().onDismiss(dialog);
-    }
+	public void setClickListener(DialogInterface.OnClickListener listener) {
+		this.clickListener = listener;
+	}
+
+	public void setDismissListener(DialogInterface.OnDismissListener listener) {
+		this.dismissListener = listener;
+	}
+
+	public void populate(ReadableMap map) {
+		if (map.hasKey("theme")) setTheme(map.getString("theme"));
+		if (map.hasKey("accentColor")) setAccentColor(map.getString("accentColor"));
+		if (map.hasKey("title")) setTitle(map.getString("title"));
+		if (map.hasKey("message")) setMessage(map.getString("message"));
+		if (map.hasKey("positiveButton")) setPositiveButton(map.getString("positiveButton"));
+		if (map.hasKey("negativeButton")) setNegativeButton(map.getString("negativeButton"));
+		if (map.hasKey("neutralButton")) setNeutralButton(map.getString("neutralButton"));
+		if (map.hasKey("cancellable")) setCancellable(map.getBoolean("cancellable"));
+		if (map.hasKey("cancelOnTouchOutside"))
+			setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
+	}
+
+	protected AlertDialog.Builder buildDialog() {
+		int dialogThemeResId;
+		if (getTheme() == THEME_DARK)
+			dialogThemeResId = dialogTheme == 0 ? R.style.Theme_AppCompat_Dialog_Alert : dialogTheme;
+		else
+			dialogThemeResId = lightDialogTheme == 0 ? R.style.Theme_AppCompat_Light_Dialog_Alert : lightDialogTheme;
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), dialogThemeResId);
+
+		builder.setTitle(getTitle());
+		builder.setMessage(getMessage());
+		builder.setCancelable(isCancellable());
+
+		if (!TextUtils.isEmpty(getPositiveButton()))
+			builder.setPositiveButton(getPositiveButton(), getClickListener());
+
+		if (!TextUtils.isEmpty(getNegativeButton()))
+			builder.setNegativeButton(getNegativeButton(), getClickListener());
+
+		if (!TextUtils.isEmpty(getNeutralButton()))
+			builder.setNeutralButton(getNeutralButton(), getClickListener());
+
+		return builder;
+	}
+
+	@NonNull
+	@Override
+	public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+		return buildDialog().create();
+	}
+
+	@Override
+	public void onDismiss(@NonNull DialogInterface dialog) {
+		super.onDismiss(dialog);
+
+		if (getDismissListener() != null)
+			getDismissListener().onDismiss(dialog);
+	}
 }

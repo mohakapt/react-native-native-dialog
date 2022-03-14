@@ -1,122 +1,56 @@
 buildscript {
-    ext.safeExtGet = { prop, fallback ->
-        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-    }
-    repositories {
-        google()
-        jcenter()
-    }
+	if (project == rootProject) {
+		repositories {
+			google()
+			mavenCentral()
+		}
 
-    dependencies {
-        classpath("com.android.tools.build:gradle:${safeExtGet('gradlePluginVersion', '3.4.2')}")
-    }
+		dependencies {
+			classpath 'com.android.tools.build:gradle:3.5.4'
+		}
+	}
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'maven'
+
+def safeExtGet(prop, fallback) {
+	rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 28)
-    buildToolsVersion safeExtGet('buildToolsVersion', '28.0.3')
+	compileSdkVersion safeExtGet('compileSdkVersion', 29)
+	defaultConfig {
+		minSdkVersion safeExtGet('minSdkVersion', 16)
+		targetSdkVersion safeExtGet('targetSdkVersion', 29)
 
-    defaultConfig {
-        minSdkVersion safeExtGet('minSdkVersion', 16)
-        targetSdkVersion safeExtGet('targetSdkVersion', 28)
-        versionCode 1
-        versionName "1.0"
-    }
-    lintOptions {
-        abortOnError false
-    }
+	}
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+	buildTypes {
+		release {
+			minifyEnabled false
+		}
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+	lint {
+		disable 'GradleCompatible'
+	}
 }
 
 repositories {
-    maven {
-        url "$projectDir/../node_modules/react-native/android"
-    }
-    mavenCentral()
+	maven {
+		// All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+		url("$rootDir/../node_modules/react-native/android")
+	}
+	google()
 }
 
 dependencies {
-    implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
-    implementation "androidx.appcompat:appcompat:${safeExtGet('appCompatVersion', '1.0.0')}"
-    implementation "androidx.fragment:fragment:${safeExtGet('appCompatVersion', '1.0.0')}"
-
-    implementation 'com.github.mohaka:rating-star:0.1.1'
-}
-
-def configureReactNativePom(def pom) {
-    def packageJson = new groovy.json.JsonSlurper().parseText(file('../package.json').text)
-
-    pom.project {
-        name packageJson.title
-        artifactId packageJson.name
-        version = packageJson.version
-        group = "com.github.mohaka"
-        description packageJson.description
-        url packageJson.repository.baseUrl
-
-        licenses {
-            license {
-                name packageJson.license
-                url packageJson.repository.baseUrl + '/blob/master/' + packageJson.licenseFilename
-                distribution 'repo'
-            }
-        }
-
-        developers {
-            developer {
-                id packageJson.author.username
-                name packageJson.author.name
-            }
-        }
-    }
-}
-
-afterEvaluate { project ->
-
-    task androidJavadoc(type: Javadoc) {
-        source = android.sourceSets.main.java.srcDirs
-        classpath += files(android.bootClasspath)
-        classpath += files(project.getConfigurations().getByName('compile').asList())
-        include '**/*.java'
-    }
-
-    task androidJavadocJar(type: Jar, dependsOn: androidJavadoc) {
-        classifier = 'javadoc'
-        from androidJavadoc.destinationDir
-    }
-
-    task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-        include '**/*.java'
-    }
-
-    android.libraryVariants.all { variant ->
-        def name = variant.name.capitalize()
-        task "jar${name}"(type: Jar, dependsOn: variant.javaCompile) {
-            from variant.javaCompile.destinationDir
-        }
-    }
-
-    artifacts {
-        archives androidSourcesJar
-        archives androidJavadocJar
-    }
-
-    task installArchives(type: Upload) {
-        configuration = configurations.archives
-        repositories.mavenDeployer {
-            // Deploy to react-native-event-bridge/maven, ready to publish to npm
-            repository url: "file://${projectDir}/../android/maven"
-
-            configureReactNativePom pom
-        }
-    }
+//noinspection GradleDynamicVersion
+	implementation "com.facebook.react:react-native:+"  // From node_modules
+	implementation "androidx.appcompat:appcompat:${safeExtGet('appCompatVersion', '1.4.1')}"
+	implementation "androidx.fragment:fragment:${safeExtGet('appCompatVersion', '1.4.1')}"
 }
