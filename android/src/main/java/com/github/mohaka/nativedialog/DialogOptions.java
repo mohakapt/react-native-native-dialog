@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,10 @@ public class DialogOptions extends DialogFragment {
 
 	private DialogInterface.OnClickListener clickListener;
 	private DialogInterface.OnDismissListener dismissListener;
+
+	protected Button btnPositive;
+	protected Button btnNegative;
+	protected Button btnNeutral;
 
 	public DialogOptions() {
 	}
@@ -191,5 +196,23 @@ public class DialogOptions extends DialogFragment {
 
 		if (getDismissListener() != null)
 			getDismissListener().onDismiss(dialog);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+		btnPositive = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE);
+		btnNegative = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE);
+		btnNeutral = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEUTRAL);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+
+		btnPositive = null;
+		btnNegative = null;
+		btnNeutral = null;
 	}
 }

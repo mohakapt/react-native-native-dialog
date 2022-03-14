@@ -2,8 +2,10 @@ package com.github.mohaka.nativedialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -24,6 +26,7 @@ public class InputDialogOptions extends DialogOptions {
 	private String autoCapitalize;
 	private Boolean secureTextEntry;
 	private Boolean selectTextOnFocus;
+	private Boolean allowEmptyEntry;
 
 	public InputDialogOptions() {
 	}
@@ -68,6 +71,10 @@ public class InputDialogOptions extends DialogOptions {
 		return selectTextOnFocus;
 	}
 
+	public Boolean getAllowEmptyEntry() {
+		return allowEmptyEntry;
+	}
+
 	public void setValue(String value) {
 		this.value = value;
 	}
@@ -104,6 +111,10 @@ public class InputDialogOptions extends DialogOptions {
 		this.selectTextOnFocus = selectTextOnFocus;
 	}
 
+	public void setAllowEmptyEntry(Boolean allowEmptyEntry) {
+		this.allowEmptyEntry = allowEmptyEntry;
+	}
+
 	@Override
 	public void populate(ReadableMap map) {
 		super.populate(map);
@@ -120,10 +131,9 @@ public class InputDialogOptions extends DialogOptions {
 		if (map.hasKey("autoFocus")) setAutoFocus(map.getBoolean("autoFocus"));
 		if (map.hasKey("autoCorrect")) setAutoCorrect(map.getBoolean("autoCorrect"));
 		if (map.hasKey("autoCapitalize")) setAutoCapitalize(map.getString("autoCapitalize"));
-		if (map.hasKey("secureTextEntry"))
-			setSecureTextEntry(map.getBoolean("secureTextEntry"));
-		if (map.hasKey("selectTextOnFocus"))
-			setSelectTextOnFocus(map.getBoolean("selectTextOnFocus"));
+		if (map.hasKey("secureTextEntry")) setSecureTextEntry(map.getBoolean("secureTextEntry"));
+		if (map.hasKey("selectTextOnFocus")) setSelectTextOnFocus(map.getBoolean("selectTextOnFocus"));
+		if (map.hasKey("allowEmptyEntry")) setAllowEmptyEntry(map.getBoolean("allowEmptyEntry"));
 	}
 
 	@NonNull
@@ -187,6 +197,23 @@ public class InputDialogOptions extends DialogOptions {
 		txtInput.setHint(getPlaceholder());
 		txtInput.setText(getValue());
 
+		TextWatcher textWatcher = new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				if (allowEmptyEntry)
+					btnPositive.setEnabled(!s.toString().isEmpty());
+			}
+		};
+		txtInput.post(() -> textWatcher.afterTextChanged(txtInput.getText()));
+		txtInput.addTextChangedListener(textWatcher);
 
 		if (getAutoFocus())
 			txtInput.requestFocus();
