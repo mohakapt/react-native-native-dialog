@@ -28,6 +28,7 @@ const defaultInputDialogProps = {
 	autoCapitalize: 'none',
 	selectTextOnFocus: false,
 	secureTextEntry: false,
+	allowEmptyEntry: true,
 };
 
 const defaultItemsDialogProps = {
@@ -58,26 +59,28 @@ export default {
 		if (!props) return;
 		props = { ...defaultDialogProps, ...props };
 
-		NativeDialog.showDialog(props).then(({ action }) => {
-			switch (action) {
-				case 'positive':
-					const { onPositivePress } = props;
-					if (onPositivePress) onPositivePress();
-					return;
-				case 'negative':
-					const { onNegativePress } = props;
-					if (onNegativePress) onNegativePress();
-					return;
-				case 'neutral':
-					const { onNeutralPress } = props;
-					if (onNeutralPress) onNeutralPress();
-					return;
-				case 'dismiss':
-					const { onDismiss } = props;
-					if (onDismiss) onDismiss();
-					return;
-			}
-		});
+		NativeDialog.showDialog(props)
+			.then(({ action }) => {
+				switch (action) {
+					case 'positive':
+						const { onPositivePress } = props;
+						if (onPositivePress) onPositivePress();
+						return;
+					case 'negative':
+						const { onNegativePress } = props;
+						if (onNegativePress) onNegativePress();
+						return;
+					case 'neutral':
+						const { onNeutralPress } = props;
+						if (onNeutralPress) onNeutralPress();
+						return;
+					case 'dismiss':
+						const { onDismiss } = props;
+						if (onDismiss) onDismiss();
+						return;
+				}
+			})
+			.catch(console.error);
 	},
 
 	showItemsDialog(props) {
@@ -107,32 +110,34 @@ export default {
 			return;
 		}
 
-		NativeDialog.showItemsDialog(props).then(({ action, value }) => {
-			switch (action) {
-				case 'positive':
-					const { onItemSelect, mode } = props;
+		NativeDialog.showItemsDialog(props)
+			.then(({ action, value }) => {
+				switch (action) {
+					case 'positive':
+						const { onItemSelect, mode } = props;
 
-					if (onItemSelect && value && Array.isArray(value)) {
-						if (mode === 'multiple')
-							onItemSelect(value);
-						else
-							onItemSelect(value.length > 0 ? value[0] : -1);
-					}
-					return;
-				case 'negative':
-					const { onNegativePress } = props;
-					if (onNegativePress) onNegativePress();
-					return;
-				case 'neutral':
-					const { onNeutralPress } = props;
-					if (onNeutralPress) onNeutralPress();
-					return;
-				case 'dismiss':
-					const { onDismiss } = props;
-					if (onDismiss) onDismiss();
-					return;
-			}
-		});
+						if (onItemSelect && value && Array.isArray(value)) {
+							if (mode === 'multiple')
+								onItemSelect(value);
+							else
+								onItemSelect(value.length > 0 ? value[0] : -1);
+						}
+						return;
+					case 'negative':
+						const { onNegativePress } = props;
+						if (onNegativePress) onNegativePress();
+						return;
+					case 'neutral':
+						const { onNeutralPress } = props;
+						if (onNeutralPress) onNeutralPress();
+						return;
+					case 'dismiss':
+						const { onDismiss } = props;
+						if (onDismiss) onDismiss();
+						return;
+				}
+			})
+			.catch(console.error);
 	},
 
 	showInputDialog(props) {
@@ -145,26 +150,28 @@ export default {
 			...props,
 		};
 
-		NativeDialog.showInputDialog(props).then(({ action, value }) => {
-			switch (action) {
-				case 'positive':
-					const { onPositivePress } = props;
-					if (onPositivePress) onPositivePress(value);
-					return;
-				case 'negative':
-					const { onNegativePress } = props;
-					if (onNegativePress) onNegativePress(value);
-					return;
-				case 'neutral':
-					const { onNeutralPress } = props;
-					if (onNeutralPress) onNeutralPress(value);
-					return;
-				case 'dismiss':
-					const { onDismiss } = props;
-					if (onDismiss) onDismiss();
-					return;
-			}
-		}).catch(() => console.warn('I am here'));
+		NativeDialog.showInputDialog(props)
+			.then(({ action, value }) => {
+				switch (action) {
+					case 'positive':
+						const { onPositivePress } = props;
+						if (onPositivePress) onPositivePress(value);
+						return;
+					case 'negative':
+						const { onNegativePress } = props;
+						if (onNegativePress) onNegativePress(value);
+						return;
+					case 'neutral':
+						const { onNeutralPress } = props;
+						if (onNeutralPress) onNeutralPress(value);
+						return;
+					case 'dismiss':
+						const { onDismiss } = props;
+						if (onDismiss) onDismiss();
+						return;
+				}
+			})
+			.catch(console.error);
 	},
 
 	showNumberPickerDialog(props) {
@@ -193,26 +200,28 @@ export default {
 			return;
 		}
 
-		NativeDialog.showNumberPickerDialog(props).then(({ action, value }) => {
-			switch (action) {
-				case 'positive':
-					const { onPositivePress } = props;
-					if (onPositivePress) onPositivePress(value);
-					return;
-				case 'negative':
-					const { onNegativePress } = props;
-					if (onNegativePress) onNegativePress(value);
-					return;
-				case 'neutral':
-					const { onNeutralPress } = props;
-					if (onNeutralPress) onNeutralPress(value);
-					return;
-				case 'dismiss':
-					const { onDismiss } = props;
-					if (onDismiss) onDismiss();
-					return;
-			}
-		});
+		NativeDialog.showNumberPickerDialog(props)
+			.then(({ action, value }) => {
+				switch (action) {
+					case 'positive':
+						const { onPositivePress } = props;
+						if (onPositivePress) onPositivePress(value);
+						return;
+					case 'negative':
+						const { onNegativePress } = props;
+						if (onNegativePress) onNegativePress(value);
+						return;
+					case 'neutral':
+						const { onNeutralPress } = props;
+						if (onNeutralPress) onNeutralPress(value);
+						return;
+					case 'dismiss':
+						const { onDismiss } = props;
+						if (onDismiss) onDismiss();
+						return;
+				}
+			})
+			.catch(console.error);
 	},
 
 	showRatingDialog(props) {
@@ -240,25 +249,27 @@ export default {
 			return;
 		}
 
-		NativeDialog.showRatingDialog(props).then(({ action, value }) => {
-			switch (action) {
-				case 'positive':
-					const { onPositivePress } = props;
-					if (onPositivePress) onPositivePress(value);
-					return;
-				case 'negative':
-					const { onNegativePress } = props;
-					if (onNegativePress) onNegativePress(value);
-					return;
-				case 'neutral':
-					const { onNeutralPress } = props;
-					if (onNeutralPress) onNeutralPress(value);
-					return;
-				case 'dismiss':
-					const { onDismiss } = props;
-					if (onDismiss) onDismiss();
-					return;
-			}
-		});
+		NativeDialog.showRatingDialog(props)
+			.then(({ action, value }) => {
+				switch (action) {
+					case 'positive':
+						const { onPositivePress } = props;
+						if (onPositivePress) onPositivePress(value);
+						return;
+					case 'negative':
+						const { onNegativePress } = props;
+						if (onNegativePress) onNegativePress(value);
+						return;
+					case 'neutral':
+						const { onNeutralPress } = props;
+						if (onNeutralPress) onNeutralPress(value);
+						return;
+					case 'dismiss':
+						const { onDismiss } = props;
+						if (onDismiss) onDismiss();
+						return;
+				}
+			})
+			.catch(console.error);
 	},
 };

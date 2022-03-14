@@ -2,88 +2,91 @@ export type Id<T extends string | number> = T | T[];
 export type Items<T extends string | number> = string[] | { id: T, title: string }[];
 export type IosButtonType = 'default' | 'cancel' | 'destructive';
 
-type IosDialogProps = {
-	buttonAlignment?: 'default' | 'vertical' | 'horizontal',
-	transitionStyle?: 'bounceUp' | 'bounceDown' | 'zoomIn' | 'fadeIn',
-	preferredWidth?: number,
-	preferredStyle?: 'popupDialog' | 'alert' | 'actionSheet',
-	hideStatusBar?: boolean,
+interface IosDialogProps {
+	buttonAlignment?: 'default' | 'vertical' | 'horizontal';
+	transitionStyle?: 'bounceUp' | 'bounceDown' | 'zoomIn' | 'fadeIn';
+	preferredWidth?: number;
+	preferredStyle?: 'popupDialog' | 'alert' | 'actionSheet';
+	hideStatusBar?: boolean;
 
-	positiveButtonStyle?: IosButtonType,
-	negativeButtonStyle?: IosButtonType,
-	neutralButtonStyle?: IosButtonType,
+	positiveButtonStyle?: IosButtonType;
+	negativeButtonStyle?: IosButtonType;
+	neutralButtonStyle?: IosButtonType;
 }
 
-type AndroidDialogProps = {}
-
-type CommonDialogProps = IosDialogProps & AndroidDialogProps & {
-	title?: string,
-	message?: string,
-
-	cancellable?: boolean,
-	cancelOnTouchOutside?: boolean,
-
-	theme?: 'light' | 'dark',
-	accentColor?: string,
-
-	positiveButton?: string,
-	negativeButton?: string,
-	neutralButton?: string,
-
-	onDismiss?: () => void,
+interface AndroidDialogProps {
 }
 
-type CommonDialogEvents = {
-	onPositivePress?: () => void,
-	onNegativePress?: () => void,
-	onNeutralPress?: () => void,
+interface CommonDialogProps extends IosDialogProps, AndroidDialogProps {
+	title?: string;
+	message?: string;
+
+	cancellable?: boolean;
+	cancelOnTouchOutside?: boolean;
+
+	theme?: 'light' | 'dark';
+	accentColor?: string;
+
+	positiveButton?: string;
+	negativeButton?: string;
+	neutralButton?: string;
+
+	onDismiss?: () => void;
 }
 
-type InputDialogEvents = {
-	onPositivePress?: (value: string) => void,
-	onNegativePress?: (value: string) => void,
-	onNeutralPress?: (value: string) => void,
+interface CommonDialogEvents {
+	onPositivePress?: () => void;
+	onNegativePress?: () => void;
+	onNeutralPress?: () => void;
 }
 
-type ItemsDialogEvents<T extends string | number> = CommonDialogEvents & {
-	onItemSelect?: (selectedId: Id<T>) => void,
+interface InputDialogEvents {
+	onPositivePress?: (value: string) => void;
+	onNegativePress?: (value: string) => void;
+	onNeutralPress?: (value: string) => void;
 }
 
-type NumberPickerDialogEvents = {
-	onPositivePress?: (value: number) => void,
-	onNegativePress?: (value: number) => void,
-	onNeutralPress?: (value: number) => void,
+interface ItemsDialogEvents<T extends string | number> extends CommonDialogEvents {
+	onItemSelect?: (selectedId: Id<T>) => void;
 }
 
-export type DialogProps = CommonDialogProps & CommonDialogEvents;
-
-export type InputDialogProps = CommonDialogProps & InputDialogEvents & {
-	value?: string,
-	placeholder?: string,
-	keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad',
-	maxLength?: number,
-	autoCorrect?: boolean,
-	autoFocus?: boolean,
-	autoCapitalize?: 'characters' | 'words' | 'sentences' | 'none',
-	selectTextOnFocus?: boolean,
-	secureTextEntry?: boolean,
+interface NumberPickerDialogEvents {
+	onPositivePress?: (value: number) => void;
+	onNegativePress?: (value: number) => void;
+	onNeutralPress?: (value: number) => void;
 }
 
-export type ItemsDialogProps<T extends string | number> = CommonDialogProps & ItemsDialogEvents<T> & {
-	mode?: 'default' | 'single' | 'multiple',
-	items: Items<T>,
-	selectedItems?: Id<T>,
+export interface DialogProps extends CommonDialogProps, CommonDialogEvents {
 }
 
-export type NumberPickerDialogProps = CommonDialogProps & NumberPickerDialogEvents & {
-	value: number,
-	minValue?: number,
-	maxValue?: number,
+export interface InputDialogProps extends CommonDialogProps, InputDialogEvents {
+	value?: string;
+	placeholder?: string;
+	keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad';
+	maxLength?: number;
+	autoCorrect?: boolean;
+	autoFocus?: boolean;
+	autoCapitalize?: 'characters' | 'words' | 'sentences' | 'none';
+	selectTextOnFocus?: boolean;
+	secureTextEntry?: boolean;
+	allowEmptyEntry?: boolean;
 }
 
-export type RatingDialogProps = CommonDialogProps & CommonDialogEvents & {
-	mode?: 'rose' | 'bar',
-	value: 0 | 1 | 2 | 3 | 4 | 5,
+export interface ItemsDialogProps<T extends string | number> extends CommonDialogProps, ItemsDialogEvents<T> {
+	mode?: 'default' | 'single' | 'multiple';
+	items: Items<T>;
+	selectedItems?: Id<T>;
+}
+
+export interface NumberPickerDialogProps extends CommonDialogProps, NumberPickerDialogEvents {
+	value: number;
+	minValue?: number;
+	maxValue?: number;
+}
+
+export interface RatingDialogProps extends CommonDialogProps, CommonDialogEvents {
+	mode?: 'rose' | 'bar';
+	value: 0 | 1 | 2 | 3 | 4 | 5;
 }
 
 declare const showDialog: (props: DialogProps) => void;
