@@ -1,29 +1,9 @@
-/* @flow */
-
-import React, { Component } from 'react';
-import { Button, Platform, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Button, View } from 'react-native';
 import NativeDialog from 'react-native-native-dialog';
 
-const instructions = Platform.select({
-	ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-	android:
-		'Double tap R on your keyboard to reload,\n' +
-		'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-type State = {
-	selectedPositions: Array<number>,
-	isVisible: boolean
-}
-export default class App extends Component<Props, State> {
-
-	constructor(props) {
-		super(props);
-		this.state = { selectedPositions: [], isVisible: false };
-	}
-
-	onTouched = (style, theme) => {
+export default function App() {
+	const onTouched = (style: 'alert' | 'popupDialog', theme: 'light' | 'dark') => {
 		// NativeDialog.showDialog({
 		// 	title: 'Do you want to update your iCloud Backup before erasing?',
 		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
@@ -41,9 +21,9 @@ export default class App extends Component<Props, State> {
 		// 	theme,
 		// 	accentColor: '#ff4a9e',
 		//
-		// 	onPositivePress: (input) => console.warn('positive - ', input),
-		// 	onNegativePress: (input) => console.warn('negative - ', input),
-		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		// 	onPositivePress: (input: string) => console.warn('positive - ', input),
+		// 	onNegativePress: (input: string) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input: string) => console.warn('neutral - ', input),
 		//
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
@@ -72,9 +52,9 @@ export default class App extends Component<Props, State> {
 		// 	autoFocus: true,
 		// 	maxLength: 5,
 		//
-		// 	onPositivePress: (input) => console.warn('positive - ', input),
-		// 	onNegativePress: (input) => console.warn('negative - ', input),
-		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		// 	onPositivePress: (input: string) => console.warn('positive - ', input),
+		// 	onNegativePress: (input: string) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input: string) => console.warn('neutral - ', input),
 		//
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
@@ -82,7 +62,7 @@ export default class App extends Component<Props, State> {
 		// NativeDialog.showItemsDialog({
 		// 	title: 'How would you like to pay for your meal today?',
 		//
-		// 	mode: 'single',
+		// 	mode: 'default',
 		// 	items: [
 		// 		{ id: 'cc', title: 'Credit Card' },
 		// 		{ id: 'dc', title: 'Debit Card' },
@@ -99,7 +79,7 @@ export default class App extends Component<Props, State> {
 		// 	positiveButton: 'Select',
 		// 	negativeButton: 'Cancel',
 		//
-		// 	onItemSelect: selectedId => {
+		// 	onItemSelect: (selectedId: string) => {
 		// 		console.warn(selectedId);
 		// 	},
 		// 	onNegativePress: () => console.warn('negative'),
@@ -118,9 +98,9 @@ export default class App extends Component<Props, State> {
 		// 	value: 5,
 		// 	positiveButton: 'Pick',
 		//
-		// 	onPositivePress: (input) => console.warn('positive - ', input),
-		// 	onNegativePress: (input) => console.warn('negative - ', input),
-		// 	onNeutralPress: (input) => console.warn('neutral - ', input),
+		// 	onPositivePress: (input: string) => console.warn('positive - ', input),
+		// 	onNegativePress: (input: string) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input: string) => console.warn('neutral - ', input),
 		//
 		// 	onDismiss: () => console.warn('dismiss'),
 		//
@@ -136,55 +116,31 @@ export default class App extends Component<Props, State> {
 
 			preferredStyle: style,
 			theme,
-			accentColor: '#8782ff',
+			accentColor: '#d93b3b',
 
-			mode: 'bar',
+			mode: 'rose',
 			value: 2,
 
 			positiveButton: 'Submit',
 			negativeButton: 'Don\'t Ask Again',
 			neutralButton: 'Remind Me Later',
 
-			onPositivePress: (input) => console.warn('positive - ', input),
-			onNegativePress: (input) => console.warn('negative - ', input),
-			onNeutralPress: (input) => console.warn('neutral - ', input),
+			onPositivePress: (input: string) => console.warn('positive - ', input),
+			onNegativePress: (input: string) => console.warn('negative - ', input),
+			onNeutralPress: (input: string) => console.warn('neutral - ', input),
 
 			onDismiss: () => console.warn('dismiss'),
 		});
 	};
 
-	render() {
-		return (
-			<View style={styles.container}>
-				<Text style={styles.welcome}>Welcome to React Native!</Text>
-				<Text style={styles.instructions}>To get started, edit App.js</Text>
-				<Text style={styles.instructions}>{instructions}</Text>
-				<Button title={'Show Dialog (Alert) - Light'} onPress={() => this.onTouched('alert', 'light')} />
-				<Button title={'Show Dialog (PopupDialog) - Light'}
-				        onPress={() => this.onTouched('popupDialog', 'light')} />
-				<Button title={'Show Dialog (Alert) - Dark'} onPress={() => this.onTouched('alert', 'dark')} />
-				<Button title={'Show Dialog (PopupDialog) - Dark'}
-				        onPress={() => this.onTouched('popupDialog', 'dark')} />
-			</View>
-		);
-	}
+	return (
+		<View style={{ flex: 1, justifyContent: 'center' }}>
+			<Button title={'Show Dialog (Alert) - Light'} onPress={() => onTouched('alert', 'light')} />
+			<Button title={'Show Dialog (PopupDialog) - Light'}
+			        onPress={() => onTouched('popupDialog', 'light')} />
+			<Button title={'Show Dialog (Alert) - Dark'} onPress={() => onTouched('alert', 'dark')} />
+			<Button title={'Show Dialog (PopupDialog) - Dark'}
+			        onPress={() => onTouched('popupDialog', 'dark')} />
+		</View>
+	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#F5FCFF',
-	},
-	welcome: {
-		fontSize: 20,
-		textAlign: 'center',
-		margin: 10,
-	},
-	instructions: {
-		textAlign: 'center',
-		color: '#333333',
-		marginBottom: 5,
-	},
-});
