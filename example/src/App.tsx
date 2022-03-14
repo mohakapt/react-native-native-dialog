@@ -45,11 +45,12 @@ export default function App() {
 			theme,
 			accentColor: '#ff4a9e',
 
-			value: '',
+			value: 'asdf',
 			placeholder: 'Enter your password',
 			keyboardType: 'number-pad',
 
 			autoFocus: true,
+			allowEmptyEntry: false,
 			maxLength: 5,
 
 			onPositivePress: (input: string) => console.warn('positive - ', input),

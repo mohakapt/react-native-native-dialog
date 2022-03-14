@@ -56,6 +56,10 @@ class DialogOptions: NSObject {
   var finishHandler: FinishHandler?
   var dismissHandler: DismissHandler?
 
+  var btnPositive: Any?
+  var btnNegative: Any?
+  var btnNeutral: Any?
+
   init(options: [String: Any]) {
     self.title = options["title"] as? String
     self.message = options["message"] as? String
@@ -188,16 +192,19 @@ class DialogOptions: NSObject {
     if let title = positiveButton {
       let action = UIAlertAction(title: title, style: positiveButtonStyle) { (_) in self.positiveButtonTouched() }
       dialog.addAction(action)
+      self.btnPositive = action
     }
 
     if let title = negativeButton {
       let action = UIAlertAction(title: title, style: negativeButtonStyle) { (_) in self.negativeButtonTouched() }
       dialog.addAction(action)
+      self.btnNegative = action
     }
 
     if let title = neutralButton {
       let action = UIAlertAction(title: title, style: neutralButtonStyle) { (_) in self.neutralButtonTouched() }
       dialog.addAction(action)
+      self.btnNeutral = action
     }
   }
 
@@ -216,16 +223,19 @@ class DialogOptions: NSObject {
     if let title = positiveButton {
       let button = buildButton(title, positiveButtonStyle) { () in self.positiveButtonTouched() }
       dialog.addButton(button)
+      self.btnPositive = button
     }
 
     if let title = negativeButton {
       let button = buildButton(title, negativeButtonStyle) { () in self.negativeButtonTouched() }
       dialog.addButton(button)
+      self.btnNegative = button
     }
 
     if let title = neutralButton {
       let button = buildButton(title, neutralButtonStyle) { () in self.neutralButtonTouched() }
       dialog.addButton(button)
+      self.btnNeutral = button
     }
   }
 

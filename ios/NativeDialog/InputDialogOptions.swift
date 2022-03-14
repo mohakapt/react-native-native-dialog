@@ -87,6 +87,7 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
   let autoCapitalize: UITextAutocapitalizationType
   let secureTextEntry: Bool
   let selectTextOnFocus: Bool // Not supported yet
+  let allowEmptyEntry: Bool
 
   private var newValue: String?
 
@@ -98,6 +99,7 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
     self.autoCorrect = options["autoCorrect"] as? Bool ?? false
     self.secureTextEntry = options["secureTextEntry"] as? Bool ?? false
     self.selectTextOnFocus = options["selectTextOnFocus"] as? Bool ?? false
+    self.allowEmptyEntry = options["allowEmptyEntry"] as? Bool ?? false
 
     switch (options["keyboardType"] as? String ?? "default").lowercased() {
     case "number-pad":
@@ -154,6 +156,10 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
       textField.delegate = self
     }
 
+    if !allowEmptyEntry {
+      (btnPositive as? UIAlertAction)?.isEnabled = !(self.value?.isEmpty ?? true)
+    }
+
     return alertController
   }
 
@@ -167,6 +173,11 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
     }
 
     injectButtons(dialog: popupController)
+
+    if !allowEmptyEntry {
+      (btnPositive as? PopupDialogButton)?.isEnabled = !(self.value?.isEmpty ?? true)
+    }
+
     return popupController
   }
 
@@ -191,7 +202,14 @@ class InputDialogOptions: DialogOptions, UITextFieldDelegate {
   }
 
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    guard let maxLength = self.maxLength, let text = textField.text else { return true }
+    guard let maxLength = self.maxLength, let text = textField.text, let newRange = Range(range, in: text) else { return true }
+    let newText = text.replacingCharacters(in: newRange, with: string)
+
+    if !allowEmptyEntry {
+      (btnPositive as? UIAlertAction)?.isEnabled = !newText.isEmpty
+      (btnPositive as? PopupDialogButton)?.isEnabled = !newText.isEmpty
+    }
+
     let count = text.count + string.count - range.length
     return count <= maxLength
   }
