@@ -187,6 +187,10 @@ public class InputDialogOptions extends DialogOptions {
 		txtInput.setHint(getPlaceholder());
 		txtInput.setText(getValue());
 
+
+		if (getAutoFocus())
+			txtInput.requestFocus();
+
 		return alertDialog;
 	}
 }
