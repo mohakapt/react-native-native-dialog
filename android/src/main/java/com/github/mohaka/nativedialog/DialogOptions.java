@@ -174,8 +174,10 @@ public class DialogOptions extends DialogFragment {
 		int dialogThemeResId;
 		if (getTheme() == THEME_DARK)
 			dialogThemeResId = dialogTheme == 0 ? R.style.Theme_AppCompat_Dialog_Alert : dialogTheme;
-		else
+		else if (getTheme() == THEME_LIGHT)
 			dialogThemeResId = lightDialogTheme == 0 ? R.style.Theme_AppCompat_Light_Dialog_Alert : lightDialogTheme;
+		else
+			dialogThemeResId = dialogTheme == 0 ? R.style.Theme_AppCompat_DayNight_Dialog_Alert : lightDialogTheme;
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), dialogThemeResId);
 

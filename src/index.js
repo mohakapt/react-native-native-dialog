@@ -7,9 +7,6 @@ const defaultDialogProps = {
 	cancellable: true,
 	cancelOnTouchOutside: true,
 
-	theme: 'light',
-	accentColor: '#007aff',
-
 	buttonAlignment: 'default',
 	transitionStyle: 'bounceUp',
 	preferredWidth: 340,

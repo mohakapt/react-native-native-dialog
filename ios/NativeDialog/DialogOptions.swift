@@ -31,8 +31,8 @@ typealias FinishHandler = (_ dialogButton: DialogButton, _ with: [String: Any?]?
 typealias DismissHandler = () -> Void
 
 class DialogOptions: NSObject {
-  let theme: Theme
-  let accentColor: UIColor
+  let theme: Theme?
+  let accentColor: UIColor?
 
   let title: String?
   let message: String?
@@ -61,20 +61,24 @@ class DialogOptions: NSObject {
   var btnNeutral: Any?
 
   init(options: [String: Any]) {
+    if let themeString = options["theme"] as? String {
+      self.theme = Theme(rawValue: themeString)!
+    } else {
+      self.theme = nil
+    }
+
     if let colorString = options["accentColor"] as? String {
       self.accentColor = UIColor(hexString: colorString)
     } else if let colorMap = options["accentColor"] as? [String: Any] {
       self.accentColor = RCTConvert.uiColor(colorMap)
     } else {
-      self.accentColor = UIColor(hexString: "#007aff") 
+      self.accentColor = nil
     }
 
     self.title = options["title"] as? String
     self.message = options["message"] as? String
     self.cancellable = options["cancellable"] as? Bool ?? true
     self.cancelOnTouchOutside = options["cancelOnTouchOutside"] as? Bool ?? true
-    let themeString = options["theme"] as? String ?? "light"
-    self.theme = Theme(rawValue: themeString)!
     self.preferredWidth = options["preferredWidth"] as? CGFloat ?? 340
     self.hideStatusBar = options["hideStatusBar"] as? Bool ?? false
     let preferredStyleString = options["preferredStyle"] as? String ?? "popupDialog"
@@ -162,7 +166,9 @@ class DialogOptions: NSObject {
     if preferredStyle != .popupDialog {
       let dialog = buildNativeDialog()
       viewController.present(dialog, animated: true)
-      dialog.view.tintColor = accentColor
+      if let accentColor = accentColor {
+        dialog.view.tintColor = accentColor
+      }
     } else {
       updateTheme()
       let dialog = buildPopupDialog()
@@ -173,7 +179,9 @@ class DialogOptions: NSObject {
   func buildNativeDialog() -> UIAlertController {
     let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle == .alert ? .alert : .actionSheet)
     if #available(iOS 13.0, *) {
-      alertController.overrideUserInterfaceStyle = theme == .dark ? .dark : .light
+      if let theme = theme {
+        alertController.overrideUserInterfaceStyle = theme == .dark ? .dark : .light
+      }
     }
 
     if shouldInjectButtons() {
@@ -274,6 +282,13 @@ class DialogOptions: NSObject {
     db.titleFont = UIFont.systemFont(ofSize: 15)
     cb.titleFont = UIFont.systemFont(ofSize: 15, weight: .bold)
     eb.titleFont = UIFont.systemFont(ofSize: 15)
+
+    let accentColor: UIColor
+    if #available(iOS 13.0, *) {
+      accentColor = self.accentColor ?? .systemBlue
+    } else {
+      accentColor = self.accentColor ?? UIColor(hexString: "#007aff")
+    }
 
     if theme == .dark {
       // Customize the container view appearance
