@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View } from 'react-native';
+import { Button, PlatformColor, View } from 'react-native';
 import NativeDialog from 'react-native-native-dialog';
 
 export default function App() {
@@ -43,7 +43,7 @@ export default function App() {
 			preferredStyle: style,
 
 			theme,
-			accentColor: '#ff4a9e',
+			accentColor: PlatformColor('systemBackground'),
 
 			value: 'asdf',
 			placeholder: 'Enter your password',
