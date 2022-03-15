@@ -61,13 +61,20 @@ class DialogOptions: NSObject {
   var btnNeutral: Any?
 
   init(options: [String: Any]) {
+    if let colorString = options["accentColor"] as? String {
+      self.accentColor = UIColor(hexString: colorString)
+    } else if let colorMap = options["accentColor"] as? [String: Any] {
+      self.accentColor = RCTConvert.uiColor(colorMap)
+    } else {
+      self.accentColor = UIColor(hexString: "#007aff") 
+    }
+
     self.title = options["title"] as? String
     self.message = options["message"] as? String
     self.cancellable = options["cancellable"] as? Bool ?? true
     self.cancelOnTouchOutside = options["cancelOnTouchOutside"] as? Bool ?? true
     let themeString = options["theme"] as? String ?? "light"
     self.theme = Theme(rawValue: themeString)!
-    self.accentColor = UIColor(hexString: options["accentColor"] as? String ?? "#007aff")
     self.preferredWidth = options["preferredWidth"] as? CGFloat ?? 340
     self.hideStatusBar = options["hideStatusBar"] as? Bool ?? false
     let preferredStyleString = options["preferredStyle"] as? String ?? "popupDialog"

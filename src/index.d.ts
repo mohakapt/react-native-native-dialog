@@ -1,3 +1,5 @@
+import type { OpaqueColorValue } from 'react-native';
+
 export type Id<T extends string | number> = T | T[];
 export type Items<T extends string | number> = string[] | { id: T, title: string }[];
 export type IosButtonType = 'default' | 'cancel' | 'destructive';
@@ -25,7 +27,7 @@ interface CommonDialogProps extends IosDialogProps, AndroidDialogProps {
 	cancelOnTouchOutside?: boolean;
 
 	theme?: 'light' | 'dark';
-	accentColor?: string;
+	accentColor?: string | OpaqueColorValue;
 
 	positiveButton?: string;
 	negativeButton?: string;
