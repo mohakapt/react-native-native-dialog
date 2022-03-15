@@ -83,4 +83,21 @@ extension UIApplication {
 
     return keyWindow.rootViewController?.topViewController
   }
+
+  var rootViewController: UIViewController? {
+    var keyWindow: UIWindow?
+    if #available(iOS 13.0, *) {
+      keyWindow = self.connectedScenes
+        .filter({$0.activationState == .foregroundActive})
+        .compactMap({$0 as? UIWindowScene})
+        .first?.windows
+        .filter({$0.isKeyWindow}).first
+    } else {
+      keyWindow = self.keyWindow
+    }
+
+    guard let keyWindow = keyWindow else { return nil }
+
+    return keyWindow.rootViewController
+  }
 }

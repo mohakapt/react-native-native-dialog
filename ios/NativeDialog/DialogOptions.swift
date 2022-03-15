@@ -283,12 +283,7 @@ class DialogOptions: NSObject {
     cb.titleFont = UIFont.systemFont(ofSize: 15, weight: .bold)
     eb.titleFont = UIFont.systemFont(ofSize: 15)
 
-    let accentColor: UIColor
-    if #available(iOS 13.0, *) {
-      accentColor = self.accentColor ?? .systemBlue
-    } else {
-      accentColor = self.accentColor ?? UIColor(hexString: "#007aff")
-    }
+    let accentColor = self.accentColor ?? UIApplication.shared.rootViewController?.view.tintColor ?? UIColor(hexString: "#007aff")
 
     if theme == .dark {
       // Customize the container view appearance

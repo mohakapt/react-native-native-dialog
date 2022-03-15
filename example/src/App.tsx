@@ -28,37 +28,37 @@ export default function App() {
 		// 	onDismiss: () => console.warn('dismiss'),
 		// });
 
-		NativeDialog.showInputDialog({
-			title: 'Do you want to update your iCloud Backup before erasing?',
-			message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
-
-			positiveButton: 'Back Up Then Erase',
-			negativeButton: 'Erase Now',
-			neutralButton: 'Cancel',
-
-			negativeButtonStyle: 'default',
-			neutralButtonStyle: 'cancel',
-
-			transitionStyle: 'bounceUp',
-			preferredStyle: style,
-
-			theme,
-			accentColor: PlatformColor('systemBackground'),
-
-			value: 'asdf',
-			placeholder: 'Enter your password',
-			keyboardType: 'number-pad',
-
-			autoFocus: true,
-			allowEmptyEntry: false,
-			maxLength: 5,
-
-			onPositivePress: (input: string) => console.warn('positive - ', input),
-			onNegativePress: (input: string) => console.warn('negative - ', input),
-			onNeutralPress: (input: string) => console.warn('neutral - ', input),
-
-			onDismiss: () => console.warn('dismiss'),
-		});
+		// NativeDialog.showInputDialog({
+		// 	title: 'Do you want to update your iCloud Backup before erasing?',
+		// 	message: 'If you erase without updating your backup, you may lose photos and other data that are not yet uploaded to iCloud.',
+		//
+		// 	positiveButton: 'Back Up Then Erase',
+		// 	negativeButton: 'Erase Now',
+		// 	neutralButton: 'Cancel',
+		//
+		// 	negativeButtonStyle: 'default',
+		// 	neutralButtonStyle: 'cancel',
+		//
+		// 	transitionStyle: 'bounceUp',
+		// 	preferredStyle: style,
+		//
+		// 	theme,
+		// 	accentColor: PlatformColor('systemBackground'),
+		//
+		// 	value: 'asdf',
+		// 	placeholder: 'Enter your password',
+		// 	keyboardType: 'number-pad',
+		//
+		// 	autoFocus: true,
+		// 	allowEmptyEntry: false,
+		// 	maxLength: 5,
+		//
+		// 	onPositivePress: (input: string) => console.warn('positive - ', input),
+		// 	onNegativePress: (input: string) => console.warn('negative - ', input),
+		// 	onNeutralPress: (input: string) => console.warn('neutral - ', input),
+		//
+		// 	onDismiss: () => console.warn('dismiss'),
+		// });
 
 		// NativeDialog.showItemsDialog({
 		// 	title: 'How would you like to pay for your meal today?',
@@ -112,26 +112,26 @@ export default function App() {
 		// 	date: '01/01/1996',
 		// });
 
-		// NativeDialog.showRatingDialog({
-		// 	title: 'Rate The App',
-		//
-		// 	preferredStyle: style,
-		// 	theme,
-		// 	accentColor: '#d93b3b',
-		//
-		// 	mode: 'rose',
-		// 	value: 2,
-		//
-		// 	positiveButton: 'Submit',
-		// 	negativeButton: 'Don\'t Ask Again',
-		// 	neutralButton: 'Remind Me Later',
-		//
-		// 	onPositivePress: (input: string) => console.warn('positive - ', input),
-		// 	onNegativePress: (input: string) => console.warn('negative - ', input),
-		// 	onNeutralPress: (input: string) => console.warn('neutral - ', input),
-		//
-		// 	onDismiss: () => console.warn('dismiss'),
-		// });
+		NativeDialog.showRatingDialog({
+			title: 'Rate The App',
+
+			preferredStyle: style,
+			// theme,
+			// accentColor: '#d93b3b',
+
+			mode: 'rose',
+			value: 2,
+
+			positiveButton: 'Submit',
+			negativeButton: 'Don\'t Ask Again',
+			neutralButton: 'Remind Me Later',
+
+			onPositivePress: (input: string) => console.warn('positive - ', input),
+			onNegativePress: (input: string) => console.warn('negative - ', input),
+			onNeutralPress: (input: string) => console.warn('neutral - ', input),
+
+			onDismiss: () => console.warn('dismiss'),
+		});
 	};
 
 	return (

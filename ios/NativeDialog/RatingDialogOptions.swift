@@ -54,28 +54,50 @@ class RatingViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
   private func updateTheme() {
-    self.view.tintColor = dialogOptions.accentColor
+    let accentColor = dialogOptions.accentColor ?? UIApplication.shared.rootViewController?.view.tintColor ?? UIColor(hexString: "#007aff")
+    let textColor: UIColor
+    let messageColor: UIColor
+    let starColor: UIColor
 
-    ratingStar.selectionColor = dialogOptions.accentColor
-    cosmosView.backgroundColor = .clear
-    cosmosView.settings.filledColor = dialogOptions.accentColor
-    cosmosView.settings.filledBorderColor = dialogOptions.accentColor
+    switch dialogOptions.theme {
+    case .dark:
+      textColor = .white
+      messageColor = UIColor(white: 0.8, alpha: 1)
+      starColor = UIColor.white.withAlphaComponent(0.2)
+      break
 
-    if dialogOptions.theme == .dark {
-      titleLabel.textColor = .white
-      messageLabel.textColor = UIColor(white: 0.8, alpha: 1)
+    case .light:
+      textColor = .black
+      messageColor = UIColor(white: 0.2, alpha: 1)
+      starColor = UIColor.black.withAlphaComponent(0.2)
+      break
 
-      ratingStar.starColor = UIColor.white.withAlphaComponent(0.2)
-      cosmosView.settings.emptyColor = UIColor.white.withAlphaComponent(0.2)
-      cosmosView.settings.emptyBorderColor = UIColor.white.withAlphaComponent(0.2)
-    } else {
-      titleLabel.textColor = .black
-      messageLabel.textColor = UIColor(white: 0.2, alpha: 1)
-
-      ratingStar.starColor = UIColor.black.withAlphaComponent(0.2)
-      cosmosView.settings.emptyColor = UIColor.black.withAlphaComponent(0.2)
-      cosmosView.settings.emptyBorderColor = UIColor.black.withAlphaComponent(0.2)
+    default:
+      if #available(iOS 13.0, *) {
+        textColor = .label
+        messageColor = .tertiaryLabel
+        starColor = UIColor.label.withAlphaComponent(0.2)
+      } else {
+        textColor = .black
+        messageColor = UIColor(white: 0.2, alpha: 1)
+        starColor = UIColor.black.withAlphaComponent(0.2)
+      }
+      break
     }
+
+    self.view.tintColor = accentColor
+
+    ratingStar.selectionColor = accentColor
+    cosmosView.backgroundColor = .clear
+    cosmosView.settings.filledColor = accentColor
+    cosmosView.settings.filledBorderColor = accentColor
+
+    titleLabel.textColor = textColor
+    messageLabel.textColor = messageColor
+
+    ratingStar.starColor = starColor
+    cosmosView.settings.emptyColor = starColor
+    cosmosView.settings.emptyBorderColor = starColor
   }
 
 }
