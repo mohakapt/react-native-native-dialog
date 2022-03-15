@@ -1,6 +1,7 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.NumberPicker;
 
@@ -18,8 +19,8 @@ public class NumberPickerDialogOptions extends DialogOptions {
 	public NumberPickerDialogOptions() {
 	}
 
-	public NumberPickerDialogOptions(ReadableMap map) {
-		this.populate(map);
+	public NumberPickerDialogOptions(ReadableMap map, Context context) {
+		this.populate(map, context);
 	}
 
 	public int getValue() {
@@ -47,8 +48,8 @@ public class NumberPickerDialogOptions extends DialogOptions {
 	}
 
 	@Override
-	public void populate(ReadableMap map) {
-		super.populate(map);
+	public void populate(ReadableMap map, Context context) {
+		super.populate(map, context);
 		if (map.hasKey("value")) setValue(map.getInt("value"));
 		if (map.hasKey("minValue")) setMinValue(map.getInt("minValue"));
 		if (map.hasKey("maxValue")) setMaxValue(map.getInt("maxValue"));

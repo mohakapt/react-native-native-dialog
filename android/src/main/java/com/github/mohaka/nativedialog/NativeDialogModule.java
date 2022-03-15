@@ -76,7 +76,7 @@ public class NativeDialogModule extends ReactContextBaseJavaModule {
 			promise.resolve(params);
 		};
 
-		DialogOptions dialog = new DialogOptions(map);
+		DialogOptions dialog = new DialogOptions(map, activity);
 		dialog.setClickListener(onClick);
 		dialog.setDismissListener(onDismiss);
 		dialog.show(activity.getSupportFragmentManager(), "dialog");
@@ -102,7 +102,7 @@ public class NativeDialogModule extends ReactContextBaseJavaModule {
 			promise.resolve(params);
 		};
 
-		InputDialogOptions dialog = new InputDialogOptions(map);
+		InputDialogOptions dialog = new InputDialogOptions(map, activity);
 		dialog.setClickListener(onButtonClick);
 		dialog.setDismissListener(onDismiss);
 		dialog.show(activity.getSupportFragmentManager(), "dialog_input");
@@ -113,7 +113,7 @@ public class NativeDialogModule extends ReactContextBaseJavaModule {
 		AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
 		if (activity == null) return;
 
-		final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map);
+		final ItemsDialogOptions itemsDialog = new ItemsDialogOptions(map, activity);
 
 		DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
 			WritableMap params = getWritableResult(which, "positive");
@@ -194,7 +194,7 @@ public class NativeDialogModule extends ReactContextBaseJavaModule {
 			promise.resolve(params);
 		};
 
-		NumberPickerDialogOptions dialog = new NumberPickerDialogOptions(map);
+		NumberPickerDialogOptions dialog = new NumberPickerDialogOptions(map, activity);
 		dialog.setClickListener(onButtonClick);
 		dialog.setDismissListener(onDismiss);
 		dialog.show(activity.getSupportFragmentManager(), "dialog_number_picker");
@@ -205,7 +205,7 @@ public class NativeDialogModule extends ReactContextBaseJavaModule {
 		AppCompatActivity activity = (AppCompatActivity) getCurrentActivity();
 		if (activity == null) return;
 
-		RatingDialogOptions dialogOptions = new RatingDialogOptions(map);
+		RatingDialogOptions dialogOptions = new RatingDialogOptions(map, activity);
 
 		DialogInterface.OnClickListener onButtonClick = (dialog, which) -> {
 			AlertDialog alertDialog = (AlertDialog) dialog;

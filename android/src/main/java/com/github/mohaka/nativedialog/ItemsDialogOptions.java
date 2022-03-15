@@ -1,6 +1,7 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,8 +26,8 @@ public class ItemsDialogOptions extends DialogOptions {
 	public ItemsDialogOptions() {
 	}
 
-	public ItemsDialogOptions(ReadableMap map) {
-		this.populate(map);
+	public ItemsDialogOptions(ReadableMap map, Context context) {
+		this.populate(map, context);
 	}
 
 	public int getMode() {
@@ -100,8 +101,8 @@ public class ItemsDialogOptions extends DialogOptions {
 	}
 
 	@Override
-	public void populate(ReadableMap map) {
-		super.populate(map);
+	public void populate(ReadableMap map, Context context) {
+		super.populate(map, context);
 
 		if (map.hasKey("mode")) setMode(map.getString("mode"));
 

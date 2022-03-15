@@ -4,6 +4,7 @@ import static com.github.mohaka.nativedialog.NativeDialogPackage.dialogTheme;
 import static com.github.mohaka.nativedialog.NativeDialogPackage.lightDialogTheme;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.facebook.react.bridge.ColorPropConverter;
 import com.facebook.react.bridge.ReadableMap;
 
 public class DialogOptions extends DialogFragment {
@@ -44,8 +46,8 @@ public class DialogOptions extends DialogFragment {
 	public DialogOptions() {
 	}
 
-	public DialogOptions(ReadableMap map) {
-		this.populate(map);
+	public DialogOptions(ReadableMap map, Context context) {
+		this.populate(map, context);
 	}
 
 
@@ -146,17 +148,26 @@ public class DialogOptions extends DialogFragment {
 		this.dismissListener = listener;
 	}
 
-	public void populate(ReadableMap map) {
+	public void populate(ReadableMap map, Context context) {
 		if (map.hasKey("theme")) setTheme(map.getString("theme"));
-		if (map.hasKey("accentColor")) setAccentColor(map.getString("accentColor"));
 		if (map.hasKey("title")) setTitle(map.getString("title"));
 		if (map.hasKey("message")) setMessage(map.getString("message"));
 		if (map.hasKey("positiveButton")) setPositiveButton(map.getString("positiveButton"));
 		if (map.hasKey("negativeButton")) setNegativeButton(map.getString("negativeButton"));
 		if (map.hasKey("neutralButton")) setNeutralButton(map.getString("neutralButton"));
 		if (map.hasKey("cancellable")) setCancellable(map.getBoolean("cancellable"));
-		if (map.hasKey("cancelOnTouchOutside"))
-			setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
+		if (map.hasKey("cancelOnTouchOutside")) setCancelOnTouchOutside(map.getBoolean("cancelOnTouchOutside"));
+
+		if (map.hasKey("accentColor")) {
+			switch (map.getType("accentColor")) {
+				case String:
+					setAccentColor(map.getString("accentColor"));
+					break;
+				case Map:
+					setAccentColor(ColorPropConverter.getColor(map.getDynamic("accentColor").asMap(), context));
+					break;
+			}
+		}
 	}
 
 	protected AlertDialog.Builder buildDialog() {

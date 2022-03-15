@@ -1,6 +1,7 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
@@ -23,8 +24,8 @@ public class RatingDialogOptions extends DialogOptions {
 	public RatingDialogOptions() {
 	}
 
-	public RatingDialogOptions(ReadableMap map) {
-		this.populate(map);
+	public RatingDialogOptions(ReadableMap map, Context context) {
+		this.populate(map, context);
 	}
 
 	public int getMode() {
@@ -56,8 +57,8 @@ public class RatingDialogOptions extends DialogOptions {
 	}
 
 	@Override
-	public void populate(ReadableMap map) {
-		super.populate(map);
+	public void populate(ReadableMap map, Context context) {
+		super.populate(map, context);
 
 		if (map.hasKey("mode")) setMode(map.getString("mode"));
 

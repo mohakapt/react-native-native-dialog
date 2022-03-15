@@ -1,6 +1,7 @@
 package com.github.mohaka.nativedialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -31,8 +32,8 @@ public class InputDialogOptions extends DialogOptions {
 	public InputDialogOptions() {
 	}
 
-	public InputDialogOptions(ReadableMap map) {
-		this.populate(map);
+	public InputDialogOptions(ReadableMap map, Context context) {
+		this.populate(map, context);
 	}
 
 	public String getValue() {
@@ -116,8 +117,8 @@ public class InputDialogOptions extends DialogOptions {
 	}
 
 	@Override
-	public void populate(ReadableMap map) {
-		super.populate(map);
+	public void populate(ReadableMap map, Context context) {
+		super.populate(map, context);
 
 		if (map.hasKey("value")) {
 			if (map.getType("value") == ReadableType.Number)
